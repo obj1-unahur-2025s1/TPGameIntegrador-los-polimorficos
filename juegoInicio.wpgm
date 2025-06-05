@@ -1,0 +1,12 @@
+import wollok.game.*
+import titulo.*
+import casa.*
+
+program bindingOfCachitto {
+	game.title("The Binding of Cachito")
+	game.height(15)
+	game.width(9)
+	game.cellSize(50)
+	titulo.iniciar()
+	game.start()
+}
