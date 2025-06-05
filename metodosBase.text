@@ -1,0 +1,35 @@
+**Metodo para perseguir a cachito (se agrega al pomberito)**
+
+  var posicion = game.at(x,y) **cambiar x e y por los valores a usar**
+
+  method position() = posicion
+
+    method perseguirPersonaje() {
+		const otraPosicion = cachito.position()
+		const  newX = posicion.x() + if (otraPosicion.x() > posicion.x()) 1 else -1
+    const  newY = posicion.y() + if (otraPosicion.y() > posicion.y()) 1 else -1
+		posicion = game.at(newX,newY)
+  }
+
+**Metodo para el ataque del marciano (mueve a cachito hacia el lado opuesto de la llave/totem)**
+
+game.onTick(1000, "empujar", {cachito.position(cachito.position().direccion(cantidadDeMovimientos)) }) **hace que cada un segundo se "empuje" a cachito hacia un lado, "direccion" se debe cambiar a la direccion deseada y "cantidadDeMovimientos" se debe cambiar por la cantidad de celdas que queremos empujar a cachito**
+
+game.removeTickEvent("empujar") **hace que se deje de empujar a cachito**
+
+**Metodos para el ataque del nahuelito (se asume que va en un objeto llamado olas, ya que genera su movimiento)**
+
+	method posicionar() {
+		position = game.at(game.width()-1,suelo.position().y())
+	}
+
+	method iniciar(){
+		self.posicionar()
+		game.onTick(juego.velocidad(),"moverCactus",{self.mover()})
+	}
+	
+	method mover(){
+		position = position.left(1)
+		if (position.x() == -1)
+			self.posicionar()
+	}
