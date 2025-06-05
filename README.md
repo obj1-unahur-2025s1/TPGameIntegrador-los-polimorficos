@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# The Bindig of Cachito
 
 ## Equipo de desarrollo
 

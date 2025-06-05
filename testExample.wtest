@@ -1,9 +1,5 @@
-import example.pepita
-
-describe "group of tests for pepita" {
-
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
-  }
-
-}
+import pueblo.*
+import cachito.*
+import enemigos.*
+import items.*
+import musicaFondo.*
