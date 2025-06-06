@@ -16,6 +16,7 @@ object pueblo {
     cachito.imagen("cachito.png")
     visibles.colocarJugadorEn(7,11)
     game.onCollideDo(cachito, {objeto => objeto.interaccion()})
+    game.onTick(1000, "perseguir", {pombe.perseguirPersonaje()})
   }
 }
 

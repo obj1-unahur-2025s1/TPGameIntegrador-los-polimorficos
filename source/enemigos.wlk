@@ -10,13 +10,13 @@ object pombe {
   method interaccion() {
     game.sound("grito.mp3").play()
   }
-  /*
-  method perseguirPersonaje() { //Nc xq no lo persigue
+
+  method perseguirPersonaje() { 
     const otraPosicion = cachito.position()
     const newX = posicion.x() + if (otraPosicion.x() > posicion.x()) 1 else -1
     const newY = posicion.y() + if (otraPosicion.y() > posicion.y()) 1 else -1
     posicion = game.at(newX, newY)
-  } */
+  } 
 }
 
 object luzMala {
