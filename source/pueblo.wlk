@@ -2,26 +2,23 @@ import musicaFondo.*
 import cachito.*
 import enemigos.*
 import casa.*
+import elementosVisibles.*
 object pueblo {
+  const property image = "fondoC.png"
+  var property position = game.origin()
   method iniciar() {
+    musicaFondo.detener()
+    visibles.borrarTodaLaListaDeVisuales()
+    visibles.listaDeVisualesEnEscena(
+      [self,puertaLM, puertaIglesia,puertaAL,pombe, puertaNH])
+    visibles.cargarListaconVisuales()
     game.removeVisual(cachito)
-    game.removeVisual(puertaCasa1)
-    game.addVisual(puertaNH)
-    game.addVisual(puertaLM)
-    game.addVisual(puertaAL)
-    game.addVisual(puertaIglesia)
     cachito.imagen("cachito.png")
-    cachito.position(game.at(7, 11))
-    game.addVisualCharacter(cachito)
-    game.addVisual(pombe)
-    keyboard.enter().onPressDo({ cachito.saludar() })
-    keyboard.num(1).onPressDo({ cachito.agregarTotem(1) })
-    keyboard.num(2).onPressDo({ cachito.agregarTotem(2) })
-    keyboard.num(3).onPressDo({ cachito.agregarTotem(3) })
-    keyboard.num(4).onPressDo({ musicaFondo.detener() })
+    visibles.colocarJugadorEn(7,11)
     game.onCollideDo(cachito, {objeto => objeto.interaccion()})
   }
 }
+
 
 object puertaLM {
   method image() = if (cachito.derrotoA(luzMala)) "blockL.png" else "permL.png"
