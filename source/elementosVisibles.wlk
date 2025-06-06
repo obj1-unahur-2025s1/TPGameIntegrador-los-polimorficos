@@ -15,7 +15,7 @@ object visibles {
   }
 
   method borrarTodaLaListaDeVisuales() {
-    
+
     listaDeVisualesEnEscena.forEach({a=>game.removeVisual(a)})
     listaDeVisualesEnEscena.clear()
   }

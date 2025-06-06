@@ -20,19 +20,19 @@ object pombe {
 }
 
 object luzMala {
-  const totem = 1
+  const totem = "lm"
   
   method totem() = totem
 }
 
 object alien {
-  const totem = 2
+  const totem = "a"
   
   method totem() = totem
 }
 
 object nahuelito {
-  const totem = 3
+  const totem = "nh"
   
   method totem() = totem
 }

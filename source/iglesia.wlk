@@ -5,15 +5,15 @@ import enemigos.*
 import pueblo.*
 import elementosVisibles.*
 object iglesia {
-  const property image = "iglesia2C.png"
+  const property image = "iglesia.png"
   var property position = game.origin()
   method iniciar() {
     visibles.borrarTodaLaListaDeVisuales()
-    game.addVisual(puertaRec)
-    game.addVisualCharacter(cachito)
-    game.addVisual(pombe)
-    keyboard.enter().onPressDo({ cachito.saludar() })
-    keyboard.num(4).onPressDo({ musicaFondo.detener() })
+    cachito.imagen("cachitoInt.png")
+    visibles.listaDeVisualesEnEscena([self, puertaRec, pombe])
+    visibles.cargarListaconVisuales()
+    visibles.colocarJugadorEn(7,11)
+    game.onTick(1000, "perseguir", {pombe.perseguirPersonaje()})
     game.onCollideDo(cachito, {objeto => objeto.interaccion()})
   }
 }

@@ -3,7 +3,7 @@ import musicaFondo.*
 import casa.*
 import elementosVisibles.*
 object titulo {
-  const property image = "portada.png"
+  const property image = "portada2.png"
   var property position = game.origin()
   method iniciar() {
     visibles.listaDeVisualesEnEscena([self])

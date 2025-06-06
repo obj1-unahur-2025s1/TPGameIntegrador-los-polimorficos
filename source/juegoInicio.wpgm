@@ -8,16 +8,15 @@ import musicaFondo.*
 
 program bindingOfCachitto {
 	game.title("The Binding of Cachito")
-	game.height(14)
-	game.width(9)
+	game.height(16)
+	game.width(11)
 	game.cellSize(50)
 	keyboard.enter().onPressDo({ cachito.saludar() })
-    keyboard.num(1).onPressDo({ cachito.agregarTotem(1) })
-    keyboard.num(2).onPressDo({ cachito.agregarTotem(2) })
-    keyboard.num(3).onPressDo({ cachito.agregarTotem(3) })
+    keyboard.num(1).onPressDo({ cachito.agregarTotem("lm") })
+    keyboard.num(2).onPressDo({ cachito.agregarTotem("a") })
+    keyboard.num(3).onPressDo({ cachito.agregarTotem("nh") })
     keyboard.num(4).onPressDo({ musicaFondo.detener() })
 	keyboard.num(6).onPressDo({game.say(cachito,"A" + cachito.position())})
-
 	titulo.iniciar() 
 	game.start()
 }
