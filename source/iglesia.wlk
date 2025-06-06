@@ -1,8 +1,14 @@
+import wollok.game.*
 import musicaFondo.*
 import cachito.*
 import enemigos.*
+import pueblo.*
+import elementosVisibles.*
 object iglesia {
+  const property image = "iglesia2C.png"
+  var property position = game.origin()
   method iniciar() {
+    visibles.borrarTodaLaListaDeVisuales()
     game.addVisual(puertaRec)
     game.addVisualCharacter(cachito)
     game.addVisual(pombe)

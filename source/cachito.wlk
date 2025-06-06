@@ -1,9 +1,11 @@
 import items.*
+
 object cachito {
     var property vida = 4
     const totems = #{}
+	var skin = a1
     var lugar = game.at(7, 11)
-	var property imagen = "cachito.png"
+	var property imagen = skin.aspecto()
     method image() = imagen
     method agregarTotem(totem) {
       totems.add(totem)
@@ -17,8 +19,17 @@ object cachito {
     }
     method derrotoA(enemigo) = totems.contains(enemigo.totem())
     method enemigosDerrotados() = totems.size()
+	method aspecto(nuevo){
+		skin = nuevo
+	}
 }
 
+object a1{
+	method aspecto() =  "cachitoInt.png"
+}
+object a2{
+	method aspecto() =  "cachito.png"
+}
 //POR ALGUN MOTIVO NO SE MUESTRA LA BARRA DE VIDA, NO SE PORQUE
 object barraDeVida {
   method mostrarVidas() {

@@ -1,18 +1,19 @@
 import pueblo.*
 import musicaFondo.*
 import casa.*
+import elementosVisibles.*
 object titulo {
   const property image = "portada.png"
   var property position = game.origin()
-  var property activarMenu = true
   method iniciar() {
-    game.boardGround("portada.png")
-    activarMenu = true
+    visibles.listaDeVisualesEnEscena([self])
+    visibles.cargarListaconVisuales()
+    musicaFondo.iniciar(0)
     keyboard.e().onPressDo({ self.iniciarJuego() })
   }
   
   method iniciarJuego() {
-    musicaFondo.iniciar(1)
-    game.schedule(4000, {casa.iniciar() })
+    
+    game.schedule(2000, {casa.iniciar() })
   }
 }
