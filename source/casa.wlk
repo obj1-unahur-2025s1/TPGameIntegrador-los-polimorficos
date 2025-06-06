@@ -15,16 +15,11 @@ object casa {
     visibles.listaDeVisualesEnEscena([self, puertaCasa1])
     visibles.cargarListaconVisuales()
     visibles.colocarJugadorEn(7,11)
-    //game.addVisualCharacter(cachito)
     game.onCollideDo(cachito, {objeto => objeto.interaccion()})
-    //game.addVisual(self)
-    //game.addVisual(puertaCasa1)
-    //keyboard.enter().onPressDo({ cachito.saludar() })
-    //keyboard.num(4).onPressDo({ musicaFondo.detener() })
   }
 }
 
-object puertaCasa1 { //buscar alguna manera de hacerla como una colisión invisible y que sea visible si se hablo con el inimputable
+object puertaCasa1 {
   method image() = "permD.png"
   method position() = game.at(4, 0)
   method interaccion(){

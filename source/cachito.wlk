@@ -5,6 +5,7 @@ object cachito {
     const totems = #{}
 	var skin = a1
     var lugar = game.at(7, 11)
+	const sonido = game.sound("juira.mp3")
 	var property imagen = skin.aspecto()
     method image() = imagen
     method agregarTotem(totem) {
@@ -15,7 +16,9 @@ object cachito {
       lugar = nueva
     }
     method saludar() {
-      game.sound("juira.mp3").play()
+		sonido.volume(0.05)
+		sonido.play()
+		game.say(self,"JUIRA BICHO")
     }
     method derrotoA(enemigo) = totems.contains(enemigo.totem())
     method enemigosDerrotados() = totems.size()
