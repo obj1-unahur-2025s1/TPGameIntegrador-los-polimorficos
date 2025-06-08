@@ -1,22 +1,16 @@
-import elementosVisibles.*
+import escenario.*
 import wollok.game.*
-import titulo.*
-import casa.*
-import pueblo.*
 import cachito.*
 import musicaFondo.*
+import escenas.*
 
 program bindingOfCachitto {
 	game.title("The Binding of Cachito")
 	game.height(16)
 	game.width(11)
 	game.cellSize(50)
-	keyboard.enter().onPressDo({ cachito.saludar() })
-    keyboard.num(1).onPressDo({ cachito.agregarTotem("lm") })
-    keyboard.num(2).onPressDo({ cachito.agregarTotem("a") })
-    keyboard.num(3).onPressDo({ cachito.agregarTotem("nh") })
-    keyboard.num(4).onPressDo({ musicaFondo.detener() })
-	keyboard.num(6).onPressDo({game.say(cachito,"A" + cachito.position())})
-	titulo.iniciar() 
+	cachito.configurarTeclas()
+	portada.iniciar()
+	game.onCollideDo(cachito, {objeto => objeto.interaccion()}) 
 	game.start()
 }

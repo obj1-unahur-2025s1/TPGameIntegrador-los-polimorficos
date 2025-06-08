@@ -1,19 +1,14 @@
-import items.*
-
+import objetos.*
+import musicaFondo.*
+import escenario.*
 object cachito {
     var property vida = 4
     const totems = #{}
-	var skin = a1
-    var lugar = game.at(7, 11)
+	var property position = game.origin()
 	const sonido = game.sound("juira.mp3")
-	var property imagen = skin.aspecto()
-    method image() = imagen
+	var property image = "cachitoInt.png"
     method agregarTotem(totem) {
       totems.add(totem)
-    }
-    method position() = lugar
-    method position(nueva) {
-      lugar = nueva
     }
     method saludar() {
 		sonido.volume(0.05)
@@ -22,19 +17,46 @@ object cachito {
     }
     method derrotoA(enemigo) = totems.contains(enemigo.totem())
     method enemigosDerrotados() = totems.size()
-	method aspecto(nuevo){
-		skin = nuevo
+	method poscionarEn(nuevaPosicion) {
+		self.position(nuevaPosicion)
+	}
+	method configurarTeclas() {
+		//Left
+		keyboard.a().onPressDo({ 
+			if(topeLatIzq.position().x()+1 < self.position().x() )
+				self.position(self.position().left(1))
+			})
+		//right
+		keyboard.d().onPressDo({
+			if(topeLatDer.position().x()-1 > self.position().x())
+			 	self.position(self.position().right(1))
+
+			 })
+		//down
+		keyboard.s().onPressDo({ 
+			if(topeInferior.position().y()+1 < self.position().y())
+				self.position(self.position().down(1))
+
+			})
+		//up
+		keyboard.w().onPressDo({
+			if(topeSuperior.position().y()-1 > self.position().y())
+			 	self.position(self.position().up(1))
+			 })
+		keyboard.enter().onPressDo({self.saludar() })
+
+		//TECLAS A ELIMINAR EN LA VERSION FINAL:
+		keyboard.num(1).onPressDo({ self.agregarTotem("lm") })
+    	keyboard.num(2).onPressDo({ self.agregarTotem("a") })
+    	keyboard.num(3).onPressDo({ self.agregarTotem("nh") })
+    	keyboard.num(4).onPressDo({musicaFondo.detener()})
+		keyboard.num(5).onPressDo({game.say(self,"A" + escenario.elementosEnEscena())})
+		keyboard.num(6).onPressDo({game.say(self,"A" + self.position())})	 
 	}
 }
 
-object a1{
-	method aspecto() =  "cachitoInt.png"
-}
-object a2{
-	method aspecto() =  "cachito.png"
-}
-//POR ALGUN MOTIVO NO SE MUESTRA LA BARRA DE VIDA, NO SE PORQUE
-object barraDeVida {
+
+object vida {
   method mostrarVidas() {
 	if(cachito.vida() ==4){
 		game.addVisual(corazon1)
