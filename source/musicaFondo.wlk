@@ -1,5 +1,5 @@
 object musicaFondo {
-  var musicaFondo = null
+  var property musicaFondo = null
   var pista = null
   
   method iniciar(num) {
@@ -21,10 +21,16 @@ object musicaFondo {
     musicaFondo.shouldLoop(true)
     musicaFondo.volume(0.25)
   }
-  
+  method cambiarAPista(num) {
+    if (musicaFondo != null) {
+      musicaFondo.stop()
+    }
+    self.iniciar(num)
+  }
   method detener() {
     if (musicaFondo != null) {
     musicaFondo.stop()
+    musicaFondo = null
     }
   }
   method seEstaReproduciendo(num){

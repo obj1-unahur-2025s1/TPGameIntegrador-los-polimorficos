@@ -1,5 +1,6 @@
-import pueblo.*
 import cachito.*
 import enemigos.*
-import items.*
+import objetos.*
+import escenario.*
+import escenas.*
 import musicaFondo.*
