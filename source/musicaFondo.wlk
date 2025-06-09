@@ -28,9 +28,9 @@ object musicaFondo {
     self.iniciar(num)
   }
   method detener() {
-    if (musicaFondo != null) {
-    musicaFondo.stop()
-    musicaFondo = null
+    if (pista != null) {
+      musicaFondo.stop()
+      pista = null
     }
   }
   method seEstaReproduciendo(num){

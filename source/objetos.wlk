@@ -43,3 +43,8 @@ class Puerta{
     self.position(game.at(x,y))
   }
 }
+class PressParaIniciar {
+  const property image 
+  method imagen() = image
+  method position() = game.at(1,1)
+}

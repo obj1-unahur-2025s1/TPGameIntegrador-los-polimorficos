@@ -1,12 +1,13 @@
 import objetos.*
 import musicaFondo.*
 import escenario.*
+import enemigos.*
 object cachito {
     var property vida = 4
     const totems = #{}
 	var property position = game.origin()
 	const sonido = game.sound("juira.mp3")
-	var property image = "cachitoInt.png"
+	var property image = "cachitoIntE.png"
     method agregarTotem(totem) {
       totems.add(totem)
     }
@@ -51,7 +52,14 @@ object cachito {
     	keyboard.num(3).onPressDo({ self.agregarTotem("nh") })
     	keyboard.num(4).onPressDo({musicaFondo.detener()})
 		keyboard.num(5).onPressDo({game.say(self,"A" + escenario.elementosEnEscena())})
-		keyboard.num(6).onPressDo({game.say(self,"A" + self.position())})	 
+		keyboard.num(6).onPressDo({game.say(self,"A" + self.position())})
+		keyboard.num(7).onPressDo({game.say(self,"Totems" + totems)})	 	 
+	}
+	method reiniciar(){
+		self.vida(4)
+		self.image("cachitoInt.png")
+		self.position(game.origin())
+		totems.clear()
 	}
 }
 

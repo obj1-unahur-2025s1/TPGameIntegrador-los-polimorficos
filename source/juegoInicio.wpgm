@@ -10,7 +10,8 @@ program bindingOfCachitto {
 	game.width(11)
 	game.cellSize(50)
 	cachito.configurarTeclas()
-	portada.iniciar()
+	inicio.iniciar()
 	game.onCollideDo(cachito, {objeto => objeto.interaccion()}) 
+	keyboard.r().onPressDo({inicio.reiniciar() })
 	game.start()
 }
