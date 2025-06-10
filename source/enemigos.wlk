@@ -1,25 +1,19 @@
 import cachito.*
+import objetos.*
 
 object pomberito {
   var posicion = game.center()
-  const totemP = new Totem(image = "totemLuzMala.png", position = self.position().down(2))
-  var direccion = abajo
-
+  //const totemP = new Totem(image = "totemLuzMala.png", position = self.position().down(2))
+ // var direccion = abajo
   method image() = "pomberito.png"
-  
   method position() = posicion
-  
   method interaccion() {
     game.sound("grito.mp3").play()
     
   }
 
-  method direccionTotem() = [arriba,abajo,izquierda,derecha]
-  
-  method direccionActual() = totemP.position()
-
-  
-
+  //method direccionTotem() = [arriba,abajo,izquierda,derecha]
+  //method direccionActual() = totemP.position()
   method perseguirPersonaje() {
     const otraPosicion = cachito.position()
     const newX = posicion.x() + (if (otraPosicion.x() > posicion.x()) 1 
@@ -29,17 +23,17 @@ object pomberito {
       else if (otraPosicion.y() < posicion.y()) -1 
       else 0)
     posicion = game.at(newX, newY)
-    direccion.reposicionar(totemP)
+    //direccion.reposicionar(totemP)
   }
-  method rotarTotem(){
+ /* method rotarTotem(){
     direccion = self.direccionTotem().anyOne()
-  }
+  }*/
 
   method iniciar(){
     game.addVisual(self)
-    game.addVisual(totemP)
+    //game.addVisual(totemP)
     game.onTick(333, "atacar", {self.perseguirPersonaje()})
-    game.onTick(3000,"atacar",{self.rotarTotem()})
+   // game.onTick(3000,"atacar",{self.rotarTotem()})
 
   }
 }
@@ -83,7 +77,6 @@ object luzMala { //Agregar flash en blanco
 
   method moverTotem() {
     contador += 1
-
     totemL.position(self.posicionesTotem().anyOne()) //self.posicionesTotem().get(contador % 4) para que no sea al azar
   }
 
@@ -100,11 +93,8 @@ object luzMala { //Agregar flash en blanco
 object alien {
   var property image = "alien.png"
   var property position = game.at(9,9)
-
   const totemA = new Totem(image = "totemAlien.png", position = self.posicionesTotem().anyOne())
-
   method posicionesTotem() = [game.at(2,4), game.at(2,2), game.at(2,5), game.at(1,14)] //agregar posiciones
-
   method totem() = totemA
 
   method ataqueTelequinéctico(){
@@ -132,9 +122,6 @@ object nahuelito {
   var property image = "cachitoIntE.png"
   var property position = game.origin()
   const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4))
-
-      
-  
   method totem() = totemN
 
     method perseguirPersonaje() {
@@ -162,56 +149,4 @@ object nahuelito {
     game.onTick(3500,"atacar",{self.ataqueEspecial()})
   }
 
-}
-
-class Ola{
-  var property image = "Olas.png"
-  var property position = cachito.position()
-  method disparar(){
-		position = self.position().up(1)
-		game.addVisual(self)
-    game.onTick(200, "disparar", {self.mover()})
-
-  }
-  method mover(){
-    self.position(self.position().up(1))
-    
-    if(self.position().y() == 15){
-      game.removeVisual(self)
-      }
-  }
-  method interaccion(){
-    game.removeVisual(cachito)
-    game.removeTickEvent("moverse")
-    game.removeTickEvent("atacar")
-  }
-}
-
-class OlaRapida inherits Ola{
-
-
-   override method disparar(){
-    position = self.position().up(1)
-		game.addVisual(self)
-    game.onTick(50, "disparar", {self.mover()})
-    
-    
-  }
-
-  
-}
-
-//Totems
-class Totem{
-
-  var property image 
-  var property position 
-
-  method interaccion() {
-    game.removeVisual(self)
-    game.removeTickEvent("atacar")
-    game.removeTickEvent("moverse")
-    cachito.agregarTotem(self)
-  }
-  
 }

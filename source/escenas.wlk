@@ -10,18 +10,20 @@ import enemigos.*
 object inicio {
   var property image = "p1.png"
   var property position = game.origin()
-  var anim = false
   method iniciar() {
     musicaFondo.iniciar(0)
     game.addVisual(self)
+    game.onTick(500, "actualizarPuertas", {escenario.actualizarPuertas()}) 
     game.schedule(2000, { self.animacionIntro(2) })
   }
 
   method reiniciar() {
     game.removeVisual(self)
     musicaFondo.detener()
+    musicaFondo.volumen(0.25)
     escenario.borrarEscena()
     cachito.reiniciar()
+
     image = "p1.png"
     self.iniciar()
   }
@@ -33,42 +35,49 @@ object inicio {
       game.addVisual(self)
       game.schedule(200, { self.animacionIntro(escenaAc + 1) })
     } else {
-      anim = true
+      escenario.animar(true)
       image = "portada.png"
       game.removeVisual(self)
       game.addVisual(self)
       game.addVisual(pres1)
-      self.animarCartel()
+      escenario.animarCartel(pres1, pres2)
       keyboard.e().onPressDo({ self.iniciarJuego()})
     }
   }
   method iniciarJuego() {
-    game.schedule(2000, {self.detenerAnimacion() casa.iniciar() })
-  }
-
-  method animarCartel(){
-    if (game.hasVisual(pres1) && anim) {
-      game.removeVisual(pres1)
-      game.addVisual(pres2)
-      game.schedule(600, { self.animarCartel() })
-    } else if (game.hasVisual(pres2) && anim) {
-      game.removeVisual(pres2)
-      game.addVisual(pres1)
-      game.schedule(600, { self.animarCartel() })
-    }
-  }
-
-  method detenerAnimacion() {
-    anim = false
-    if (game.hasVisual(pres1)) game.removeVisual(pres1)
-    if (game.hasVisual(pres2)) game.removeVisual(pres2)
+    game.schedule(2000, {escenario.detenerAnimacion(pres1,pres2) casa.iniciar() })
   }
 }
 
-//======================ZONAS=========================// HAY QUE REVISAR XQ NO SE ACTUALIZAN LAS IMAGENES DE LAS PUERTAS. CAPAZ HACER UN METODO QUE SE LLAME ACTUALIZARPUERTAS()
-// Y SE LLAME CON EL ON TICK DEL JUEGO (LAS PUERTAS SE PODRÍAN GUARDAR EN UNA LISTA EN ESCENARIO.WLK Y USAR UN FOR EACH PARA RECORRERLAS Y ACTUALIZARLAS)
+object pantallaGameOver{
+  var property image = "gameOver.png"
+  var property position = game.origin()
+  method iniciar() {
+    escenario.borrarEscena()
+    game.addVisual(self)
+    musicaFondo.iniciar(3)
+    escenario.animar(true)
+    game.addVisual(continuar1)
+    escenario.animarCartel(continuar1, continuar2)
+    game.removeTickEvent("moverse")
+    game.removeTickEvent("atacar")
+    game.removeTickEvent("actualizarPuertas")
+    keyboard.y().onPressDo({inicio.reiniciar()})
+    keyboard.n().onPressDo({self.finalizar()})
+  }
+  method finalizar() {
+    image = "gameOver2.png"
+    game.removeVisual(self)
+    game.addVisual(self)
+    escenario.detenerAnimacion(continuar1, continuar2)
+    musicaFondo.detener()
+    game.schedule(12000,{game.stop()})
+  }
+}
 
 
+
+//======================ZONAS=========================
 //VER DE COMO HACER QUE CACHITO APAREZCA EN UN LUGAR DEL PUEBLO ACORDE DEL LUGAR QUE VIENE (SIEMPRE CON UNA CELDA MAS PARA QUE NO QUEDE ENCIMA DE LA PUERTA Y SE HAGA UN BUCLE)
 object casa {
   const property image = "casa.png"
@@ -86,7 +95,7 @@ object casa {
 }
 
 object pueblo {
-  const property image = "pueblo3C.png"
+  const property image = "pueblo3.png"
   var property position = game.origin()
   method iniciar() {
     musicaFondo.detener()
@@ -104,7 +113,8 @@ object pueblo {
   method imagenPuerta() = "puertaAlPueblo.png"
   method interaccion(){
     game.schedule(2000, {
-      cachito.image("cachitoE.png")
+      cachito.ubicacion(self)
+      cachito.actualizarImagen()
       self.iniciar() 
     })
   }
@@ -120,17 +130,20 @@ object iglesia {
     game.addVisual(pomberito)
     game.onTick(1000, "perseguir", {pomberito.perseguirPersonaje()})
     escenario.ubicarEnEscena(topeSuperior, 0, 9)
-    escenario.ubicarEnEscena(topeLatDer, 11, 0)
-    escenario.ubicarEnEscena(topeLatIzq, -1, 0) //Se pone en -1 para que no quede toda la columna 0 inutilizable
+    escenario.ubicarEnEscena(topeInferior, 0, 0)
+    escenario.ubicarEnEscena(topeLatDer, 10, 0)
+    escenario.ubicarEnEscena(topeLatIzq, 0, 0) //Se pone en -1 para que no quede toda la columna 0 inutilizable
   }
   method interaccion(){
     if (cachito.enemigosDerrotados() < 3) 
       game.say(puertaIglesia, "Necesitas derrotar a: " + 
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
-    else
+    else{
       game.schedule(1000, {
-        cachito.image("cachitoIntE.png")
-        self.iniciar() })
+      cachito.ubicacion(self)
+      cachito.actualizarImagen()
+      self.iniciar() })
+    }
   } 
 }
 
@@ -148,6 +161,9 @@ object salaAlien {
   }
   
   method interaccion() {
+    if (self.imagenPuerta() == "palienB.png") {
+      game.say(puertaAlien, "No podes pasar, ya derrotaste al Alien")
+    } else
     game.say(puertaAlien, "En desarrollo")
   }
 }
@@ -160,23 +176,26 @@ object salaNahuelito {
                           else "pNahue.png"
   method iniciar() {
     escenario.iniciarEscena(self, costaNahuelito)
-    escenario.colocarJugadorEn(5, 15)
+    escenario.colocarJugadorEn(5, 14)
     escenario.ubicarEnEscena(puertaAlPueblo1, 6, 9)
     escenario.ubicarEnEscena(topeInferior, 0, 0)
+    escenario.ubicarEnEscena(topeSuperior, 0, 15)
     escenario.ubicarEnEscena(topeLatDer, 11, 0)
     escenario.ubicarEnEscena(topeLatIzq, -1, 0)
-    
     //nuevo. pruebas. borrar
     //nuevo. pruebas. borrar
-
     nahuelito.iniciar()
-
-
-
   }
-  
   method interaccion() {
-    game.schedule(1000, { self.iniciar() })
+    if (self.imagenPuerta() == "pNahueB.png") {
+      game.say(puertaNahuelito, "No podes pasar, ya derrotaste a Nahuelito")
+    } else{
+      game.schedule(1000, {
+        cachito.ubicacion(self)
+        cachito.actualizarImagen()
+        self.iniciar() })
+    }
+    
     //Este metodo es el que utiliza la puerta cuando el personaje colisiona con ella. Va solo esto (las otras tienen un mensaje xq no estan terminadas)
   }
 }
@@ -195,15 +214,9 @@ object salaLuzMala {
   }
   
   method interaccion() {
+    if (self.imagenPuerta() == "pluzMalaB.png") {
+      game.say(puertaLuzMala, "No podes pasar, ya derrotaste a la Luz Mala")
+    } else
     game.say(puertaLuzMala, "En desarrollo")
   }
-} //=====================INSTANCIACIONES=============//
-
-const pres1 = new PressParaIniciar(image = "press1.png")
-const pres2 = new PressParaIniciar(image = "press2.png")
-
-const puertaAlPueblo1 = new Puerta(proxZona = pueblo)
-const puertaIglesia = new Puerta(proxZona = iglesia)
-const puertaNahuelito = new Puerta(proxZona = salaNahuelito)
-const puertaAlien = new Puerta(proxZona = salaAlien)
-const puertaLuzMala = new Puerta(proxZona = salaLuzMala)
+}
