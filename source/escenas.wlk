@@ -165,6 +165,14 @@ object salaNahuelito {
     escenario.ubicarEnEscena(topeInferior, 0, 0)
     escenario.ubicarEnEscena(topeLatDer, 11, 0)
     escenario.ubicarEnEscena(topeLatIzq, -1, 0)
+    
+    //nuevo. pruebas. borrar
+    //nuevo. pruebas. borrar
+
+    nahuelito.iniciar()
+
+
+
   }
   
   method interaccion() {
