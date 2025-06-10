@@ -23,3 +23,4 @@ const iglesiaTeroPiolado =       new TextosInfo(texto ="      Estas en: Iglesia 
 const ovniAlien =                new TextosInfo(texto ="      Estas en: zona de aterrizaje del ovni",             color =color.blanco(), position = game.at(8,15)) //Renombrar
 const costaNahuelito =           new TextosInfo(texto ="      Estas en: Costa del lago",             color =color.blanco(), position = game.at(8,15)) //Renombrar
 const zonaLuzMala =           new TextosInfo(texto ="         Estas en: Zona de luz Mala",             color =color.blanco(), position = game.at(8,15)) //renombrar
+const gameOver =               new TextosInfo(texto ="",      color =color.rojo(), position = game.at(8,15))

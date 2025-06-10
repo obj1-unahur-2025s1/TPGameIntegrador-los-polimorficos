@@ -1,39 +1,42 @@
 object musicaFondo {
   var property musicaFondo = null
   var pista = null
+  var property volumen = 0.25
   
   method iniciar(num) {
-    if (num == 0 &&  !self.seEstaReproduciendo(0)) {
+    if ((num == 0) && (!self.seEstaReproduciendo(0))) {
       musicaFondo = game.sound("zelda.mp3")
       pista = 0
-
     }
-    if (num == 1 && !self.seEstaReproduciendo(1)) {
+    if ((num == 1) && (!self.seEstaReproduciendo(1))) {
       musicaFondo = game.sound("main.mp3")
       pista = 1
-
     }
-    if (num == 2 && !self.seEstaReproduciendo(2)) {
+    if ((num == 2) && (!self.seEstaReproduciendo(2))) {
       musicaFondo = game.sound("marciano.mp3")
       pista = 2
     }
+    if ((num == 3) && (!self.seEstaReproduciendo(2))) {
+      musicaFondo = game.sound("gameOver.mp3")
+      pista = 3
+      volumen = 1
+    }
     musicaFondo.play()
     musicaFondo.shouldLoop(true)
-    musicaFondo.volume(0.25)
+    musicaFondo.volume(volumen)
   }
+  
   method cambiarAPista(num) {
-    if (musicaFondo != null) {
-      musicaFondo.stop()
-    }
+    if (musicaFondo != null) musicaFondo.stop()
     self.iniciar(num)
   }
+  
   method detener() {
     if (pista != null) {
       musicaFondo.stop()
       pista = null
     }
   }
-  method seEstaReproduciendo(num){
-    return pista == num
-  }
+  
+  method seEstaReproduciendo(num) = pista == num
 }
