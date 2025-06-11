@@ -2,6 +2,7 @@ import objetos.*
 import musicaFondo.*
 import escenario.*
 import enemigos.*
+import ubicaciones.*
 import escenas.*
 object cachito {
     var property vida = 4
@@ -14,7 +15,7 @@ object cachito {
     method agregarTotem(totem) {
       totems.add(totem)
     }
-    method saludar() {
+    method saludar() { //Posible eliminación
 		sonido.volume(0.05)
 		sonido.play()
 		game.say(self,"JUIRA BICHO")
@@ -78,6 +79,9 @@ object cachito {
 		if(self.estaEnUnExterior()){
 			self.image("cachito" + mirandoAl + ".png")
 		}
+		else if (self.estaEnElAgua()){
+			self.image("cachitoB"+mirandoAl + ".png")
+		}
 		else{
 			self.image("cachitoInt" + mirandoAl + ".png")
 		}
@@ -86,6 +90,9 @@ object cachito {
 		return [pueblo].contains(ubicacion)
 	}
 
+	method estaEnElAgua(){
+		return ([salaNahuelito].contains(ubicacion) && (self.position().y() < 11))
+	}
 	method recibirDanio() {
 		if(self.vida() > 0) {
 			vida -=1

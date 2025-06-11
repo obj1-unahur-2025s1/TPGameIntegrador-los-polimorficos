@@ -4,11 +4,12 @@ import enemigos.*
 import musicaFondo.*
 import textos.*
 import objetos.*
+import ubicaciones.*
 
 object escenario {
   var property elementosEnEscena = []
   var property animar = false
-  const property puertas = [puertaAlPueblo1, puertaIglesia, puertaNahuelito, puertaAlien, puertaLuzMala]
+  const property puertas = [puertaIglesia, puertaNahuelito, puertaAlien, puertaLuzMala]
   method cargarListaconElementos() {
     elementosEnEscena = game.allVisuals()
   }
@@ -53,7 +54,6 @@ object escenario {
       game.schedule(600, { self.animarCartel(c1,c2) })
     }
   }
-
   method detenerAnimacion(c1,c2) {
     animar = false
     if (game.hasVisual(c1)) game.removeVisual(c1)
