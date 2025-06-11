@@ -69,7 +69,7 @@ object luzMala { //Agregar flash en blanco
   var property image = "corazonFull.png"
   var property position = game.at(1,16)
   var contador = 0
-  const totemL = new Totem(image = "totemLuzMala.png", position = self.posicionesTotem().get(1))
+  
   
   method totem() = totemL
 
@@ -88,12 +88,11 @@ object luzMala { //Agregar flash en blanco
   }
 
 }
-
 //Alien
 object alien {
   var property image = "alien.png"
   var property position = game.at(9,9)
-  const totemA = new Totem(image = "totemAlien.png", position = self.posicionesTotem().anyOne())
+  
   method posicionesTotem() = [game.at(2,4), game.at(2,2), game.at(2,5), game.at(1,14)] //agregar posiciones
   method totem() = totemA
 
@@ -116,12 +115,10 @@ object alien {
     game.onTick(500, "atacar", {self.ataqueTelequinéctico()})
   }
 }
-
 //Nahuelito
 object nahuelito {
   var property image = "nahuelitoD.png"
   var property position = game.origin()
-  const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4))
   method totem() = totemN
 
     method perseguirPersonaje() {
