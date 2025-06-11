@@ -119,14 +119,17 @@ object alien {
 
 //Nahuelito
 object nahuelito {
-  var property image = "cachitoIntE.png"
+  var property image = "nahuelitoD.png"
   var property position = game.origin()
   const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4))
   method totem() = totemN
 
     method perseguirPersonaje() {
 		const otraPosicion = cachito.position()
-		const  newX = position.x() + if (otraPosicion.x() > position.x()) 1 else -1
+		const newX = position.x() + (if (otraPosicion.x() > position.x()) 1  
+      else if (otraPosicion.x() < position.x()) -1
+      else 0)
+    self.actualizarImagen(newX - position.x())
 		position = game.at(newX,0)
   }
   method atacar(){
@@ -147,6 +150,13 @@ object nahuelito {
     game.onTick(300, "moverse", {self.perseguirPersonaje()})
     game.onTick(700,"atacar",{self.atacar()})
     game.onTick(3500,"atacar",{self.ataqueEspecial()})
+  }
+
+  method actualizarImagen(posicion) {
+    if (posicion == 1) {
+      image = "nahuelitoD.png" 
+    }
+    else image = "nahuelitoI.png"
   }
 
 }
