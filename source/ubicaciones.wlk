@@ -15,12 +15,12 @@ object casa {
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
     escenario.colocarJugadorEn(7, 8)
-    escenario.ubicarEnEscena(topeSuperior, 0, 15)
-    escenario.ubicarEnEscena(topeLatDer, 11, 0)
-    escenario.ubicarEnEscena(topeLatIzq, 0, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 15)
+    escenario.ubicarEnEscena(limiteLatDer, 11, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, 0, 0)
+    barraDeVida.mostrarVidas()
   }
 }
-
 object pueblo {
   const property image = "pueblo3.png"
   var property position = game.origin()
@@ -36,10 +36,11 @@ object pueblo {
     escenario.ubicarEnEscena(puertaAlien, 10,8)
     escenario.ubicarEnEscena(puertaLuzMala, 0,8)
     escenario.ubicarEnEscena(puertaNahuelito, 5,0)
-    escenario.ubicarEnEscena(topeSuperior, 0, 13)
-    escenario.ubicarEnEscena(topeInferior, 0, -1)
-    escenario.ubicarEnEscena(topeLatDer, 11, 0)
-    escenario.ubicarEnEscena(topeLatIzq, -1, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 13)
+    escenario.ubicarEnEscena(limiteInferior, 0, -1)
+    escenario.ubicarEnEscena(limiteLatDer, 11, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
+    barraDeVida.mostrarVidas()
   }
   method imagenPuerta() = "puertaAlPueblo.png"
   method interaccion(){
@@ -60,10 +61,11 @@ object iglesia {
     cachito.actualizarImagen()
     game.addVisual(pomberito)
     game.onTick(1000, "perseguir", {pomberito.perseguirPersonaje()})
-    escenario.ubicarEnEscena(topeSuperior, 0, 9)
-    escenario.ubicarEnEscena(topeInferior, 0, 0)
-    escenario.ubicarEnEscena(topeLatDer, 10, 0)
-    escenario.ubicarEnEscena(topeLatIzq, 0, 0) //Se pone en -1 para que no quede toda la columna 0 inutilizable
+    escenario.ubicarEnEscena(limiteSuperior, 0, 9)
+    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteLatDer, 10, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, 0, 0) //Se pone en -1 para que no quede toda la columna 0 inutilizable
+    barraDeVida.mostrarVidas()
   }
   method interaccion(){
     if (cachito.enemigosDerrotados() < 3) 
@@ -77,32 +79,42 @@ object iglesia {
 }
 
 object salaAlien {
-  const property image = "zonaAlien.png" //Hacer el fondo
+  const property image = "fondoAlien.png" //Hacer el fondo
   var property position = game.origin()
   method imagenPuerta() = if (cachito.derrotoA(alien)) "palienB.png" else "palien.png"
   method iniciar() {
     musicaFondo.cambiarAPista(2)
     escenario.iniciarEscena(self, ovniAlien)
-    escenario.colocarJugadorEn(9, 12)
+    escenario.colocarJugadorEn(0, 1)
+    game.addVisual(ovni1)
     cachito.ubicacion(self)
     cachito.actualizarImagen()
-    escenario.ubicarEnEscena(topeSuperior, 0, 13)
-    escenario.ubicarEnEscena(topeLatDer, 11, 0)
-    escenario.ubicarEnEscena(topeLatIzq, -1, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 12)
+    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteLatDer, 11, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
+    barraDeVida.mostrarVidas()
+    escenario.animar(true)
+    alien.iniciar()
+    ovniAnimado.animar()
   }
   
   method interaccion() {
     if (self.imagenPuerta() == "palienB.png") {
       game.say(puertaAlien, "No podes pasar, ya derrotaste al Alien")
     } else
-    game.say(puertaAlien, "En desarrollo")
+    game.schedule(1000, {
+      self.iniciar() })
   }
-  //implementar la salida de la sala (Ejemplo en la sala del nahuelito)
+    method salidaDeLaSala(){
+    if (cachito.ubicacion() == self) {
+        escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
+    }
+  }
 }
 
 object salaNahuelito {
   const property image = "fondoNahuelito.png"
-  //Eliminar la C para que quede el fondo sin cuadricula
   var property position = game.origin()
   method imagenPuerta() = if (cachito.derrotoA(nahuelito)) "pNahueB.png"
                           else "pNahue.png"
@@ -111,11 +123,12 @@ object salaNahuelito {
     escenario.colocarJugadorEn(5, 14)
     cachito.ubicacion(self)
     cachito.actualizarImagen()
-    escenario.ubicarEnEscena(topeInferior, 0, 0)
-    escenario.ubicarEnEscena(topeSuperior, 0, 15)
-    escenario.ubicarEnEscena(topeLatDer, 11, 0)
-    escenario.ubicarEnEscena(topeLatIzq, -1, 0)
+    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 15)
+    escenario.ubicarEnEscena(limiteLatDer, 11, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
     nahuelito.iniciar()
+    barraDeVida.mostrarVidas()
   }
   method interaccion() {
     if (self.imagenPuerta() == "pNahueB.png") {
@@ -133,25 +146,35 @@ object salaNahuelito {
 }
 
 object salaLuzMala {
-  const property image = "zonaLuzMala.png" //Realizar el fondo
+  const property image = "fondoLuzMala.png" //Realizar el fondo
   var property position = game.origin()
   method imagenPuerta() = if (cachito.derrotoA(luzMala)) "pluzMalaB.png" else "pluzMala.png"
   
   method iniciar() {
     escenario.iniciarEscena(self, zonaLuzMala)
-    escenario.colocarJugadorEn(9, 12)
+    escenario.colocarJugadorEn(10, 1)
     cachito.ubicacion(self)
     cachito.actualizarImagen()
-    escenario.ubicarEnEscena(topeSuperior, 0, 13)
-    escenario.ubicarEnEscena(topeLatDer, 11, 0)
-    escenario.ubicarEnEscena(topeLatIzq, -1, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 15)
+    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteLatDer, 11, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
+    barraDeVida.mostrarVidas()
+    luzMala.iniciar()
   }
   
   method interaccion() {
     if (self.imagenPuerta() == "pluzMalaB.png") {
       game.say(puertaLuzMala, "No podes pasar, ya derrotaste a la Luz Mala")
-    } else
-    game.say(puertaLuzMala, "En desarrollo")
+    } else {
+     game.schedule(1000, {
+        self.iniciar() })
+    }
   }
-  //implementar la salida de la sala (Ejemplo en la sala del nahuelito)
+  method salidaDeLaSala(){
+    if (cachito.ubicacion() == self) {
+      escenario.ubicarEnEscena(puertaSalidaAlien, 10,1) //Crer en Objetos.wlk la puerta de salida de la luz mala
+    }
+  }
+ 
 }

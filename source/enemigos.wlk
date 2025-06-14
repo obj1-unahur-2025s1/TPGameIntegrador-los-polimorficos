@@ -1,19 +1,14 @@
 import cachito.*
 import objetos.*
+import escenario.*
 
 object pomberito {
   var posicion = game.center()
-  //const totemP = new Totem(image = "totemLuzMala.png", position = self.position().down(2))
- // var direccion = abajo
   method image() = "pomberito.png"
   method position() = posicion
   method interaccion() {
     game.sound("grito.mp3").play()
-    
   }
-
-  //method direccionTotem() = [arriba,abajo,izquierda,derecha]
-  //method direccionActual() = totemP.position()
   method perseguirPersonaje() {
     const otraPosicion = cachito.position()
     const newX = posicion.x() + (if (otraPosicion.x() > posicion.x()) 1 
@@ -23,12 +18,7 @@ object pomberito {
       else if (otraPosicion.y() < posicion.y()) -1 
       else 0)
     posicion = game.at(newX, newY)
-    //direccion.reposicionar(totemP)
   }
- /* method rotarTotem(){
-    direccion = self.direccionTotem().anyOne()
-  }*/
-
   method iniciar(){
     game.addVisual(self)
     //game.addVisual(totemP)
@@ -61,20 +51,18 @@ object derecha{
   }
 }
 
-
-
 //Luz Mala
-object luzMala { //Agregar flash en blanco
-
-  var property image = "corazonFull.png"
-  var property position = game.at(1,16)
+object luzMala { 
+  var property image = "luzMala2.png"
+  var property position = game.at(5,8)
   var contador = 0
-  
-  
   method totem() = totemL
-
-  method posicionesTotem() = [game.at(1,1), game.at(9,1), game.at(1,14), game.at(9,14)]
-
+  method posicionesTotem() = [game.at(2,3), game.at(9,5), game.at(2,14), game.at(9,14)]
+  method ataque(){
+    self.flash()
+    self.moverTotem()
+    game.schedule(1000, {game.removeVisual(flash)})
+  }
   method moverTotem() {
     contador += 1
     totemL.position(self.posicionesTotem().anyOne()) //self.posicionesTotem().get(contador % 4) para que no sea al azar
@@ -83,36 +71,34 @@ object luzMala { //Agregar flash en blanco
   method iniciar(){
     game.addVisual(self)
     game.addVisual(totemL)
-    game.onTick(1000, "atacar", {self.moverTotem()})
-
+    game.onTick(2000, "atacar", {self.ataque()})
   }
-
+  method flash(){
+    game.addVisual(flash)
+    const sonido = game.sound("flash.mp3")
+    sonido.volume(0.25)
+    sonido.play()
+  }
 }
 //Alien
 object alien {
-  var property image = "alien.png"
-  var property position = game.at(9,9)
-  
-  method posicionesTotem() = [game.at(2,4), game.at(2,2), game.at(2,5), game.at(1,14)] //agregar posiciones
+  //method posicionesTotem() = [game.at(2,4), game.at(2,2), game.at(2,5), game.at(1,14)] //agregar posiciones
   method totem() = totemA
-
   method ataqueTelequinéctico(){
 		if(totemA.position().x() > cachito.position().x() and cachito.position().x().between(1, 9)) 
         cachito.position(cachito.position().left(1))
       else if (totemA.position().x() < cachito.position().x() and cachito.position().x().between(1, 9)) 
         cachito.position(cachito.position().right(1))
       
-		if(totemA.position().y() > cachito.position().y() and cachito.position().y().between(1, 14)) 
-        cachito.position(cachito.position().down(1))
-      else if (totemA.position().y() < cachito.position().y() and cachito.position().y().between(1, 14)) 
+		if(totemA.position().y() > cachito.position().y() and cachito.position().y().between(1, 14)){
+        if (cachito.position().y() - 1 != 0) cachito.position(cachito.position().down(1))
+    }else if (totemA.position().y() < cachito.position().y() and cachito.position().y().between(1, 14)) 
         cachito.position(cachito.position().up(1))
     
   }
-
   method iniciar() {
-    game.addVisual(self)
     game.addVisual(totemA)
-    game.onTick(500, "atacar", {self.ataqueTelequinéctico()})
+    game.onTick(1000, "atacar", {self.ataqueTelequinéctico()})
   }
 }
 //Nahuelito

@@ -23,11 +23,13 @@ object inicio {
   }
 
   method reiniciar() {
-    game.removeVisual(self)
     musicaFondo.detener()
     musicaFondo.volumen(0.25)
     escenario.borrarEscena()
     cachito.reiniciar()
+    game.removeTickEvent("moverse")
+    game.removeTickEvent("atacar")
+    game.removeTickEvent("actualizarPuertas")
     image = "controles.png"
     self.iniciar()
   }

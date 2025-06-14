@@ -27,7 +27,7 @@ object musicaFondo {
   }
   
   method cambiarAPista(num) {
-    if (musicaFondo != null) musicaFondo.stop()
+    self.detener() 
     self.iniciar(num)
   }
   
@@ -35,6 +35,7 @@ object musicaFondo {
     if (pista != null) {
       musicaFondo.stop()
       pista = null
+      musicaFondo = null
     }
   }
   

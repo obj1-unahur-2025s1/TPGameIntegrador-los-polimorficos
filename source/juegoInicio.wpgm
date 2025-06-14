@@ -6,10 +6,9 @@ import escenas.*
 
 program bindingOfCachitto {
 	game.title("The Binding of Cachito")
+	cachito.configurarTeclas()
 	game.height(16)
 	game.width(11)
-	game.cellSize(50)
-	cachito.configurarTeclas()
 	inicio.iniciar()
 	game.onCollideDo(cachito, {objeto => objeto.interaccion()}) 
 	keyboard.r().onPressDo({inicio.reiniciar() })
