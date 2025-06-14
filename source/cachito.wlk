@@ -28,28 +28,28 @@ object cachito {
 	method configurarTeclas() {
 		//Left
 		keyboard.a().onPressDo({ 
-			if(topeLatIzq.position().x()+1 < self.position().x() )
+			if(limiteLatIzq.position().x()+1 < self.position().x() )
 				self.position(self.position().left(1))
 				mirandoAl = "O"
 				self.actualizarImagen()
 			})
 		//right
 		keyboard.d().onPressDo({
-			if(topeLatDer.position().x()-1 > self.position().x())
+			if(limiteLatDer.position().x()-1 > self.position().x())
 			 	self.position(self.position().right(1))
 				mirandoAl = "E"
 				self.actualizarImagen()
 			 })
 		//down
 		keyboard.s().onPressDo({ 
-			if(topeInferior.position().y()+1 < self.position().y())
+			if(limiteInferior.position().y()+1 < self.position().y())
 				self.position(self.position().down(1))
 				mirandoAl = "S"
 				self.actualizarImagen()
 			})
 		//up
 		keyboard.w().onPressDo({
-			if(topeSuperior.position().y()-1 > self.position().y())
+			if(limiteSuperior.position().y()-1 > self.position().y())
 			 	self.position(self.position().up(1))
 				mirandoAl = "N"
 				self.actualizarImagen()				
@@ -96,6 +96,7 @@ object cachito {
 	method recibirDanio() {
 		if(self.vida() > 0) {
 			vida -=1
+			barraDeVida.sacarVidas()
 			if(self.vida() == 0) {
 				pantallaGameOver.iniciar()
 			}
@@ -104,7 +105,7 @@ object cachito {
 }
 
 
-object vida {
+object barraDeVida {
   method mostrarVidas() {
 	if(cachito.vida() ==4){
 		game.addVisual(corazon1)
