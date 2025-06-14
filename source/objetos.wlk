@@ -144,3 +144,42 @@ const puertaSalidaLuzMala = new PuertaAlPueblo(proxZona = pueblo, puebloCoordX =
 const totemL = new Totem(image = "totemLuzMala.png", position = self.posicionesTotem().get(1),salaEnemigo = salaLuzMala)
 const totemA = new Totem(image = "totemAlien.png", position = game.at(5,11), salaEnemigo = salaAlien)
 const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4), salaEnemigo = salaNahuelito)
+
+//================LimitadoresDeMovimiento=============//
+class Limitador {
+	var property position = game.at(0,0)
+
+  method ubicarEn(x,y) {
+    self.position(game.at(x,y))
+  }
+
+  method interaccion() {
+    self.empuja(cachito)
+  }
+
+  method empuja(cachito)
+}
+
+class LimitadorArriba inherits Limitador {
+	override method empuja(cachito) {
+		cachito.position(cachito.position().down(1))
+	}
+}
+
+class LimitadorAbajo inherits Limitador {
+	override method empuja(cachito) {
+		cachito.position(cachito.position().up(1))
+	}
+}
+
+class LimitadorIzquierda inherits Limitador {
+	override method empuja(cachito) {
+		cachito.position(cachito.position().right(1))
+	}
+}
+
+class LimitadorDerecha inherits Limitador {
+	override method empuja(cachito) {
+		cachito.position(cachito.position().left(1))
+	}
+}
