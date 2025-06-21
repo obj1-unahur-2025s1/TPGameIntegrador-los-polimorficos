@@ -11,6 +11,5 @@ program bindingOfCachitto {
 	game.width(11)
 	inicio.iniciar()
 	game.onCollideDo(cachito, {objeto => objeto.interaccion()}) 
-	keyboard.r().onPressDo({inicio.reiniciar() })
 	game.start()
 }

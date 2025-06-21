@@ -1,30 +1,64 @@
 import cachito.*
 import objetos.*
 import escenario.*
+import ubicaciones.*
+import escenas.*
 
 object pomberito {
   var posicion = game.center()
+  var vida = 4
+  var escenarioPar = true
+  var derrotado = false
   method image() = "pomberito.png"
   method position() = posicion
+  method derrotado() = derrotado
   method interaccion() {
     game.sound("grito.mp3").play()
   }
   method perseguirPersonaje() {
     const otraPosicion = cachito.position()
-    const newX = posicion.x() + (if (otraPosicion.x() > posicion.x()) 1 
-      else if (otraPosicion.x() < posicion.x()) -1
-      else 0)
-    const newY = posicion.y() + (if (otraPosicion.y() > posicion.y()) 1 
-      else if (otraPosicion.y() < posicion.y()) -1 
-      else 0)
+    const newX = posicion.x() + if (otraPosicion.x() > posicion.x()) {
+      1
+    } else {
+      if (otraPosicion.x() < posicion.x()) -1 else 0
+    }
+    const newY = posicion.y() + if (otraPosicion.y() > posicion.y()) {
+      1
+    } else {
+      if (otraPosicion.y() < posicion.y()) -1 else 0
+    }
     posicion = game.at(newX, newY)
   }
-  method iniciar(){
+  
+  method escenarioPar(estado) {
+    escenarioPar = estado
+  }
+  
+  method iniciar() {
     game.addVisual(self)
-    //game.addVisual(totemP)
-    game.onTick(333, "atacar", {self.perseguirPersonaje()})
-   // game.onTick(3000,"atacar",{self.rotarTotem()})
-
+    if (cachito.habloConElViejo()) {
+      game.onTick(333, "atacar", { self.perseguirPersonaje() })
+    } else {
+      posicion = game.at(5, 10)
+    }
+    // game.onTick(3000,"atacar",{self.rotarTotem()})
+  }
+  
+  method cinematica() = escenaPomberito
+  method duracionAtaque() = 4000
+  method recibirDanio() {
+    if (!derrotado) {
+      vida = 1.max(vida - 1)
+    }
+    if (vida == 0) {
+      derrotado = true
+    }
+  }
+  
+  method atacar() {
+    const ola = new Ola()
+    ola.position(self.position())
+    ola.disparar()
   }
 }
 object arriba{
@@ -61,7 +95,7 @@ object luzMala {
   method ataque(){
     self.flash()
     self.moverTotem()
-    game.schedule(1000, {game.removeVisual(flash)})
+    game.schedule(2500, {game.removeVisual(flash)})
   }
   method moverTotem() {
     contador += 1

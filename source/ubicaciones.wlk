@@ -1,3 +1,4 @@
+import escenas.*
 import wollok.game.*
 import cachito.*
 import enemigos.*
@@ -142,28 +143,46 @@ object iglesia {
   var property position = game.origin()
   method iniciar() {
     escenario.iniciarEscena(self, iglesiaTeroPiolado)
-    escenario.colocarJugadorEn(1,5)
+    batallaFinal.iniciarPelea()
+    pomberito.iniciar()
     cachito.ubicacion(self)
+    escenario.colocarJugadorEn(5,1)
     cachito.actualizarImagen()
-    game.addVisual(pomberito)
-    game.onTick(1000, "perseguir", {pomberito.perseguirPersonaje()})
     escenario.ubicarEnEscena(limiteSuperior, 0, 9)
     escenario.ubicarEnEscena(limiteInferior, 0, 0)
     escenario.ubicarEnEscena(limiteLatDer, 10, 0)
-    escenario.ubicarEnEscena(limiteLatIzq, 0, 0) //Se pone en -1 para que no quede toda la columna 0 inutilizable
+    escenario.ubicarEnEscena(limiteLatIzq, 0, 0) 
     barraDeVida.mostrarVidas()
   }
   method interaccion(){
     if (cachito.enemigosDerrotados() < 3) 
       game.say(puertaIglesia, "Necesitas derrotar a: " + 
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
-    else{
-      game.schedule(1000, {
-      self.iniciar() })
+    else if ((cachito.enemigosDerrotados() == 3) && cachito.habloConElViejo()) {
+      game.schedule(1000, { escenaPomberito.iniciar(1) })
+    }else{
+      game.schedule(1000, { escenaPomberito.iniciar(2) })
     }
   }
 }
 
+object iglesia2{
+  const property image = "iglesia.png"
+  var property position = game.origin()
+  method iniciar() {
+    escenario.iniciarEscena(self, iglesiaTeroPiolado)
+    batallaFinal.iniciarPelea()
+    pomberito.iniciar()
+    cachito.ubicacion(self)
+    escenario.colocarJugadorEn(5,1)
+    cachito.actualizarImagen()
+    escenario.ubicarEnEscena(limiteSuperior, 0, 9)
+    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteLatDer, 10, 0)
+    escenario.ubicarEnEscena(limiteLatIzq, 0, 0) 
+    barraDeVida.mostrarVidas()
+  }
+}
 object salaAlien {
   const property image = "fondoAlien.png" //Hacer el fondo
   var property position = game.origin()
@@ -262,5 +281,4 @@ object salaLuzMala {
       escenario.ubicarEnEscena(puertaSalidaAlien, 10,1) //Crer en Objetos.wlk la puerta de salida de la luz mala
     }
   }
- 
 }

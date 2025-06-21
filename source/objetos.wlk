@@ -84,6 +84,40 @@ class OlaRapida inherits Ola{
     game.onTick(50, "disparar", {self.mover()})
   }
 }
+
+class RocaDer inherits Ola(image = "roca.png") {
+  const x
+  const y
+  override method disparar(){
+    position = game.at(x, y)
+    game.addVisual(self)
+    game.onTick(200, "disparar roca", {self.mover()})
+  }
+  override method mover(){
+    self.position(self.position().down(1))
+    self.position(self.position().left(1))
+
+    if(self.position().y() == 0 || self.position().x() == -1){
+      game.removeVisual(self)
+    }
+  }
+}
+
+class RocaIzq inherits RocaDer {
+  override method disparar(){
+    position = game.at(x, y)
+    game.addVisual(self)
+    game.onTick(200, "disparar roca", {self.mover()})
+  }
+  override method mover(){
+    self.position(self.position().down(1))
+    self.position(self.position().right(1))
+
+    if(self.position().y() == 0 || self.position().x() == 11){
+      game.removeVisual(self)
+    }
+  }
+}
 //Totems
 class Totem{
   var property image 
@@ -120,6 +154,8 @@ const iniciar2 = new Cartel(image = "press2.png", x= 1, y = 1)
 const opcionGameOver1 = new Cartel(image = "SN1.png", x= 1, y = 4)
 const opcionGameOver2 = new Cartel(image = "SN2.png", x= 1, y = 4)
 const spaceParaContinuar1 = new Cartel(image = "cont1.png", x= 0, y = 4)
+const cartelAtaque = new Cartel (image = "cartelDeAtaque.png", x =1, y = 13)
+
 const cartelIniciar = new CartelAnimado(c1 = iniciar1, c2 = iniciar2)
 const cartelGameOver = new CartelAnimado(c1 = opcionGameOver1, c2 = opcionGameOver2)
 const ovniAnimado = new CartelAnimado(c1 = ovni1, c2 = ovni2)

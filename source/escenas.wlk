@@ -30,6 +30,7 @@ object inicio {
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
+    game.removeTickEvent("disparar roca")
     image = "controles.png"
     self.iniciar()
   }
@@ -78,5 +79,61 @@ object pantallaGameOver{
     cartelGameOver.detenerAnimacion()
     musicaFondo.detener()
     game.schedule(12000,{game.stop()})
+  }
+}
+
+object animacionAtaque{
+  var property image = "ataque1.png"
+  var property position = game.origin()
+  method iniciar() {
+    game.addVisual(self)
+    game.schedule(1800, {self.siguienteImagen(2)})
+    musicaFondo.pausar()
+  }
+  method siguienteImagen(img){
+    if (img < 5) {
+      image = "ataque" + img + ".png"
+      game.removeVisual(self)
+      game.addVisual(self)
+      game.schedule(1800, {self.siguienteImagen(img + 1)})
+    } else {
+      game.sound("grito.mp3").play()
+      game.schedule(1500, {
+        game.removeVisual(self)
+       musicaFondo.reanudar()
+       })
+     
+    }
+    
+  }
+  method duracion() = 9000
+}
+
+object escenaPomberito{
+  var property image = "escenaPomberito1.png"
+  var property position = game.origin()
+  method iniciar(interior) {
+    musicaFondo.iniciar(4)
+    game.addVisual(self)
+    game.schedule(4000, {self.siguienteImagen(interior)}) 
+  }  
+  method siguienteImagen(interior) {
+    image = "escenaPomberito2.png"
+    game.removeVisual(self)
+    game.addVisual(self)
+    game.schedule(5000, {
+      if( interior ==1){
+        iglesia.iniciar()
+      }else{
+        iglesia2.iniciar()
+      }
+    })
+  }
+  method duracion() = 9000
+}
+
+object finalJuego{
+  method iniciar(){
+    //DESARROLLAR FINAL
   }
 }
