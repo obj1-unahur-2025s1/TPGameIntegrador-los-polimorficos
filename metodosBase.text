@@ -33,3 +33,9 @@ game.removeTickEvent("empujar") **hace que se deje de empujar a cachito**
 		if (position.x() == -1)
 			self.posicionar()
 	}
+
+	method probabilidadAleatoria() {
+    const numeros = [1, 2]
+    return
+      numeros.anyOne().even()
+ }

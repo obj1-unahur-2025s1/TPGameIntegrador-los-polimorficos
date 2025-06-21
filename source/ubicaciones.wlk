@@ -19,6 +19,34 @@ object casa {
     escenario.ubicarEnEscena(limiteLatDer, 11, 0)
     escenario.ubicarEnEscena(limiteLatIzq, 0, 0)
     barraDeVida.mostrarVidas()
+    self.agregarLimitadoresDeMovimiento()
+  }
+
+  method agregarLimitadoresDeMovimiento() {
+    escenario.ubicarEnEscena(new LimitadorArriba(), 0, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 1, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 2, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 3, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 4, 9)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 5, 9)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 6, 9)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 8, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 9, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 10, 10)
+    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 4)
+    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 7)
+    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 8)
+    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 9)
+    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 5)
+    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 4)
+    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 3)
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 7)
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 8)
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 9)
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 5)
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 4)
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 3)
   }
 }
 object pueblo {

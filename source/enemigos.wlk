@@ -103,7 +103,7 @@ object alien {
 }
 //Nahuelito
 object nahuelito {
-  var property image = "nahuelitoD.png"
+  var property image = "animacionN1.png"
   var property position = game.origin()
   method totem() = totemN
 
@@ -129,10 +129,13 @@ object nahuelito {
 
   method iniciar(){
     game.addVisual(self)
+    self.animacionInicio()
     game.addVisual(totemN)
-    game.onTick(300, "moverse", {self.perseguirPersonaje()})
-    game.onTick(700,"atacar",{self.atacar()})
-    game.onTick(3500,"atacar",{self.ataqueEspecial()})
+    game.schedule(3000, {
+      game.onTick(300, "moverse", {self.perseguirPersonaje()})
+      game.onTick(700,"atacar",{self.atacar()})
+      game.onTick(3500,"atacar",{self.ataqueEspecial()})
+    })
   }
 
   method actualizarImagen(posicion) {
@@ -140,6 +143,11 @@ object nahuelito {
       image = "nahuelitoD.png" 
     }
     else image = "nahuelitoI.png"
+  }
+
+  method animacionInicio() {
+    game.schedule(1000, {self.image("animacionN2.png")})
+    game.schedule(2000, {self.image("nahuelitoI.png")})
   }
 
 }
