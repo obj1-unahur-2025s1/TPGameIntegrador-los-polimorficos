@@ -21,6 +21,11 @@ object musicaFondo {
       pista = 3
       volumen = 1
     }
+    if (num == 4){
+      musicaFondo = game.sound("finalboss.mp3")
+      pista = 4
+      volumen = 0.25
+    }
     musicaFondo.play()
     musicaFondo.shouldLoop(true)
     musicaFondo.volume(volumen)
@@ -38,6 +43,26 @@ object musicaFondo {
       musicaFondo = null
     }
   }
+
+  method pausar() {
+    if (musicaFondo != null) {
+      musicaFondo.pause()
+    }
+  }
+  method reanudar() {
+    if (musicaFondo != null) {
+      musicaFondo.resume()
+    }
+  }
   
   method seEstaReproduciendo(num) = pista == num
+}
+
+object juiraBicho{
+  const sonido = game.sound("juira.mp3")
+  const volumen = 0.05
+  method iniciar() {
+    sonido.volume(volumen)
+    sonido.play()
+  }
 }

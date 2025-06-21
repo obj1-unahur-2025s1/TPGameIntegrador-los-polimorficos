@@ -4,137 +4,192 @@ import escenario.*
 import enemigos.*
 import ubicaciones.*
 import escenas.*
+
 object cachito {
-    var property vida = 4
-    const totems = #{}
+	var property vida = 4
+	const totems = #{}
 	var mirandoAl = "S"
+	var tieneInmunidad = false
+	var estaEnCombate = false
+	var puedeMoverse = true
+	var derrotado = false
 	var property ubicacion = casa
 	var property position = game.origin()
-	const sonido = game.sound("juira.mp3")
+	var property habloConElViejo = false
+	var property puedeAtacar = false
 	var property image = "cachitoIntS.png"
-    method agregarTotem(totem) {
-      totems.add(totem)
-    }
-    method saludar() { //Posible eliminación
-		sonido.volume(0.05)
-		sonido.play()
-		game.say(self,"JUIRA BICHO")
-    }
-    method derrotoA(enemigo) = totems.contains(enemigo.totem())
-    method enemigosDerrotados() = totems.size()
+	
+	method derrotado() = derrotado
+	
+	method estaEnCombate(estado) {
+		estaEnCombate = estado
+	}
+	
+	method agregarTotem(totem) {
+		totems.add(totem)
+	}
+	
+	method derrotoA(enemigo) = totems.contains(enemigo.totem())
+	
+	method enemigosDerrotados() = totems.size()
+	
 	method poscionarEn(nuevaPosicion) {
 		self.position(nuevaPosicion)
 	}
+	
 	method configurarTeclas() {
 		//Left
-		keyboard.a().onPressDo({ 
-			if(limiteLatIzq.position().x()+1 < self.position().x() )
-				self.position(self.position().left(1))
+		keyboard.a().onPressDo(
+			{ 
+				if (((limiteLatIzq.position().x() + 1) < self.position().x()) && puedeMoverse)
+					self.position(self.position().left(1))
 				mirandoAl = "O"
-				self.actualizarImagen()
-			})
+				return self.actualizarImagen()
+			}
+		)
 		//right
-		keyboard.d().onPressDo({
-			if(limiteLatDer.position().x()-1 > self.position().x())
-			 	self.position(self.position().right(1))
+		keyboard.d().onPressDo(
+			{ 
+				if (((limiteLatDer.position().x() - 1) > self.position().x()) && puedeMoverse)
+					self.position(self.position().right(1))
 				mirandoAl = "E"
-				self.actualizarImagen()
-			 })
+				return self.actualizarImagen()
+			}
+		)
 		//down
-		keyboard.s().onPressDo({ 
-			if(limiteInferior.position().y()+1 < self.position().y())
-				self.position(self.position().down(1))
+		keyboard.s().onPressDo(
+			{ 
+				if (((limiteInferior.position().y() + 1) < self.position().y()) && puedeMoverse)
+					self.position(self.position().down(1))
 				mirandoAl = "S"
-				self.actualizarImagen()
-			})
+				return self.actualizarImagen()
+			}
+		)
 		//up
-		keyboard.w().onPressDo({
-			if(limiteSuperior.position().y()-1 > self.position().y())
-			 	self.position(self.position().up(1))
+		keyboard.w().onPressDo(
+			{ 
+				if (((limiteSuperior.position().y() - 1) > self.position().y()) && puedeMoverse)
+					self.position(self.position().up(1))
 				mirandoAl = "N"
-				self.actualizarImagen()				
-			 })
-		keyboard.enter().onPressDo({self.saludar() })
-
-		//TECLAS A ELIMINAR EN LA VERSION FINAL:
+				return self.actualizarImagen()
+			}
+		)
+		//ELIMINAR PARA LA VERSION FINAL
 		keyboard.num(1).onPressDo({ self.agregarTotem(alien.totem()) })
-    	keyboard.num(2).onPressDo({ self.agregarTotem(nahuelito.totem()) })
-    	keyboard.num(3).onPressDo({ self.agregarTotem(luzMala.totem()) })
-    	keyboard.num(4).onPressDo({musicaFondo.detener()})
-		keyboard.num(5).onPressDo({game.say(self,"A" + escenario.elementosEnEscena())})
-		keyboard.num(6).onPressDo({game.say(self,"A" + self.position())})
-		keyboard.num(7).onPressDo({game.say(self,"Totems" + totems)})
-		keyboard.num(8).onPressDo({game.say(self,"X" + position.x())})	 	 	 
+		keyboard.num(2).onPressDo({ self.agregarTotem(nahuelito.totem()) })
+		keyboard.num(3).onPressDo({ self.agregarTotem(luzMala.totem()) })
+		keyboard.num(4).onPressDo({ musicaFondo.detener() })
+		keyboard.num(5).onPressDo(
+			{ game.say(self, "A" + escenario.elementosEnEscena()) }
+		)
+		keyboard.num(6).onPressDo({ game.say(self, "A" + self.position()) })
+		keyboard.num(7).onPressDo({ game.say(self, "Totems" + totems) })
+		keyboard.num(8).onPressDo({ game.say(self, "X" + position.x()) })
 	}
-	method reiniciar(){
+	
+	method reiniciar() {
+		mirandoAl = "S"
+		totems.clear()
+		tieneInmunidad = false
+		estaEnCombate = false
+		puedeAtacar = false
+		puedeMoverse = true
 		self.vida(4)
 		self.ubicacion(casa)
-		mirandoAl = "S"
 		self.actualizarImagen()
 		self.position(game.origin())
-		totems.clear()
 	}
-
-	method actualizarImagen(){
-		if(self.estaEnUnExterior()){
-			self.image("cachito" + mirandoAl + ".png")
-		}
-		else if (self.estaEnElAgua()){
-			self.image("cachitoB"+mirandoAl + ".png")
-		}
-		else{
-			self.image("cachitoInt" + mirandoAl + ".png")
+	
+	method actualizarImagen() {
+		if (self.estaEnUnExterior()) {
+			self.image(("cachito" + mirandoAl) + ".png")
+		} else {
+			if (self.estaEnElAgua()) self.image(("cachitoB" + mirandoAl) + ".png")
+			else self.image(("cachitoInt" + mirandoAl) + ".png")
 		}
 	}
-	method estaEnUnExterior(){
-		return [pueblo].contains(ubicacion)
+	
+	method estaEnUnExterior() = [pueblo].contains(ubicacion)
+	
+	method estaEnElAgua() = [salaNahuelito].contains(
+		ubicacion
+	) && (self.position().y() < 11)
+	
+	//COMBATE 
+	method atacar() {
+		animacionAtaque.iniciar()
+		juiraBicho.iniciar()
+		position = game.at(5, 1)
 	}
-
-	method estaEnElAgua(){
-		return ([salaNahuelito].contains(ubicacion) && (self.position().y() < 11))
+	
+	method otorgarInmunidad(tiempo) {
+		tieneInmunidad = true
+		game.schedule(tiempo, { tieneInmunidad = false })
 	}
+	
 	method recibirDanio() {
-		if(self.vida() > 0) {
-			vida -=1
+		if ((self.vida() > 0) && (!tieneInmunidad)) {
+			vida = 0.max(vida - 1)
 			barraDeVida.sacarVidas()
-			if(self.vida() == 0) {
-				pantallaGameOver.iniciar()
-			}
+			self.otorgarInmunidad(1000)
 		}
-	}	
+		if (self.vida() == 0) {
+			derrotado = true
+			pantallaGameOver.iniciar()
+		}
+	}
+	
+	method bloquearMovimiento() {
+		puedeMoverse = false
+	}
+	
+	method activarMovimiento() {
+		puedeMoverse = true
+	}
+	
+	method posicionDeDefensa() {
+		mirandoAl = "N"
+		self.actualizarImagen()
+		self.activarMovimiento()
+	}
+	
+	method posicionDeAtaque() {
+		self.position(game.at(5, 1))
+		mirandoAl = "S"
+		self.actualizarImagen()
+		self.bloquearMovimiento()
+	}
 }
 
-
 object barraDeVida {
-  method mostrarVidas() {
-	if(cachito.vida() ==4){
-		game.addVisual(corazon1)
-		game.addVisual(corazon2)
-		game.addVisual(corazon3)
-		game.addVisual(corazon4)
+	method mostrarVidas() {
+		if (cachito.vida() == 4) {
+			game.addVisual(corazon1)
+			game.addVisual(corazon2)
+			game.addVisual(corazon3)
+			game.addVisual(corazon4)
+		} else {
+			if (cachito.vida() == 3) {
+				game.addVisual(corazon1)
+				game.addVisual(corazon2)
+				game.addVisual(corazon3)
+			} else {
+				if (cachito.vida() == 2) {
+					game.addVisual(corazon1)
+					game.addVisual(corazon2)
+				} else {
+					game.addVisual(corazon1)
+				}
+			}
+		}
 	}
-	else if(cachito.vida() ==3){
-		game.addVisual(corazon1)
-		game.addVisual(corazon2)
-		game.addVisual(corazon3)
+	
+	method sacarVidas() {
+		if (cachito.vida() == 3) {
+			game.removeVisual(corazon4)
+		} else {
+			if (cachito.vida() == 2) game.removeVisual(corazon3)
+			else game.removeVisual(corazon2)
+		}
 	}
-	else if(cachito.vida() ==2){
-		game.addVisual(corazon1)
-		game.addVisual(corazon2)
-	}
-	else
-		game.addVisual(corazon1)
-  }
-
-  method sacarVidas() {
-	if(cachito.vida() ==3){
-		game.removeVisual(corazon4)
-	}
-	else if(cachito.vida() ==2){
-		game.removeVisual(corazon3)
-	}
-	else{
-		game.removeVisual(corazon2)
-	}
-  }
 }
