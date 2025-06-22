@@ -23,6 +23,7 @@ class Puerta{
   var property position = game.origin()
   method interaccion(){
     proxZona.interaccion()
+    proxZona.iniciar()
   }
   method ubicarEn(x,y) {
     self.position(game.at(x,y))

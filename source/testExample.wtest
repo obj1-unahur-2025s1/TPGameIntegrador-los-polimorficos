@@ -1,6 +1,72 @@
+import source.ubicaciones.*
 import cachito.*
 import enemigos.*
 import objetos.*
 import escenario.*
 import escenas.*
 import musicaFondo.*
+
+describe "Funcionamiento de las puertas" {
+  test "colision de cachito con puerta de salida de la casa" {
+    puertaSalidaCasa.interaccion()
+    assert.that(cachito.estaEnUnExterior())
+  }
+  test "colision de cachito con puerta de entrada al ovni" {
+    puertaSalidaCasa.interaccion()
+    puertaAlien.interaccion()
+    assert.equals(salaAlien, cachito.ubicacion())
+  }
+  test "colision de cachito con puerta de entrada al nahuelito" {
+    puertaSalidaCasa.interaccion()
+    puertaNahuelito.interaccion()
+    assert.equals(salaNahuelito, cachito.ubicacion())
+  }
+  test "colision de cachito con puerta de entrada a la luz mala" {
+    puertaSalidaCasa.interaccion()
+    puertaLuzMala.interaccion()
+    assert.equals(salaLuzMala, cachito.ubicacion())
+  }
+
+  test "colision de cachito con puerta de salida al ovni" {
+    puertaSalidaCasa.interaccion()
+    puertaAlien.interaccion()
+    puertaSalidaAlien.interaccion()
+    assert.equals(pueblo, cachito.ubicacion())
+  }
+  test "colision de cachito con puerta de salida al nahuelito" {
+    puertaSalidaCasa.interaccion()
+    puertaNahuelito.interaccion()
+    puertaSalidaNahuelito.interaccion()
+    assert.equals(pueblo, cachito.ubicacion())
+  }
+  test "colision de cachito con puerta de salida a la luz mala" {
+    puertaSalidaCasa.interaccion()
+    puertaLuzMala.interaccion()
+    puertaSalidaLuzMala.interaccion()
+    assert.equals(pueblo, cachito.ubicacion())
+  }
+}
+
+describe "Funcionamiento del sistema de vidas" {
+  test "Cuando cachito va a la zona del nahuelito y es golpeado por una hola normal, le baja un corazon de vida y obtiene inmunidad" {
+    puertaSalidaCasa.interaccion()
+    puertaNahuelito.interaccion()
+    nahuelito.atacar()
+    const ola = new Ola()
+    ola.interaccion()
+    assert.equals(3, cachito.vida())
+    assert.that(cachito.tieneInmunidad())
+  }
+  test "Cuando cachito va a la zona del nahuelito y es golpeado por una hola especial seguida de una hola normal, le baja solo un corazon de vida por la inmunidad" {
+    puertaSalidaCasa.interaccion()
+    puertaNahuelito.interaccion()
+    nahuelito.atacar()
+    const ola = new Ola()
+    ola.interaccion()
+    nahuelito.ataqueEspecial()
+    const olaRapida = new OlaRapida()
+    olaRapida.interaccion()
+    assert.equals(3, cachito.vida())
+    assert.that(cachito.tieneInmunidad())
+  }
+}

@@ -20,6 +20,8 @@ object cachito {
 	var property image = "cachitoIntS.png"
 	
 	method derrotado() = derrotado
+
+	method tieneInmunidad() = tieneInmunidad
 	
 	method estaEnCombate(estado) {
 		estaEnCombate = estado
