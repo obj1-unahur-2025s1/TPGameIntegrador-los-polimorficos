@@ -120,8 +120,8 @@ object cachito {
 	//COMBATE 
 	method atacar() {
 		animacionAtaque.iniciar()
-		juiraBicho.iniciar()
 		position = game.at(5, 1)
+		pomberito.recibirDanio()
 	}
 	
 	method otorgarInmunidad(tiempo) {
