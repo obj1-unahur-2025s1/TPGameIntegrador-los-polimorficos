@@ -70,3 +70,34 @@ describe "Funcionamiento del sistema de vidas" {
     assert.that(cachito.tieneInmunidad())
   }
 }
+
+describe "Pomberito" {
+  test "Cachito no puede entrar a la iglesia porque le falta derrotar a la Luz Mala y hablar con el viejo" {
+    puertaSalidaCasa.interaccion()
+    totemA.interaccion()
+    totemN.interaccion()
+    iglesia.interaccion()
+    assert.notEquals(iglesia, cachito.ubicacion())
+    assert.equals(2, cachito.enemigosDerrotados())
+    assert.notThat(cachito.habloConElViejo())
+  }
+  test "Cachito puede entrar a la iglesia luego de conseguir los 3 totems y hablar con el viejo" {
+    puertaSalidaCasa.interaccion()
+    totemL.interaccion()
+    totemA.interaccion()
+    totemN.interaccion()
+    cachito.habloConElViejo(true)
+    iglesia.interaccion()
+    assert.equals(iglesia, cachito.ubicacion())
+  }
+  test "Cachito consigue los totems, habla con el viejo y le lanza una piedra al pomberito como consecuencia su salud baja un punto" {
+    puertaSalidaCasa.interaccion()
+    totemL.interaccion()
+    totemA.interaccion()
+    totemN.interaccion()
+    cachito.habloConElViejo(true)
+    iglesia.interaccion()
+    cachito.atacar()
+    assert.equals(3, pomberito.vida())
+  }
+}

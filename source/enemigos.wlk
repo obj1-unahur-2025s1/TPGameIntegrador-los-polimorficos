@@ -13,6 +13,8 @@ object pomberito {
   var vida = 4
   var escenarioPar = true
   
+  method vida() = vida 
+  
   method image() = "pomberito.png"
   
   method position() = posicion
