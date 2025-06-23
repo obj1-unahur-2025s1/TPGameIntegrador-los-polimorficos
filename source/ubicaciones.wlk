@@ -195,7 +195,6 @@ object salaAlien {
     musicaFondo.cambiarAPista(2)
     escenario.iniciarEscena(self, ovniAlien)
     escenario.colocarJugadorEn(0, 1)
-    game.addVisual(ovni1)
     cachito.ubicacion(self)
     cachito.actualizarImagen()
     escenario.ubicarEnEscena(limiteSuperior, 0, 12)
@@ -204,8 +203,10 @@ object salaAlien {
     escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
     barraDeVida.mostrarVidas()
     escenario.animar(true)
-    alien.iniciar()
-    ovniAnimado.animar()
+    game.addVisual(ovni1)
+    self.iniciarAnimacion()
+    game.schedule(3000, {alien.iniciar()})
+    game.schedule(3000, {ovniAnimado.animar()})
   }
   
   method interaccion() {
@@ -220,6 +221,11 @@ object salaAlien {
     if (cachito.ubicacion() == self) {
         escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
     }
+  }
+  method iniciarAnimacion() {
+    game.schedule(1000, {ovni1.image("animacionO2.png")})
+    game.schedule(2000, {ovni1.image("animacionO3.png")})
+    game.schedule(3000, {ovni1.image("ov1.png")})
   }
 }
 

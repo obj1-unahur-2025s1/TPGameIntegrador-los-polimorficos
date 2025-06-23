@@ -43,7 +43,7 @@ class PuertaAlPueblo inherits Puerta(proxZona = pueblo) {
 
 //----------------------------------------CARTELES----------------------------------------
 class Cartel {
-  const property image
+  var property image
   const x
   const y 
   method imagen() = image
@@ -183,7 +183,7 @@ const cartelGameOver = new CartelAnimado(c1 = opcionGameOver1, c2 = opcionGameOv
 const ovniAnimado = new CartelAnimado(c1 = ovni1, c2 = ovni2)
 
 //OVNI (SE DEFINE COMO CARTEL PARA PODER ANIMARLO)
-const ovni1 = new Cartel(image = "ov1.png", x= 4, y = 13)
+const ovni1 = new Cartel(image = "animacionO1.png", x= 4, y = 13)
 const ovni2 = new Cartel(image = "ov2.png", x= 4, y = 13)
 
 //PUERTAS HACIA OTRAS ZONAS
