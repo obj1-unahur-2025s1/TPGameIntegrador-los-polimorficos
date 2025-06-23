@@ -148,7 +148,6 @@ object iglesia {
     escenario.iniciarEscena(self, iglesiaTeroPiolado)
     batallaFinal.iniciarPelea()
     pomberito.iniciar()
-    cachito.ubicacion(self)
     escenario.colocarJugadorEn(5,1)
     cachito.actualizarImagen()
     escenario.ubicarEnEscena(limiteSuperior, 0, 2)
@@ -163,8 +162,10 @@ object iglesia {
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
     else if ((cachito.enemigosDerrotados() == 3) && cachito.habloConElViejo()) {
       game.schedule(1000, { escenaPomberito.iniciar(1) })
+      cachito.ubicacion(self)
     }else if (cachito.enemigosDerrotados() == 3) {
       game.schedule(1000, { escenaPomberito.iniciar(2) })
+      cachito.ubicacion(self)
     }
   }
 }
@@ -208,6 +209,7 @@ object salaAlien {
   }
   
   method interaccion() {
+    cachito.ubicacion(self)
     if (self.imagenPuerta() == "palienB.png") {
       game.say(puertaAlien, "No podes pasar, ya derrotaste al Alien")
     } else
@@ -229,7 +231,6 @@ object salaNahuelito {
   method iniciar() {
     escenario.iniciarEscena(self, costaNahuelito)
     escenario.colocarJugadorEn(5, 14)
-    cachito.ubicacion(self)
     cachito.actualizarImagen()
     escenario.ubicarEnEscena(limiteInferior, 0, 0)
     escenario.ubicarEnEscena(limiteSuperior, 0, 15)
@@ -239,6 +240,7 @@ object salaNahuelito {
     barraDeVida.mostrarVidas()
   }
   method interaccion() {
+    cachito.ubicacion(self)
     if (self.imagenPuerta() == "pNahueB.png") {
       game.say(puertaNahuelito, "No podes pasar, ya derrotaste a Nahuelito")
     } else{
@@ -261,7 +263,6 @@ object salaLuzMala {
   method iniciar() {
     escenario.iniciarEscena(self, zonaLuzMala)
     escenario.colocarJugadorEn(10, 1)
-    cachito.ubicacion(self)
     cachito.actualizarImagen()
     escenario.ubicarEnEscena(limiteSuperior, 0, 15)
     escenario.ubicarEnEscena(limiteInferior, 0, 0)
@@ -272,6 +273,7 @@ object salaLuzMala {
   }
   
   method interaccion() {
+    cachito.ubicacion(self)
     if (self.imagenPuerta() == "pluzMalaB.png") {
       game.say(puertaLuzMala, "No podes pasar, ya derrotaste a la Luz Mala")
     } else {
