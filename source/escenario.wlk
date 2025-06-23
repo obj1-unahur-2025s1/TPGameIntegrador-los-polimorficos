@@ -1,11 +1,9 @@
 import wollok.game.*
 import cachito.*
-import enemigos.*
 import musicaFondo.*
 import textos.*
 import objetos.*
 import ubicaciones.*
-import escenas.*
 
 
 object escenario {
@@ -75,57 +73,5 @@ object escenario {
   method probabilidadAleatoria() {
     const numeros = [1, 2]
     return numeros.anyOne().even()
-  }
-}
-
-object batallaFinal {
-  const jefe = pomberito
-  var duracionTurnoPomberito = 6000
-  var pomberitoEnBatalla = false
-  var turnoCachito = true
-  
-  method iniciarPelea() {
-      cachito.estaEnCombate(true)
-      pomberitoEnBatalla = true
-      self.habilitarAtaque() 
-  
-  }
-  
-  
-  method habilitarAtaque() {
-    keyboard.f().onPressDo({ self.gestionarAtaque() })
-    if (!cachito.derrotado()) {
-      cachito.posicionDeAtaque()
-      game.addVisual(cartelAtaque)
-      turnoCachito = true
-    }
-  }
-  
-  method gestionarAtaque() {
-    if ((pomberitoEnBatalla && turnoCachito) && (!cachito.derrotado())) {
-      turnoCachito = false
-      game.removeVisual(cartelAtaque)
-      const duracionCinematica = animacionAtaque.duracion()
-      cachito.atacar()
-      game.schedule(duracionCinematica, { self.golpearPomberito() })
-    }
-  }
-  
-  method golpearPomberito() {
-    pomberito.recibirDanio()
-    if (pomberito.derrotado()) finalJuego.iniciar()
-    else game.schedule(500, { self.etapaDefensa() })
-  }
-  
-  method etapaDefensa() {
-    cachito.posicionDeDefensa()
-    duracionTurnoPomberito = jefe.duracionAtaque()
-    game.schedule(duracionTurnoPomberito + 50, { self.habilitarAtaque() })
-  }
-  
-  method finalizarBatalla() {
-    pomberitoEnBatalla = false
-    cachito.estaEnCombate(false)
-    finalJuego.iniciar()
   }
 }

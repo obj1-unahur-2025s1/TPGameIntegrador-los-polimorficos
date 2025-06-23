@@ -48,7 +48,9 @@ object casa {
     escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 5)
     escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 4)
     escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 3)
-  }
+  }//Capaz se puede hacer un archivo limitadores.wlk con objetos limitadores y que tengas un metodo
+  //agregarLimitadoresCasa()  que tenga todos los  escenario.ubicarEnEscena(new LimitadorArriba(x,y))  utilizados en la funcion arriba de este comentario
+  //El llamado quedaria limitadores.agregarLimitadoresCasa()
 }
 object pueblo {
   const property image = "pueblo3.png"
@@ -134,7 +136,8 @@ object pueblo {
     escenario.ubicarEnEscena(new LimitadorArriba(), 1, 9)
     escenario.ubicarEnEscena(new LimitadorArriba(), 7, 9)
     escenario.ubicarEnEscena(new LimitadorArriba(), 7, 9)
-  }
+  }//Lo mismo que en el objeto casa pero con el nombre agregarLimitadoresPueblo(). El llamado quedaria limitadores.agregarLimitadoresPueblo()
+  
 }
 
 object iglesia {
@@ -148,8 +151,8 @@ object iglesia {
     cachito.ubicacion(self)
     escenario.colocarJugadorEn(5,1)
     cachito.actualizarImagen()
-    escenario.ubicarEnEscena(limiteSuperior, 0, 9)
-    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 2)
+    escenario.ubicarEnEscena(limiteInferior, 0, -1)
     escenario.ubicarEnEscena(limiteLatDer, 10, 0)
     escenario.ubicarEnEscena(limiteLatIzq, 0, 0) 
     barraDeVida.mostrarVidas()
@@ -160,7 +163,7 @@ object iglesia {
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
     else if ((cachito.enemigosDerrotados() == 3) && cachito.habloConElViejo()) {
       game.schedule(1000, { escenaPomberito.iniciar(1) })
-    }else{
+    }else if (cachito.enemigosDerrotados() == 3) {
       game.schedule(1000, { escenaPomberito.iniciar(2) })
     }
   }
@@ -176,8 +179,8 @@ object iglesia2{
     cachito.ubicacion(self)
     escenario.colocarJugadorEn(5,1)
     cachito.actualizarImagen()
-    escenario.ubicarEnEscena(limiteSuperior, 0, 9)
-    escenario.ubicarEnEscena(limiteInferior, 0, 0)
+    escenario.ubicarEnEscena(limiteSuperior, 0, 2)
+    escenario.ubicarEnEscena(limiteInferior, 0, -1)
     escenario.ubicarEnEscena(limiteLatDer, 10, 0)
     escenario.ubicarEnEscena(limiteLatIzq, 0, 0) 
     barraDeVida.mostrarVidas()
@@ -251,7 +254,7 @@ object salaNahuelito {
 }
 
 object salaLuzMala {
-  const property image = "fondoLuzMala.png" //Realizar el fondo
+  const property image = "fondoLuzMala.png" 
   var property position = game.origin()
   method imagenPuerta() = if (cachito.derrotoA(luzMala)) "pluzMalaB.png" else "pluzMala.png"
   
@@ -278,7 +281,7 @@ object salaLuzMala {
   }
   method salidaDeLaSala(){
     if (cachito.ubicacion() == self) {
-      escenario.ubicarEnEscena(puertaSalidaAlien, 10,1) //Crer en Objetos.wlk la puerta de salida de la luz mala
+      escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1) 
     }
   }
 }

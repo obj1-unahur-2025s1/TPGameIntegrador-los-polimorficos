@@ -23,7 +23,6 @@ class Puerta{
   var property position = game.origin()
   method interaccion(){
     proxZona.interaccion()
-    proxZona.iniciar()
   }
   method ubicarEn(x,y) {
     self.position(game.at(x,y))
@@ -32,7 +31,7 @@ class Puerta{
     self.image(proxZona.imagenPuerta())
   }
 }
-class PuertaAlPueblo inherits Puerta{
+class PuertaAlPueblo inherits Puerta(proxZona = pueblo) {
   const puebloCoordX
   const puebloCoordY
   override method interaccion(){
@@ -41,6 +40,8 @@ class PuertaAlPueblo inherits Puerta{
     pueblo.iniciar()
   }
 }
+
+//----------------------------------------CARTELES----------------------------------------
 class Cartel {
   const property image
   const x
@@ -58,6 +59,7 @@ class CartelAnimado {
     escenario.detenerAnimacion(c1, c2)
   }
 }
+//----------------------------------------ELEMENTOS USADOS EN ATAQUES DE ENEMIGOS----------------------------------------
 class Ola{
   var property image = "Olas.png"
   var property position = cachito.position()
@@ -119,7 +121,13 @@ class RocaIzq inherits RocaDer {
     }
   }
 }
-//Totems
+
+object flash{
+  var property image = "ataqueLuzMala.png"
+  var property position = game.origin()
+}
+
+//-------------------------TOTEM---------------------------------------
 class Totem{
   var property image 
   var property position 
@@ -133,10 +141,7 @@ class Totem{
   }
 }
 
-object flash{
-  var property image = "ataqueLuzMala.png"
-  var property position = game.origin()
-}
+
 
 //=====================INSTANCIACIONES=============//
 //LIMITES
@@ -165,17 +170,17 @@ const ovniAnimado = new CartelAnimado(c1 = ovni1, c2 = ovni2)
 const ovni1 = new Cartel(image = "ov1.png", x= 4, y = 13)
 const ovni2 = new Cartel(image = "ov2.png", x= 4, y = 13)
 
-//PURTAS HACIAOTRAS ZONAS
+//PUERTAS HACIA OTRAS ZONAS
 const puertaIglesia = new Puerta(proxZona = iglesia)
 const puertaNahuelito = new Puerta(proxZona = salaNahuelito)
 const puertaAlien = new Puerta(proxZona = salaAlien)
 const puertaLuzMala = new Puerta(proxZona = salaLuzMala)
 
 //PUERTAS HACIA EL PUEBLO
-const puertaSalidaCasa = new PuertaAlPueblo(proxZona = pueblo, puebloCoordX = 9, puebloCoordY = 12)
-const puertaSalidaNahuelito = new PuertaAlPueblo(proxZona = pueblo, puebloCoordX = 5, puebloCoordY = 2)
-const puertaSalidaAlien = new PuertaAlPueblo(proxZona = pueblo, puebloCoordX = 9, puebloCoordY = 8, image= "latIzq.png")
-const puertaSalidaLuzMala = new PuertaAlPueblo(proxZona = pueblo, puebloCoordX = 1, puebloCoordY = 8, image= "latDer.png")
+const puertaSalidaCasa = new PuertaAlPueblo(puebloCoordX = 9, puebloCoordY = 12)
+const puertaSalidaNahuelito = new PuertaAlPueblo(puebloCoordX = 5, puebloCoordY = 2)
+const puertaSalidaAlien = new PuertaAlPueblo(puebloCoordX = 9, puebloCoordY = 8, image= "latIzq.png")
+const puertaSalidaLuzMala = new PuertaAlPueblo(puebloCoordX = 2, puebloCoordY = 8, image= "latD.png")
 
 //TOTEMS
 const totemL = new Totem(image = "totemLuzMala.png", position = self.posicionesTotem().get(1),salaEnemigo = salaLuzMala)

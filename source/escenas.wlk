@@ -88,7 +88,7 @@ object animacionAtaque{
   method iniciar() {
     game.addVisual(self)
     game.schedule(1800, {self.siguienteImagen(2)})
-    musicaFondo.pausar()
+    musicaFondo.volumen(0.05)
   }
   method siguienteImagen(img){
     if (img < 5) {
@@ -99,8 +99,9 @@ object animacionAtaque{
     } else {
       game.sound("grito.mp3").play()
       game.schedule(1500, {
-        game.removeVisual(self)
-       musicaFondo.reanudar()
+      game.removeVisual(self)
+      musicaFondo.volumen(0.25)
+      image = "ataque1.png"
        })
      
     }
@@ -114,6 +115,7 @@ object escenaPomberito{
   var property position = game.origin()
   method iniciar(interior) {
     musicaFondo.iniciar(4)
+    escenario.borrarEscena() // Prueba
     game.addVisual(self)
     game.schedule(4000, {self.siguienteImagen(interior)}) 
   }  
@@ -121,7 +123,7 @@ object escenaPomberito{
     image = "escenaPomberito2.png"
     game.removeVisual(self)
     game.addVisual(self)
-    game.schedule(5000, {
+    game.schedule(6000, { //5000 orig
       if( interior ==1){
         iglesia.iniciar()
       }else{
@@ -134,6 +136,7 @@ object escenaPomberito{
 
 object finalJuego{
   method iniciar(){
+    escenario.borrarEscena()
     //DESARROLLAR FINAL
   }
 }

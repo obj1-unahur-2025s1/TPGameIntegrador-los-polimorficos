@@ -58,11 +58,11 @@ object musicaFondo {
   method seEstaReproduciendo(num) = pista == num
 }
 
-object juiraBicho{
+/*object juiraBicho{
   const sonido = game.sound("juira.mp3")
   const volumen = 0.05
   method iniciar() {
     sonido.volume(volumen)
     sonido.play()
   }
-}
+} Despues veo si se me ocurre como solucionar el problema que tiraba - Toby*/
