@@ -91,16 +91,17 @@ class OlaRapida inherits Ola{
 class RocaDer inherits Ola(image = "roca.png") {
   const x
   const y
+  const vel = 333
   override method disparar(){
     position = game.at(x, y)
     game.addVisual(self)
-    game.onTick(200, "disparar roca", {self.mover()})
+    game.onTick(vel, "disparar roca", {self.mover()})
   }
   override method mover(){
     self.position(self.position().down(1))
     self.position(self.position().left(1))
 
-    if(self.position().y() == 0 || self.position().x() == -1){
+    if(self.position().y() == -1 || self.position().x() == -1){
       game.removeVisual(self)
     }
   }
@@ -110,11 +111,26 @@ class RocaIzq inherits RocaDer {
   override method disparar(){
     position = game.at(x, y)
     game.addVisual(self)
-    game.onTick(200, "disparar roca", {self.mover()})
+    game.onTick(vel, "disparar roca", {self.mover()})
   }
   override method mover(){
     self.position(self.position().down(1))
     self.position(self.position().right(1))
+
+    if(self.position().y() == 0 || self.position().x() == 11){
+      game.removeVisual(self)
+    }
+  }
+}
+
+class RocaAbajo inherits RocaDer {
+  override method disparar(){
+    position = game.at(x, y)
+    game.addVisual(self)
+    game.onTick(vel, "disparar roca", {self.mover()})
+  }
+  override method mover(){
+    self.position(self.position().down(1))
 
     if(self.position().y() == 0 || self.position().x() == 11){
       game.removeVisual(self)

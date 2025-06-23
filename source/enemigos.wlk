@@ -4,8 +4,6 @@ import escenario.*
 import ubicaciones.*
 import escenas.*
 /*
-Revisar en el pomberito xq solo cuando recibe daño por segunda vez se termina el juego (Deberia terminar cuando la vida es 0)
-
 La luz mala tira errores en su ataque o aveces hace dos ataques seguidos. Sinceramente no se por qué 
 */
 object pomberito {
@@ -58,19 +56,115 @@ object pomberito {
   method duracionAtaque() = 4000
   
   method recibirDanio() {
-    if (!self.derrotado()) {
       vida -= 1
-    }else{
-      finalJuego.iniciar()
-      }
     }
   
-  method atacar() { //El pomberito tira piedras (clase piedra ya hecha). El ataque Podría ser distintos patrones en el que lanza piedras (Y que ocupe varias casillas, asi se tiene que esquivar). 
-    //BORRAR COMENTARIO UNA VEZ REALIZADO
-    const ola = new Ola()
-    ola.position(self.position())
-    ola.disparar()
+  method atacar() { 
+        const ataques = [1,2,3,4]
+    if(ataques.anyOne() == 1){
+      self.ataque1()
+    }
+    else if(ataques.anyOne() == 2){
+      self.ataque2()
+    }
+    else if(ataques.anyOne() == 3){
+      self.ataque3()
+    }
+    else
+      self.ataque4()
   }
+  method ataque1(){
+        
+        self.paredCentral()
+        game.schedule(5000, { 
+          const roca = new RocaAbajo(vel = 100,x=cachito.position().x(),y=9) 
+          roca.position(self.position())
+          roca.disparar()
+          })
+
+  }
+
+  method ataque2(){
+        self.paredConHuecosYDesface(0, 7)
+        self.paredConHuecosYDesface(1, 9)
+        self.paredConHuecosYDesface(0, 11)
+
+  }
+
+  method ataque3(){
+
+    game.onTick(200, "ataque3Pomberito", {
+      const roca = new RocaAbajo(vel = 100,x=[0,1,2,3,4,5,6,7,8,9,10].anyOne(),y=9) 
+          roca.position(self.position())
+          roca.disparar() })
+    game.schedule(5500, {game.removeTickEvent("ataque3Pomberito")})
+  }
+
+  method ataque4(){
+
+    game.onTick(750, "ataque4Pomberito", {
+      const roca = new RocaAbajo(vel = 100,x=cachito.position().x(),y=9) 
+          roca.position(self.position())
+          roca.disparar()
+      const roca1 = new RocaIzq(vel = 250,x=1,y=7) 
+          roca1.position(self.position())
+          roca1.disparar()
+      const roca2 = new RocaDer(vel = 250,x=10,y=7) 
+          roca2.position(self.position())
+          roca2.disparar() })
+          
+    game.schedule(5500, {game.removeTickEvent("ataque4Pomberito")})
+  }
+
+  method paredCentral(){
+        const roca1 = new RocaAbajo(vel = 150,x=2,y=9)
+    roca1.position(self.position())
+    roca1.disparar()
+        const roca4 = new RocaAbajo(vel = 150,x=3,y=9)
+    roca4.position(self.position())
+    roca4.disparar()
+        const roca = new RocaAbajo(vel = 150,x=4,y=9)
+    roca.position(self.position())
+    roca.disparar()
+        const roca2 = new RocaAbajo(vel = 150,x=5,y=9)
+    roca2.position(self.position())
+    roca2.disparar()
+        const roca3 = new RocaAbajo(vel = 150,x=6,y=9)
+    roca3.position(self.position())
+    roca3.disparar()
+        const roca5 = new RocaAbajo(vel = 150,x=7,y=9)
+    roca5.position(self.position())
+    roca5.disparar()
+
+  }
+  
+  method paredConHuecosYDesface(x,y){
+        const roca = new RocaAbajo(x=0+x,y=y)
+    roca.position(self.position())
+    roca.disparar()
+        const roca2 = new RocaAbajo(x=2+x,y=y)
+    roca2.position(self.position())
+    roca2.disparar()
+        const roca3 = new RocaAbajo(x=4+x,y=y)
+    roca3.position(self.position())
+    roca3.disparar()
+        const roca4 = new RocaAbajo(x=6+x,y=y)
+    roca4.position(self.position())
+    roca4.disparar()
+        const roca5 = new RocaAbajo(x=8+x,y=y)
+    roca5.position(self.position())
+    roca5.disparar()
+        const roca6 = new RocaAbajo(x=10+x,y=y)
+    roca6.position(self.position())
+    roca6.disparar()
+        const roca7 = new RocaAbajo(x=12+x,y=y)
+    roca7.position(self.position())
+    roca7.disparar()
+        const roca8 = new RocaAbajo(x=14+x,y=y)
+    roca8.position(self.position())
+    roca8.disparar()
+  }
+
 }
 
 object luzMala {
@@ -241,7 +335,6 @@ object batallaFinal {
   }
   
   method golpearPomberito() {
-    pomberito.recibirDanio()
     if (pomberito.derrotado()) finalJuego.iniciar()
     else game.schedule(500, { self.etapaDefensa() })
   }
