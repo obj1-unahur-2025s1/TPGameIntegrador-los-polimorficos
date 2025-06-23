@@ -5,23 +5,33 @@ import musicaFondo.*
 import cachito.*
 import enemigos.*
 import ubicaciones.*
-//======================PANTALLAS========================//
 
+//======================PANTALLAS========================//
 object inicio {
   var property image = "controles.png"
   var property position = game.origin()
+  
   method iniciar() {
     game.addVisual(self)
-    game.addVisual(spaceParaContinuar1)
-    game.onTick(500, "actualizarPuertas", {escenario.actualizarPuertas()}) 
-    keyboard.space().onPressDo({
-      musicaFondo.iniciar(0)
-      image = "p1.png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      game.schedule(2000, { self.animacionIntro(2) }) }) 
+    game.onTick(500, "actualizarPuertas", { escenario.actualizarPuertas() })
+    escenario.enControles(true)
+    keyboard.space().onPressDo(
+      { if (escenario.enControles()) {
+          musicaFondo.iniciar(0)
+          image = "p1.png"
+          game.removeVisual(self)
+          game.addVisual(self)
+          game.schedule(
+            2000,
+            { 
+              self.animacionIntro(2)
+                escenario.enControles(false)
+            }
+          )
+        } }
+    )
   }
-
+  
   method reiniciar() {
     musicaFondo.detener()
     musicaFondo.volumen(0.25)
@@ -43,25 +53,108 @@ object inicio {
       game.schedule(200, { self.animacionIntro(escenaAc + 1) })
     } else {
       escenario.animar(true)
+      escenario.enMenu(true)
       image = "portada.png"
       game.removeVisual(self)
       game.addVisual(self)
       game.addVisual(iniciar1)
       cartelIniciar.animar()
-      keyboard.e().onPressDo({ self.iniciarJuego()})
+      keyboard.e().onPressDo({ if (escenario.enMenu()) self.iniciarLore() })
     }
   }
-  method iniciarJuego() {
-    game.schedule(2000, {cartelIniciar.detenerAnimacion() casa.iniciar() })
+  
+  method iniciarLore() {
+    escenario.enMenu(false)
+    game.schedule(
+      2000,
+      { 
+        cartelIniciar.detenerAnimacion()
+        lore1.iniciar()
+      }
+    )
   }
 }
 
-object pantallaGameOver{
+object lore1 {
+  var property image = "l1.png"
+  var property position = game.origin()
+  
+  method iniciar() {
+    escenario.borrarEscena() // Prueba
+    musicaFondo.detener()
+    musicaFondo.iniciar(5)
+    game.addVisual(self)
+    self.animacionLore(2)
+
+  }
+  
+  method animacionLore(escenaAc) {
+    if (escenaAc < 6) {
+      image = ("l" + escenaAc) + ".png"
+      game.removeVisual(self)
+      game.addVisual(self)
+      game.schedule(500, { self.animacionLore(escenaAc + 1) })
+    } else {
+      escenario.enLore1(true)
+      game.addVisual(spaceParaContinuar1)
+      keyboard.space().onPressDo(
+        { if (escenario.enLore1()) {
+            escenario.borrarEscena() // Prueba
+            lore2.iniciar()
+            escenario.enLore1(false)
+          } }
+      )
+    }
+  }
+}
+
+object lore2 {
+  var property image = "l6.png"
+  var property position = game.origin()
+  
+  method iniciar() {
+    game.addVisual(self)
+    self.animacionLore(7)
+  }
+  
+  method animacionLore(escenaAc) {
+    if (escenaAc < 13) {
+      image = ("l" + escenaAc) + ".png"
+      game.removeVisual(self)
+      game.addVisual(self)
+      game.schedule(500, { self.animacionLore(escenaAc + 1) })
+    } else {
+      escenario.enLore2(true)
+      game.addVisual(spaceParaContinuar1)
+      keyboard.space().onPressDo(
+        { if (escenario.enLore2()) {
+            image = "l13.png"
+            escenario.borrarEscena() 
+            game.addVisual(self)
+            game.schedule(10000, { self.iniciarJuego() })
+          } }
+      )
+    }
+  }
+  
+  method iniciarJuego() {
+    game.addVisual(spaceParaContinuar1)
+    keyboard.space().onPressDo(
+      { if (escenario.enLore2()) {
+          game.schedule(2000, { casa.iniciar() escenario.enLore2(false) })
+        } }
+    )
+  }
+}
+
+object pantallaGameOver {
   var property image = "gameOver.png"
   var property position = game.origin()
+  
   method iniciar() {
     escenario.borrarEscena()
     game.addVisual(self)
+    musicaFondo.detener()
     musicaFondo.iniciar(3)
     escenario.animar(true)
     game.addVisual(opcionGameOver1)
@@ -69,73 +162,79 @@ object pantallaGameOver{
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
-    keyboard.y().onPressDo({inicio.reiniciar()})
-    keyboard.n().onPressDo({self.finalizar()})
+    keyboard.y().onPressDo({ if (escenario.enGameOver()) inicio.reiniciar() })
+    keyboard.n().onPressDo({ if (escenario.enGameOver()) self.finalizar() })
   }
+  
   method finalizar() {
     image = "gameOver2.png"
     game.removeVisual(self)
     game.addVisual(self)
     cartelGameOver.detenerAnimacion()
     musicaFondo.detener()
-    game.schedule(12000,{game.stop()})
+    game.schedule(12000, { game.stop() })
   }
 }
 
-object animacionAtaque{
+object animacionAtaque {
   var property image = "ataque1.png"
   var property position = game.origin()
+  
   method iniciar() {
     game.addVisual(self)
-    game.schedule(1800, {self.siguienteImagen(2)})
+    game.schedule(1800, { self.siguienteImagen(2) })
     musicaFondo.volumen(0.05)
   }
-  method siguienteImagen(img){
+  
+  method siguienteImagen(img) {
     if (img < 5) {
-      image = "ataque" + img + ".png"
+      image = ("ataque" + img) + ".png"
       game.removeVisual(self)
       game.addVisual(self)
-      game.schedule(1800, {self.siguienteImagen(img + 1)})
+      game.schedule(1800, { self.siguienteImagen(img + 1) })
     } else {
       game.sound("grito.mp3").play()
-      game.schedule(1500, {
-      game.removeVisual(self)
-      musicaFondo.volumen(0.25)
-      image = "ataque1.png"
-       })
-     
+      game.schedule(
+        1500,
+        { 
+          game.removeVisual(self)
+          musicaFondo.volumen(0.25)
+          image = "ataque1.png"
+        }
+      )
     }
-    
   }
+  
   method duracion() = 9000
 }
 
-object escenaPomberito{
+object escenaPomberito {
   var property image = "escenaPomberito1.png"
   var property position = game.origin()
+  
   method iniciar(interior) {
     musicaFondo.iniciar(4)
     escenario.borrarEscena() // Prueba
     game.addVisual(self)
-    game.schedule(4000, {self.siguienteImagen(interior)}) 
-  }  
+    game.schedule(4000, { self.siguienteImagen(interior) })
+  }
+  
   method siguienteImagen(interior) {
     image = "escenaPomberito2.png"
     game.removeVisual(self)
     game.addVisual(self)
-    game.schedule(6000, { //5000 orig
-      if( interior ==1){
-        iglesia.iniciar()
-      }else{
-        iglesia2.iniciar()
-      }
-    })
+    game.schedule(
+      6000,
+      { //5000 orig
+        if (interior == 1) iglesia.iniciar() else iglesia2.iniciar() }
+    )
   }
+  
   method duracion() = 9000
 }
 
-object finalJuego{
-  method iniciar(){
+object finalJuego {
+  method iniciar() {
     escenario.borrarEscena()
     //DESARROLLAR FINAL
   }

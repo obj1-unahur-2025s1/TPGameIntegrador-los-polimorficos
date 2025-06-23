@@ -5,11 +5,11 @@ object musicaFondo {
   
   method iniciar(num) {
     if ((num == 0) && (!self.seEstaReproduciendo(0))) {
-      musicaFondo = game.sound("zelda.mp3")
+      musicaFondo = game.sound("mainTitle.mp3")
       pista = 0
     }
     if ((num == 1) && (!self.seEstaReproduciendo(1))) {
-      musicaFondo = game.sound("main.mp3")
+      musicaFondo = game.sound("casaCachito.mp3")
       pista = 1
     }
     if ((num == 2) && (!self.seEstaReproduciendo(2))) {
@@ -24,6 +24,12 @@ object musicaFondo {
     if (num == 4){
       musicaFondo = game.sound("finalboss.mp3")
       pista = 4
+      volumen = 0.25
+    }
+
+    if (num == 5){
+      musicaFondo = game.sound("lore.mp3")
+      pista = 5
       volumen = 0.25
     }
     musicaFondo.play()

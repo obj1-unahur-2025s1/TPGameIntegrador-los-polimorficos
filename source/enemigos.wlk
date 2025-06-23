@@ -55,7 +55,7 @@ object pomberito {
   
   method duracionAtaque() = 4000
   
-  method recibirDanio() {
+  method recibirDaño() {
       vida -= 1
     }
   
