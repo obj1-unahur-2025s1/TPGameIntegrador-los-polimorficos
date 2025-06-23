@@ -9,6 +9,11 @@ import ubicaciones.*
 object escenario {
   var property elementosEnEscena = []
   var property animar = false
+  var property enControles = false
+  var property enMenu = false
+  var property enLore1 = false
+  var property enLore2 = false
+  var property enGameOver = false
   const property puertas = [
     puertaIglesia,
     puertaNahuelito,
@@ -16,6 +21,15 @@ object escenario {
     puertaLuzMala
   ]
   
+  method reiniciarEstados(){
+    animar = false
+    enControles = false
+    enMenu = false
+    enLore1 = false
+    enLore2 = false
+    enGameOver = false
+  }
+
   method cargarListaconElementos() {
     elementosEnEscena = game.allVisuals()
   }

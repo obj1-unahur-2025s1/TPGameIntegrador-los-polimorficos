@@ -86,7 +86,7 @@ object cachito {
 		)
 		keyboard.num(6).onPressDo({ game.say(self, "A" + self.position()) })
 		keyboard.num(7).onPressDo({ game.say(self, "Totems" + totems) })
-		keyboard.num(8).onPressDo({ game.say(self, "X" + position.x()) })
+		keyboard.num(8).onPressDo({ game.say(self, "En Menu: " + escenario.enMenu() + "En controles: " + escenario.enControles()) })
 	}
 	
 	method reiniciar() {
@@ -121,7 +121,7 @@ object cachito {
 	method atacar() {
 		animacionAtaque.iniciar()
 		position = game.at(5, 1)
-		pomberito.recibirDanio()
+		pomberito.recibirDaño()
 	}
 	
 	method otorgarInmunidad(tiempo) {
@@ -129,7 +129,7 @@ object cachito {
 		game.schedule(tiempo, { tieneInmunidad = false })
 	}
 	
-	method recibirDanio() {
+	method recibirDaño() {
 		if ((self.vida() > 0) && (!tieneInmunidad)) {
 			vida = 0.max(vida - 1)
 			barraDeVida.sacarVidas()

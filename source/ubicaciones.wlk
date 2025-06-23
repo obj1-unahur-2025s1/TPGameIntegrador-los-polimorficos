@@ -59,7 +59,7 @@ object pueblo {
   var property y = 8
   method iniciar() {
     musicaFondo.detener()
-    escenario.iniciarEscena(self, teroPiolado)
+    escenario.iniciarEscena(self, teroViolado)
     cachito.ubicacion(self)
     cachito.actualizarImagen()
     escenario.colocarJugadorEn(x,y)
@@ -145,7 +145,7 @@ object iglesia {
   method imagenPuerta() = if (cachito.enemigosDerrotados() == 3) "pIglesia.png" else "pIglesiaB.png"
   var property position = game.origin()
   method iniciar() {
-    escenario.iniciarEscena(self, iglesiaTeroPiolado)
+    escenario.iniciarEscena(self, iglesiaTeroViolado)
     batallaFinal.iniciarPelea()
     pomberito.iniciar()
     escenario.colocarJugadorEn(5,1)
@@ -174,10 +174,10 @@ object iglesia2{
   const property image = "iglesia.png"
   var property position = game.origin()
   method iniciar() {
-    escenario.iniciarEscena(self, iglesiaTeroPiolado)
+    escenario.iniciarEscena(self, iglesiaTeroViolado)
+    cachito.ubicacion(self)
     batallaFinal.iniciarPelea()
     pomberito.iniciar()
-    cachito.ubicacion(self)
     escenario.colocarJugadorEn(5,1)
     cachito.actualizarImagen()
     escenario.ubicarEnEscena(limiteSuperior, 0, 2)
@@ -193,9 +193,9 @@ object salaAlien {
   method imagenPuerta() = if (cachito.derrotoA(alien)) "palienB.png" else "palien.png"
   method iniciar() {
     musicaFondo.cambiarAPista(2)
+    //cachito.ubicacion(self)
     escenario.iniciarEscena(self, ovniAlien)
     escenario.colocarJugadorEn(0, 1)
-    cachito.ubicacion(self)
     cachito.actualizarImagen()
     escenario.ubicarEnEscena(limiteSuperior, 0, 12)
     escenario.ubicarEnEscena(limiteInferior, 0, 0)
@@ -210,10 +210,10 @@ object salaAlien {
   }
   
   method interaccion() {
-    cachito.ubicacion(self)
     if (self.imagenPuerta() == "palienB.png") {
       game.say(puertaAlien, "No podes pasar, ya derrotaste al Alien")
     } else
+    cachito.ubicacion(self)
     game.schedule(1000, {
       self.iniciar() })
   }
@@ -246,10 +246,10 @@ object salaNahuelito {
     barraDeVida.mostrarVidas()
   }
   method interaccion() {
-    cachito.ubicacion(self)
     if (self.imagenPuerta() == "pNahueB.png") {
       game.say(puertaNahuelito, "No podes pasar, ya derrotaste a Nahuelito")
     } else{
+    cachito.ubicacion(self)
       game.schedule(1000, {
         self.iniciar() })
     }
@@ -279,10 +279,10 @@ object salaLuzMala {
   }
   
   method interaccion() {
-    cachito.ubicacion(self)
     if (self.imagenPuerta() == "pluzMalaB.png") {
       game.say(puertaLuzMala, "No podes pasar, ya derrotaste a la Luz Mala")
     } else {
+    cachito.ubicacion(self)
      game.schedule(1000, {
         self.iniciar() })
     }

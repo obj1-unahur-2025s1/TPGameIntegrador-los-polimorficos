@@ -77,7 +77,7 @@ class Ola{
       }
   }
   method interaccion(){
-    cachito.recibirDanio()
+    cachito.recibirDaño()
   }
 }
 class OlaRapida inherits Ola{
@@ -175,7 +175,7 @@ const iniciar1 = new Cartel(image = "press1.png", x= 1, y = 1)
 const iniciar2 = new Cartel(image = "press2.png", x= 1, y = 1)
 const opcionGameOver1 = new Cartel(image = "SN1.png", x= 1, y = 4)
 const opcionGameOver2 = new Cartel(image = "SN2.png", x= 1, y = 4)
-const spaceParaContinuar1 = new Cartel(image = "cont1.png", x= 0, y = 4)
+const spaceParaContinuar1 = new Cartel(image = "cont1.png", x= 0, y = 0)
 const cartelAtaque = new Cartel (image = "cartelDeAtaque.png", x =1, y = 13)
 
 const cartelIniciar = new CartelAnimado(c1 = iniciar1, c2 = iniciar2)
