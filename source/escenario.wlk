@@ -85,7 +85,15 @@ object escenario {
   }
   
   method probabilidadAleatoria() {
-    const numeros = [1, 2]
+    const numeros = [1, 2 , 3 , 4 , 5 , 6]
     return numeros.anyOne().even()
+  }
+
+  method elegirPersonaje() {
+    if(self.probabilidadAleatoria()) {
+      self.ubicarEnEscena(gauchitoGil, 4, 5)
+    }
+    else 
+    self.ubicarEnEscena(mujerCachito, 4, 5)
   }
 }

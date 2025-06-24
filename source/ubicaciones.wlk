@@ -6,6 +6,7 @@ import musicaFondo.*
 import textos.*
 import objetos.*
 import escenario.*
+import limitadores.*
 
 object casa {
   const property image = "casa.png"
@@ -21,37 +22,9 @@ object casa {
     escenario.ubicarEnEscena(limiteLatDer, 11, 0)
     escenario.ubicarEnEscena(limiteLatIzq, 0, 0)
     barraDeVida.mostrarVidas()
-    self.agregarLimitadoresDeMovimiento()
+    limitadores.agregarLimitadoresEnCasa()
   }
 
-  method agregarLimitadoresDeMovimiento() {
-    escenario.ubicarEnEscena(new LimitadorArriba(), 0, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 1, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 2, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 3, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 4, 9)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 5, 9)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 6, 9)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 8, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 9, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 10, 10)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 4)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 7)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 8)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 9)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 5)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 4)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 3)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 7)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 8)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 9)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 5)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 4)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 3)
-  }//Capaz se puede hacer un archivo limitadores.wlk con objetos limitadores y que tengas un metodo
-  //agregarLimitadoresCasa()  que tenga todos los  escenario.ubicarEnEscena(new LimitadorArriba(x,y))  utilizados en la funcion arriba de este comentario
-  //El llamado quedaria limitadores.agregarLimitadoresCasa()
 }
 object pueblo {
   const property image = "pueblo3.png"
@@ -73,7 +46,8 @@ object pueblo {
     escenario.ubicarEnEscena(limiteLatDer, 11, 0)
     escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
     barraDeVida.mostrarVidas()
-    self.agregarLimitadoresDeMovimiento()
+    self.agregarPersonajeAleatorio()
+    limitadores.agregarLimitadoresEnPueblo()
   }
   method imagenPuerta() = "puertaAlPueblo.png"
   method interaccion(){
@@ -82,63 +56,12 @@ object pueblo {
     })
   }
 
-  method agregarLimitadoresDeMovimiento() {
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 12)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 11)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 10)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 9)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 7)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 6)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 5)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 0)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 1)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 2)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 3)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 4)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 2, 7)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 2, 8)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 9)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 10)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 11)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 12)
-    escenario.ubicarEnEscena(new LimitadorDerecha(), 7, 6)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 12)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 11)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 10)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 9)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 7)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 6)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 0)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 1)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 2)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 3)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 4)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 0, 5)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 0, 6)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 0, 7)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 8)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 9)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 10)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 11)
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 12)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 9, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 8, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 7, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 1, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 2, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 3, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 4, 4)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 5, 7)
-    escenario.ubicarEnEscena(new LimitadorAbajo(), 7, 7)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 6)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 2, 6)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 3, 6)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 4, 6)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 1, 9)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 9)
-    escenario.ubicarEnEscena(new LimitadorArriba(), 7, 9)
-  }//Lo mismo que en el objeto casa pero con el nombre agregarLimitadoresPueblo(). El llamado quedaria limitadores.agregarLimitadoresPueblo()
-  
+  method agregarPersonajeAleatorio() {
+    if(cachito.enemigosDerrotados() === 3) {
+      escenario.elegirPersonaje()
+    }
+    
+  }  
 }
 
 object iglesia {
@@ -280,6 +203,8 @@ object salaLuzMala {
     escenario.ubicarEnEscena(limiteLatDer, 11, 0)
     escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
     barraDeVida.mostrarVidas()
+    cachito.bloquearMovimiento()
+    game.schedule(3000, {cachito.activarMovimiento()})
     luzMala.iniciar()
   }
   
