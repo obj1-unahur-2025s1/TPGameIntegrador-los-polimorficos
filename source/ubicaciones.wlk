@@ -12,6 +12,7 @@ object casa {
   var property position = game.origin()
   
   method iniciar() {
+    game.removeVisual(spaceParaContinuar1)
     musicaFondo.cambiarAPista(1)
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
@@ -204,9 +205,11 @@ object salaAlien {
     barraDeVida.mostrarVidas()
     escenario.animar(true)
     game.addVisual(ovni1)
+    cachito.bloquearMovimiento()
     self.iniciarAnimacion()
     game.schedule(3000, {alien.iniciar()})
     game.schedule(3000, {ovniAnimado.animar()})
+    game.schedule(3000, {cachito.activarMovimiento()})
   }
   
   method interaccion() {
@@ -242,6 +245,8 @@ object salaNahuelito {
     escenario.ubicarEnEscena(limiteSuperior, 0, 15)
     escenario.ubicarEnEscena(limiteLatDer, 11, 0)
     escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
+    cachito.bloquearMovimiento()
+    game.schedule(3000, {cachito.activarMovimiento()})
     nahuelito.iniciar()
     barraDeVida.mostrarVidas()
   }

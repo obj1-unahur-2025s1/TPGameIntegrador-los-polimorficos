@@ -43,6 +43,7 @@ object inicio {
     game.removeTickEvent("disparar roca")
     image = "controles.png"
     self.iniciar()
+    escenario.enGameOver(false)
   }
   
   method animacionIntro(escenaAc) {
@@ -131,7 +132,7 @@ object lore2 {
             image = "l13.png"
             escenario.borrarEscena() 
             game.addVisual(self)
-            game.schedule(10000, { self.iniciarJuego() })
+            self.iniciarJuego() 
           } }
       )
     }
@@ -141,7 +142,7 @@ object lore2 {
     game.addVisual(spaceParaContinuar1)
     keyboard.space().onPressDo(
       { if (escenario.enLore2()) {
-          game.schedule(2000, { casa.iniciar() escenario.enLore2(false) })
+          game.schedule(2000, { casa.iniciar() escenario.enLore2(false)})
         } }
     )
   }
@@ -152,6 +153,7 @@ object pantallaGameOver {
   var property position = game.origin()
   
   method iniciar() {
+    escenario.enGameOver(true) 
     escenario.borrarEscena()
     game.addVisual(self)
     musicaFondo.detener()
@@ -173,6 +175,7 @@ object pantallaGameOver {
     cartelGameOver.detenerAnimacion()
     musicaFondo.detener()
     game.schedule(12000, { game.stop() })
+    escenario.enGameOver(false)
   }
 }
 
