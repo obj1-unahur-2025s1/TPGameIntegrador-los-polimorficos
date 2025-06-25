@@ -38,9 +38,9 @@ object pueblo {
     cachito.actualizarImagen()
     escenario.colocarJugadorEn(x,y)
     escenario.ubicarEnEscena(puertaIglesia, 5, 11)
-    escenario.ubicarEnEscena(puertaAlien, 10,8)
-    escenario.ubicarEnEscena(puertaLuzMala, 0,8)
-    escenario.ubicarEnEscena(puertaNahuelito, 5,0)
+    if(not cachito.derrotoA(alien)) escenario.ubicarEnEscena(puertaAlien, 10,8)
+    if(not cachito.derrotoA(luzMala))escenario.ubicarEnEscena(puertaLuzMala, 0,8)
+    if(not cachito.derrotoA(nahuelito))escenario.ubicarEnEscena(puertaNahuelito, 5,0)
     escenario.ubicarEnEscena(limiteSuperior, 0, 13)
     escenario.ubicarEnEscena(limiteInferior, 0, -1)
     escenario.ubicarEnEscena(limiteLatDer, 11, 0)
@@ -114,7 +114,7 @@ object iglesia2{
 object salaAlien {
   const property image = "fondoAlien.png" //Hacer el fondo
   var property position = game.origin()
-  method imagenPuerta() = if (cachito.derrotoA(alien)) "palienB.png" else "palien.png"
+  method imagenPuerta() = "palien.png"
   method iniciar() {
     musicaFondo.cambiarAPista(2)
     //cachito.ubicacion(self)
@@ -136,9 +136,6 @@ object salaAlien {
   }
   
   method interaccion() {
-    if (self.imagenPuerta() == "palienB.png") {
-      game.say(puertaAlien, "No podes pasar, ya derrotaste al Alien")
-    } else
     cachito.ubicacion(self)
     game.schedule(1000, {
       self.iniciar() })
@@ -158,8 +155,7 @@ object salaAlien {
 object salaNahuelito {
   const property image = "fondoNahuelito.png"
   var property position = game.origin()
-  method imagenPuerta() = if (cachito.derrotoA(nahuelito)) "pNahueB.png"
-                          else "pNahue.png"
+  method imagenPuerta() =  "pNahue.png"
   method iniciar() {
     escenario.iniciarEscena(self, costaNahuelito)
     escenario.colocarJugadorEn(5, 14)
@@ -174,13 +170,9 @@ object salaNahuelito {
     barraDeVida.mostrarVidas()
   }
   method interaccion() {
-    if (self.imagenPuerta() == "pNahueB.png") {
-      game.say(puertaNahuelito, "No podes pasar, ya derrotaste a Nahuelito")
-    } else{
     cachito.ubicacion(self)
       game.schedule(1000, {
         self.iniciar() })
-    }
   }
   method salidaDeLaSala(){
     if (cachito.ubicacion() == self) {
@@ -192,7 +184,7 @@ object salaNahuelito {
 object salaLuzMala {
   const property image = "fondoLuzMala.png" 
   var property position = game.origin()
-  method imagenPuerta() = if (cachito.derrotoA(luzMala)) "pluzMalaB.png" else "pluzMala.png"
+  method imagenPuerta() = "pluzMala.png"
   
   method iniciar() {
     escenario.iniciarEscena(self, zonaLuzMala)
@@ -209,13 +201,10 @@ object salaLuzMala {
   }
   
   method interaccion() {
-    if (self.imagenPuerta() == "pluzMalaB.png") {
-      game.say(puertaLuzMala, "No podes pasar, ya derrotaste a la Luz Mala")
-    } else {
     cachito.ubicacion(self)
      game.schedule(1000, {
         self.iniciar() })
-    }
+
   }
   method salidaDeLaSala(){
     if (cachito.ubicacion() == self) {
