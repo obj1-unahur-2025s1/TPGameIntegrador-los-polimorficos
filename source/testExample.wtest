@@ -97,4 +97,11 @@ describe "Pomberito" {
     cachito.atacar()
     assert.equals(3, pomberito.vida())
   }
+
+  test "Al iniciar la casa, las teclas del menu se desactivan"{
+    game.clear()
+    casa.iniciar()
+    assert.notThat(accionesTeclas.pantallaValida())
+
+  }
 }

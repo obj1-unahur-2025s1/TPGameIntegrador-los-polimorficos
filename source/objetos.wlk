@@ -53,6 +53,7 @@ class CartelAnimado {
   const property c1
   const property c2
   method animar() {
+    escenario.animar(true)
     escenario.animarCartel(c1, c2)
   }
   method detenerAnimacion() {

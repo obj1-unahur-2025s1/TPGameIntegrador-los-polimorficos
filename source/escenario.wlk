@@ -4,7 +4,7 @@ import musicaFondo.*
 import textos.*
 import objetos.*
 import ubicaciones.*
-
+import escenas.*
 
 object escenario {
   var property elementosEnEscena = []
@@ -96,5 +96,24 @@ object escenario {
     }
     else 
     self.ubicarEnEscena(mujerCachito, 4, 5)
+  }
+}
+
+object accionesTeclas{
+  var pantalla = null
+  var property pantallaValida = false
+  var property tecla = null
+  method asignarTecla(teclaNueva){
+    tecla = teclaNueva
+  }
+  method actualizarPantalla(nuevaPantalla){
+    pantalla = nuevaPantalla
+  }
+  method accion(){
+    if(pantallaValida){
+      tecla.onPressDo({
+        pantalla.accionTecla()
+      })
+    }
   }
 }

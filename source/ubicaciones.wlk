@@ -7,12 +7,14 @@ import textos.*
 import objetos.*
 import escenario.*
 import limitadores.*
+import cinematicas.*
 
 object casa {
   const property image = "casa.png"
   var property position = game.origin()
   
   method iniciar() {
+    accionesTeclas.pantallaValida(false)
     game.removeVisual(spaceParaContinuar1)
     musicaFondo.cambiarAPista(1)
     escenario.iniciarEscena(self, casaCachito)
@@ -86,7 +88,7 @@ object iglesia {
       game.say(puertaIglesia, "Necesitas derrotar a: " + 
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
     else{
-      game.schedule(1000, {escenaPomberito.iniciar() })
+      game.schedule(200, {escenaPomberito1.iniciar() musicaFondo.iniciar(4)})
       cachito.ubicacion(self)
     }
   }

@@ -5,33 +5,40 @@ import musicaFondo.*
 import cachito.*
 import enemigos.*
 import ubicaciones.*
+import cinematicas.*
+
 
 //======================PANTALLAS========================//
-object inicio {
+object controles{
   var property image = "controles.png"
   var property position = game.origin()
-  
+  method accionTecla() { inicio1.iniciar() musicaFondo.iniciar(0)}
+  const tecla = keyboard.space()
   method iniciar() {
+    accionesTeclas.pantallaValida(true)
+    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.actualizarPantalla(self)
+    game.addVisual(self)
+    accionesTeclas.accion()
+  }
+}
+
+object portada {
+  var property image = "portada.png"
+  var property position = game.origin()
+  const tecla = keyboard.e()
+  method accionTecla() {lore1.iniciar() musicaFondo.iniciar(5)}
+  method iniciar() {
+    escenario.borrarEscena()
     game.addVisual(self)
     game.onTick(500, "actualizarPuertas", { escenario.actualizarPuertas() })
-    escenario.enControles(true)
-    keyboard.space().onPressDo(
-      { if (escenario.enControles()) {
-          musicaFondo.iniciar(0)
-          image = "p1.png"
-          game.removeVisual(self)
-          game.addVisual(self)
-          game.schedule(
-            2000,
-            { 
-              self.animacionIntro(2)
-                escenario.enControles(false)
-            }
-          )
-        } }
-    )
+    game.addVisual(iniciar1)
+    cartelIniciar.animar()
+    accionesTeclas.pantallaValida(true)
+    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.actualizarPantalla(self)
+    accionesTeclas.accion()
   }
-  
   method reiniciar() {
     musicaFondo.detener()
     musicaFondo.volumen(0.25)
@@ -42,114 +49,77 @@ object inicio {
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("disparar roca")
-    image = "controles.png"
+    image = "p1"
     musicaFondo.reestablecerPista()
     self.iniciar()
     escenario.enGameOver(false)
   }
-  
-  method animacionIntro(escenaAc) {
-    if (escenaAc < 7) {
-      image = ("p" + escenaAc) + ".png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      game.schedule(200, { self.animacionIntro(escenaAc + 1) })
-    } else {
-      escenario.animar(true)
-      escenario.enMenu(true)
-      image = "portada.png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      game.addVisual(iniciar1)
-      cartelIniciar.animar()
-      keyboard.e().onPressDo({ if (escenario.enMenu()) self.iniciarLore() })
-    }
-  }
-  
-  method iniciarLore() {
-    escenario.enMenu(false)
-    game.schedule(
-      2000,
-      { 
-        cartelIniciar.detenerAnimacion()
-        lore1.iniciar()
-      }
-    )
-  }
 }
 
-object lore1 {
-  var property image = "l1.png"
+//=========================Pantallas Cinematica Inicial=========================//
+const inicio1 = new PantallaCinematica(delay = 500,image="p1.png", siguiente=inicio2)
+const inicio2 = new PantallaCinematica(delay = 500,image="p2.png", siguiente=inicio3)
+const inicio3 = new PantallaCinematica(delay = 500,image="p3.png", siguiente=inicio4)
+const inicio4 = new PantallaCinematica(delay = 500,image="p4.png", siguiente=inicio5)
+const inicio5 = new PantallaCinematica(delay = 500,image="p5.png", siguiente=inicio6)
+const inicio6 = new PantallaCinematica(delay = 500,image="p6.png", siguiente=portada)
+//=========================Pantallas Cinematica Lore=========================//
+const lore1 = new PantallaCinematica(delay = 500,image="l1.png", siguiente=lore2)
+const lore2 = new PantallaCinematica(delay = 500,image="l2.png", siguiente=lore3)
+const lore3 = new PantallaCinematica(delay = 500,image="l3.png", siguiente=lore4)
+const lore4 = new PantallaCinematica(delay = 500,image="l4.png", siguiente=lore5)
+const lore5 = new PantallaCinematicaEspecial(image="l5.png", siguiente=lore6)
+const lore6 = new PantallaCinematica(delay = 500,image="l6.png", siguiente=lore7)
+const lore7 = new PantallaCinematica(delay = 500,image="l7.png", siguiente=lore8)
+const lore8 = new PantallaCinematica(delay = 500,image="l8.png", siguiente=lore9)
+const lore9 = new PantallaCinematica(delay = 500,image="l9.png", siguiente=lore10)
+const lore10 = new PantallaCinematica(delay = 500,image="l10.png", siguiente=lore11)
+const lore11 = new PantallaCinematica(delay = 500,image="l11.png", siguiente=lore12)
+const lore12 = new PantallaCinematicaEspecial(image="l12.png", siguiente=lore13)
+
+object lore13 {
+  var property image = "l13.png"
   var property position = game.origin()
-  
+  method accionTecla() {casa.iniciar()}
+  const tecla = keyboard.space()
   method iniciar() {
     escenario.borrarEscena() 
-    musicaFondo.detener()
-    musicaFondo.iniciar(5)
     game.addVisual(self)
-    self.animacionLore(2)
-
-  }
-  
-  method animacionLore(escenaAc) {
-    if (escenaAc < 6) {
-      image = ("l" + escenaAc) + ".png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      game.schedule(500, { self.animacionLore(escenaAc + 1) })
-    } else {
-      escenario.enLore1(true)
-      game.addVisual(spaceParaContinuar1)
-      keyboard.space().onPressDo(
-        { if (escenario.enLore1()) {
-            escenario.borrarEscena() 
-            lore2.iniciar()
-            escenario.enLore1(false)
-            image = "l1.png"
-          } }
-      )
-    }
+    game.schedule(1500, { game.addVisual(spaceParaContinuar1) })
+    accionesTeclas.pantallaValida(true)
+    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.actualizarPantalla(self)
+    accionesTeclas.accion()
   }
 }
+//===========================Pantallas Cinematicas Entrada a la iglesia========================//
+const escenaPomberito1 = new PantallaCinematica(delay = 4000 ,image="escenaPomberito1.png", siguiente=escenaPomberito2)
+const escenaPomberito2 = new PantallaCinematica(delay = 6000 ,image="escenaPomberito2.png", siguiente=iglesia)
 
-object lore2 {
-  var property image = "l6.png"
+object escenaPomberito {
+  var property image = "escenaPomberito1.png"
   var property position = game.origin()
   
   method iniciar() {
+    image = "escenaPomberito1.png"
+    musicaFondo.iniciar(4)
     game.addVisual(self)
-    self.animacionLore(7)
+    game.schedule(4000, { self.siguienteImagen() })
   }
   
-  method animacionLore(escenaAc) {
-    if (escenaAc < 13) {
-      image = ("l" + escenaAc) + ".png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      game.schedule(500, { self.animacionLore(escenaAc + 1) })
-    } else {
-      escenario.enLore2(true)
-      game.addVisual(spaceParaContinuar1)
-      keyboard.space().onPressDo(
-        { if (escenario.enLore2()) {
-            image = "l13.png"
-            escenario.borrarEscena() 
-            game.addVisual(self)
-            self.iniciarJuego() 
-
-          } }
-      )
-    }
-  }
-  
-  method iniciarJuego() {
-    game.addVisual(spaceParaContinuar1)
-    keyboard.space().onPressDo(
-      { if (escenario.enLore2()) {
-          game.schedule(2000, { casa.iniciar() escenario.enLore2(false) image= "l6.png"})
-        } }
+  method siguienteImagen() {
+    image = "escenaPomberito2.png"
+    game.removeVisual(self)
+    game.addVisual(self)
+    game.schedule(
+      6000,
+      {
+        iglesia.iniciar()
+        image = "escenaPomberito1.png"}
     )
   }
+  
+  method duracion() = 9000
 }
 
 object pantallaGameOver {
@@ -205,31 +175,7 @@ object animacionAtaque {
   method duracion() = 9000
 }
 
-object escenaPomberito {
-  var property image = "escenaPomberito1.png"
-  var property position = game.origin()
-  
-  method iniciar() {
-    image = "escenaPomberito1.png"
-    musicaFondo.iniciar(4)
-    game.addVisual(self)
-    game.schedule(4000, { self.siguienteImagen() })
-  }
-  
-  method siguienteImagen() {
-    image = "escenaPomberito2.png"
-    game.removeVisual(self)
-    game.addVisual(self)
-    game.schedule(
-      6000,
-      {
-        iglesia.iniciar()
-        image = "escenaPomberito1.png"}
-    )
-  }
-  
-  method duracion() = 9000
-}
+
 
 object finalJuego {
   var property image = "fin1.png"

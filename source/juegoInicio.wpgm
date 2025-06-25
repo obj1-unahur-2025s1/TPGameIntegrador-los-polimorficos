@@ -9,7 +9,7 @@ program bindingOfCachitto {
 	cachito.configurarTeclas()
 	game.height(16)
 	game.width(11)
-	inicio.iniciar()
+	controles.iniciar()
 	game.onCollideDo(cachito, {objeto => objeto.interaccion()}) 
 	game.start()
 }

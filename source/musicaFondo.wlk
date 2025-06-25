@@ -4,6 +4,7 @@ object musicaFondo {
   var property volumen = 0.25
   
   method iniciar(num) {
+    self.detener()
     if ((num == 0) && (!self.seEstaReproduciendo(0))) {
       musicaFondo = game.sound("mainTitle.mp3")
       pista = 0
