@@ -163,27 +163,14 @@ object pantallaGameOver {
     musicaFondo.detener()
     musicaFondo.iniciar(3)
     game.schedule(12000, { game.stop() })
-    //escenario.animar(true)
-    //game.addVisual(opcionGameOver1)
-    //cartelGameOver.animar()
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("ataque4Pomberito")
     game.removeTickEvent("ataque3Pomberito")
-    //keyboard.y().onPressDo({ if (escenario.enGameOver()) inicio.reiniciar() })
-    //keyboard.n().onPressDo({ if (escenario.enGameOver()) self.finalizar() })
   }
   
-  method finalizar() {
-    /*image = "gameOver2.png"
-    game.removeVisual(self)
-    game.addVisual(self)
-    cartelGameOver.detenerAnimacion()
-    musicaFondo.detener()*/
-    //game.schedule(12000, { game.stop() })
-    //escenario.enGameOver(false)
-  }
+
 }
 
 object animacionAtaque {
