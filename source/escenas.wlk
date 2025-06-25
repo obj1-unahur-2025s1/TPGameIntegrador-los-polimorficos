@@ -83,7 +83,7 @@ object lore1 {
   var property position = game.origin()
   
   method iniciar() {
-    escenario.borrarEscena() // Prueba
+    escenario.borrarEscena() 
     musicaFondo.detener()
     musicaFondo.iniciar(5)
     game.addVisual(self)
@@ -102,7 +102,7 @@ object lore1 {
       game.addVisual(spaceParaContinuar1)
       keyboard.space().onPressDo(
         { if (escenario.enLore1()) {
-            escenario.borrarEscena() // Prueba
+            escenario.borrarEscena() 
             lore2.iniciar()
             escenario.enLore1(false)
             image = "l1.png"
@@ -220,8 +220,8 @@ object escenaPomberito {
   var property position = game.origin()
   
   method iniciar() {
+    image = "escenaPomberito1.png"
     musicaFondo.iniciar(4)
-    escenario.borrarEscena() // Prueba
     game.addVisual(self)
     game.schedule(4000, { self.siguienteImagen() })
   }
@@ -232,7 +232,7 @@ object escenaPomberito {
     game.addVisual(self)
     game.schedule(
       6000,
-      { //5000 orig
+      {
         iglesia.iniciar()
         image = "escenaPomberito1.png"}
     )
