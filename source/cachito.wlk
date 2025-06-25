@@ -16,7 +16,6 @@ object cachito {
 	var property tiempoDeInmunidad = 1000
 	var property ubicacion = casa
 	var property position = game.origin()
-	var property habloConElViejo = false
 	var property puedeAtacar = false
 	var property image = "cachitoIntS.png"
 	
@@ -155,7 +154,7 @@ object cachito {
 
 object barraDeVida {
 	method mostrarVidas() {
-		if (cachito.vida() == 5) {
+		if (cachito.vida() == 6) {
 			game.addVisual(corazon1)
 			game.addVisual(corazon2)
 			game.addVisual(corazon3)
@@ -163,22 +162,31 @@ object barraDeVida {
 			game.addVisual(corazon5)
 			game.addVisual(corazon6)
 		} else {
-			if (cachito.vida() == 4) {
+			if (cachito.vida() == 5) {
 				game.addVisual(corazon1)
 				game.addVisual(corazon2)
 				game.addVisual(corazon3)
 				game.addVisual(corazon4)
+				game.addVisual(corazon5)
+				game.addVisual(corazon6)
 			} else {
-				if (cachito.vida() == 3) {
+				if (cachito.vida() == 4) {
 					game.addVisual(corazon1)
 					game.addVisual(corazon2)
 					game.addVisual(corazon3)
+					game.addVisual(corazon4)
 				} else {
-					if (cachito.vida() == 2) {
+					if (cachito.vida() == 3) {
 						game.addVisual(corazon1)
 						game.addVisual(corazon2)
+						game.addVisual(corazon3)
 					} else {
-						game.addVisual(corazon1)
+						if (cachito.vida() == 2) {
+							game.addVisual(corazon1)
+							game.addVisual(corazon2)
+						} else {
+							game.addVisual(corazon1)
+						}
 					}
 				}
 			}
