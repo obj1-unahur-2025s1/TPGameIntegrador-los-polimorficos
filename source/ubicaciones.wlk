@@ -184,7 +184,7 @@ object salaNahuelito {
 object salaLuzMala {
   const property image = "fondoLuzMala.png" 
   var property position = game.origin()
-  method imagenPuerta() = "pluzMala.png"
+  method imagenPuerta() = if (cachito.derrotoA(luzMala)) "pluzMalaB.png" else "pluzMala.png"
   
   method iniciar() {
     escenario.iniciarEscena(self, zonaLuzMala)
@@ -201,10 +201,13 @@ object salaLuzMala {
   }
   
   method interaccion() {
+    if (self.imagenPuerta() == "pluzMalaB.png") {
+      game.say(puertaLuzMala, "No podes pasar, ya derrotaste a la Luz Mala")
+    } else {
     cachito.ubicacion(self)
      game.schedule(1000, {
         self.iniciar() })
-
+    }
   }
   method salidaDeLaSala(){
     if (cachito.ubicacion() == self) {
