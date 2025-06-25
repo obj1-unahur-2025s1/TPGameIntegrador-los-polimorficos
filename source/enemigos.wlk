@@ -272,6 +272,10 @@ object nahuelito {
     game.schedule(1000, { self.image("animacionN2.png") })
     game.schedule(2000, { self.image("nahuelitoI.png") })
   }
+  method reiniciar(){
+    image = "animacionN1.png"
+    position = game.origin()
+  }
 }
 
 object batallaFinal {

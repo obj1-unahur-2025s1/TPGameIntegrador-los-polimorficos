@@ -37,6 +37,7 @@ object inicio {
     musicaFondo.volumen(0.25)
     escenario.borrarEscena()
     cachito.reiniciar()
+    nahuelito.reiniciar()
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
@@ -104,6 +105,7 @@ object lore1 {
             escenario.borrarEscena() // Prueba
             lore2.iniciar()
             escenario.enLore1(false)
+            image = "l1.png"
           } }
       )
     }
@@ -134,6 +136,7 @@ object lore2 {
             escenario.borrarEscena() 
             game.addVisual(self)
             self.iniciarJuego() 
+
           } }
       )
     }
@@ -143,7 +146,7 @@ object lore2 {
     game.addVisual(spaceParaContinuar1)
     keyboard.space().onPressDo(
       { if (escenario.enLore2()) {
-          game.schedule(2000, { casa.iniciar() escenario.enLore2(false)})
+          game.schedule(2000, { casa.iniciar() escenario.enLore2(false) image= "l6.png"})
         } }
     )
   }
@@ -230,7 +233,8 @@ object escenaPomberito {
     game.schedule(
       6000,
       { //5000 orig
-        iglesia.iniciar() }
+        iglesia.iniciar()
+        image = "escenaPomberito1.png"}
     )
   }
   
