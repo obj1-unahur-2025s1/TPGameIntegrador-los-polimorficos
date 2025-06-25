@@ -170,6 +170,8 @@ const corazon1 = new Corazon()
 const corazon2 = new Corazon(x=1)
 const corazon3 = new Corazon(x=2)
 const corazon4 = new Corazon(x=3)
+const corazon5 = new Corazon(image = "corazonDorado.png")
+const corazon6 = new Corazon(image = "corazonDorado.png", x=1)
 //CARTELES
 const iniciar1 = new Cartel(image = "press1.png", x= 1, y = 1)
 const iniciar2 = new Cartel(image = "press2.png", x= 1, y = 1)
@@ -212,8 +214,8 @@ object mujerCachito {
   }
 
   method interaccion() {
-    cachito.otorgarInmunidad(30000)
-    game.say(self , "A partir de ahora tenes inmunidad a los ataques por 30 segundos")
+    cachito.tiempoDeInmunidad(3000)
+    game.say(self , "En tu batalla contra el pomberito luego de recibir un ataque vas a ser inmune por 3 segundos")
   }
 }
 
@@ -226,7 +228,7 @@ object gauchitoGil {
   }
 
   method interaccion() {
-    cachito.vida(4)
+    cachito.vida(6)
     game.say(self , "Para cuando te encuentres al pomberito, vas a estar curado")
   }
 }

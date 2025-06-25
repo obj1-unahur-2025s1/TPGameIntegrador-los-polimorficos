@@ -24,7 +24,7 @@ object musicaFondo {
     if (num == 4){
       musicaFondo = game.sound("finalboss.mp3")
       pista = 4
-      volumen = 0.25
+      volumen = 0.05
     }
 
     if (num == 5){
@@ -60,15 +60,6 @@ object musicaFondo {
       musicaFondo.resume()
     }
   }
-  
+  method reestablecerPista(){ pista= null }
   method seEstaReproduciendo(num) = pista == num
 }
-
-/*object juiraBicho{
-  const sonido = game.sound("juira.mp3")
-  const volumen = 0.05
-  method iniciar() {
-    sonido.volume(volumen)
-    sonido.play()
-  }
-} Despues veo si se me ocurre como solucionar el problema que tiraba - Toby*/

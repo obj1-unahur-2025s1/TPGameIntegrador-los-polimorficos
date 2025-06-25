@@ -3,14 +3,9 @@ import objetos.*
 import escenario.*
 import ubicaciones.*
 import escenas.*
-/*
-La luz mala tira errores en su ataque o aveces hace dos ataques seguidos. Sinceramente no se por qué 
-*/
 object pomberito {
   var posicion = game.center()
-  var vida = 4
-  var escenarioPar = true
-  
+  var vida = 4  
   method vida() = vida 
   
   method image() = "pomberito.png"
@@ -23,32 +18,11 @@ object pomberito {
     game.sound("grito.mp3").play()
   }
   
-  method perseguirPersonaje() {
-    const otraPosicion = cachito.position()
-    const newX = posicion.x() + if (otraPosicion.x() > posicion.x()) {
-      1
-    } else {
-      if (otraPosicion.x() < posicion.x()) -1 else 0
-    }
-    const newY = posicion.y() + if (otraPosicion.y() > posicion.y()) {
-      1
-    } else {
-      if (otraPosicion.y() < posicion.y()) -1 else 0
-    }
-    posicion = game.at(newX, newY)
-  }
-  
-  method escenarioPar(estado) {
-    escenarioPar = estado
-  }
   
   method iniciar() {
     game.addVisual(self)
-    if (cachito.habloConElViejo()) {
-      game.onTick(333, "atacar", { self.perseguirPersonaje() })
-    } else {
-      posicion = game.at(5, 10)
-    }
+    posicion = game.at(5, 10)
+    vida = 4
   }
   
   method cinematica() = escenaPomberito
@@ -173,7 +147,7 @@ object luzMala {
   var contador = 0
   
   method totem() = totemL
-  
+  method interaccion(){}
   method posicionesTotem() = [
     game.at(2, 3),
     game.at(9, 5),
@@ -190,13 +164,12 @@ object luzMala {
   method moverTotem() {
     contador += 1
     totemL.position(self.posicionesTotem().anyOne())
-    //self.posicionesTotem().get(contador % 4) para que no sea al azar
   }
   
   method iniciar() {
     game.addVisual(self)
     game.addVisual(totemL)
-    game.onTick(2500, "atacar", { self.ataque() })
+    game.onTick(3000, "atacar", { self.ataque() })
   }
   
   method flash() {
@@ -208,7 +181,6 @@ object luzMala {
 } 
 
 object alien {
-  //method posicionesTotem() = [game.at(2,4), game.at(2,2), game.at(2,5), game.at(1,14)] //agregar posiciones
   method totem() = totemA
   
   method ataqueTelequinéctico() {

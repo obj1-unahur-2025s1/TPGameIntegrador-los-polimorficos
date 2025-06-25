@@ -13,6 +13,7 @@ object cachito {
 	var estaEnCombate = false
 	var puedeMoverse = true
 	var derrotado = false
+	var property tiempoDeInmunidad = 1000
 	var property ubicacion = casa
 	var property position = game.origin()
 	var property habloConElViejo = false
@@ -20,7 +21,7 @@ object cachito {
 	var property image = "cachitoIntS.png"
 	
 	method derrotado() = derrotado
-
+	
 	method tieneInmunidad() = tieneInmunidad
 	
 	method estaEnCombate(estado) {
@@ -76,17 +77,6 @@ object cachito {
 				return self.actualizarImagen()
 			}
 		)
-		//ELIMINAR PARA LA VERSION FINAL
-		keyboard.num(1).onPressDo({ self.agregarTotem(alien.totem()) })
-		keyboard.num(2).onPressDo({ self.agregarTotem(nahuelito.totem()) })
-		keyboard.num(3).onPressDo({ self.agregarTotem(luzMala.totem()) })
-		keyboard.num(4).onPressDo({ musicaFondo.detener() })
-		keyboard.num(5).onPressDo(
-			{ game.say(self, "A" + escenario.elementosEnEscena()) }
-		)
-		keyboard.num(6).onPressDo({ game.say(self, "A" + self.position()) })
-		keyboard.num(7).onPressDo({ game.say(self, "Totems" + totems) })
-		keyboard.num(8).onPressDo({ game.say(self, "En Menu: " + escenario.enMenu() + "En controles: " + escenario.enControles()) })
 	}
 	
 	method reiniciar() {
@@ -124,16 +114,16 @@ object cachito {
 		pomberito.recibirDaño()
 	}
 	
-	method otorgarInmunidad(tiempo) {
+	method otorgarInmunidad() {
 		tieneInmunidad = true
-		game.schedule(tiempo, { tieneInmunidad = false })
+		game.schedule(tiempoDeInmunidad, { tieneInmunidad = false })
 	}
 	
 	method recibirDaño() {
 		if ((self.vida() > 0) && (!tieneInmunidad)) {
 			vida = 0.max(vida - 1)
 			barraDeVida.sacarVidas()
-			self.otorgarInmunidad(1000)
+			self.otorgarInmunidad()
 		}
 		if (self.vida() == 0) {
 			derrotado = true
@@ -165,33 +155,50 @@ object cachito {
 
 object barraDeVida {
 	method mostrarVidas() {
-		if (cachito.vida() == 4) {
+		if (cachito.vida() == 5) {
 			game.addVisual(corazon1)
 			game.addVisual(corazon2)
 			game.addVisual(corazon3)
 			game.addVisual(corazon4)
+			game.addVisual(corazon5)
+			game.addVisual(corazon6)
 		} else {
-			if (cachito.vida() == 3) {
+			if (cachito.vida() == 4) {
 				game.addVisual(corazon1)
 				game.addVisual(corazon2)
 				game.addVisual(corazon3)
+				game.addVisual(corazon4)
 			} else {
-				if (cachito.vida() == 2) {
+				if (cachito.vida() == 3) {
 					game.addVisual(corazon1)
 					game.addVisual(corazon2)
+					game.addVisual(corazon3)
 				} else {
-					game.addVisual(corazon1)
+					if (cachito.vida() == 2) {
+						game.addVisual(corazon1)
+						game.addVisual(corazon2)
+					} else {
+						game.addVisual(corazon1)
+					}
 				}
 			}
 		}
 	}
 	
 	method sacarVidas() {
-		if (cachito.vida() == 3) {
-			game.removeVisual(corazon4)
+		if (cachito.vida() == 5) {
+			game.removeVisual(corazon6)
 		} else {
-			if (cachito.vida() == 2) game.removeVisual(corazon3)
-			else game.removeVisual(corazon2)
+			if (cachito.vida() == 4) {
+				game.removeVisual(corazon5)
+			} else {
+				if (cachito.vida() == 3) {
+					game.removeVisual(corazon4)
+				} else {
+					if (cachito.vida() == 2) game.removeVisual(corazon3)
+					else game.removeVisual(corazon2)
+				}
+			}
 		}
 	}
 }

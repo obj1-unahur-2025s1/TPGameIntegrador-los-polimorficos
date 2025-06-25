@@ -14,6 +14,7 @@ object escenario {
   var property enLore1 = false
   var property enLore2 = false
   var property enGameOver = false
+  var property enFinal = false
   const property puertas = [
     puertaIglesia,
     puertaNahuelito,

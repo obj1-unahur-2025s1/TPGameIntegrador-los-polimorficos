@@ -42,6 +42,7 @@ object inicio {
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("disparar roca")
     image = "controles.png"
+    musicaFondo.reestablecerPista()
     self.iniciar()
     escenario.enGameOver(false)
   }
@@ -215,21 +216,21 @@ object escenaPomberito {
   var property image = "escenaPomberito1.png"
   var property position = game.origin()
   
-  method iniciar(interior) {
+  method iniciar() {
     musicaFondo.iniciar(4)
     escenario.borrarEscena() // Prueba
     game.addVisual(self)
-    game.schedule(4000, { self.siguienteImagen(interior) })
+    game.schedule(4000, { self.siguienteImagen() })
   }
   
-  method siguienteImagen(interior) {
+  method siguienteImagen() {
     image = "escenaPomberito2.png"
     game.removeVisual(self)
     game.addVisual(self)
     game.schedule(
       6000,
       { //5000 orig
-        if (interior == 1) iglesia.iniciar() else iglesia2.iniciar() }
+        iglesia.iniciar() }
     )
   }
   
@@ -237,8 +238,32 @@ object escenaPomberito {
 }
 
 object finalJuego {
+  var property image = "fin1.png"
+  var property position = game.origin()
   method iniciar() {
-    escenario.borrarEscena()
-    //DESARROLLAR FINAL
+    musicaFondo.detener()
+    game.addVisual(self)
+    game.schedule(1800, { self.siguienteImagen(2) })
+    musicaFondo.iniciar(1)
   }
-}
+  
+  method siguienteImagen(img) {
+    if (img < 6) {
+      image = ("fin" + img) + ".png"
+      game.removeVisual(self)
+      game.addVisual(self)
+      game.schedule(200, { self.siguienteImagen(img + 1) })
+    } else {
+      escenario.enFinal(true)
+      keyboard.f().onPressDo(
+        { if (escenario.enFinal()) {
+            image = "fin6.png"
+            game.removeVisual(self)
+            game.addVisual(self)
+            game.schedule(3000, {game.stop() })
+          } }
+      )
+
+    }
+  }
+  }

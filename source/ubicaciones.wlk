@@ -70,6 +70,7 @@ object iglesia {
   var property position = game.origin()
   method iniciar() {
     escenario.iniciarEscena(self, iglesiaTeroViolado)
+    cachito.ubicacion(self)
     batallaFinal.iniciarPelea()
     pomberito.iniciar()
     escenario.colocarJugadorEn(5,1)
@@ -84,33 +85,13 @@ object iglesia {
     if (cachito.enemigosDerrotados() < 3) 
       game.say(puertaIglesia, "Necesitas derrotar a: " + 
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
-    else if ((cachito.enemigosDerrotados() == 3) && cachito.habloConElViejo()) {
-      game.schedule(1000, { escenaPomberito.iniciar(1) })
-      cachito.ubicacion(self)
-    }else if (cachito.enemigosDerrotados() == 3) {
-      game.schedule(1000, { escenaPomberito.iniciar(2) })
+    else{
+      game.schedule(1000, {escenaPomberito.iniciar() })
       cachito.ubicacion(self)
     }
   }
 }
 
-object iglesia2{
-  const property image = "iglesia.png"
-  var property position = game.origin()
-  method iniciar() {
-    escenario.iniciarEscena(self, iglesiaTeroViolado)
-    cachito.ubicacion(self)
-    batallaFinal.iniciarPelea()
-    pomberito.iniciar()
-    escenario.colocarJugadorEn(5,1)
-    cachito.actualizarImagen()
-    escenario.ubicarEnEscena(limiteSuperior, 0, 2)
-    escenario.ubicarEnEscena(limiteInferior, 0, -1)
-    escenario.ubicarEnEscena(limiteLatDer, 10, 0)
-    escenario.ubicarEnEscena(limiteLatIzq, 0, 0) 
-    barraDeVida.mostrarVidas()
-  }
-}
 object salaAlien {
   const property image = "fondoAlien.png" //Hacer el fondo
   var property position = game.origin()
