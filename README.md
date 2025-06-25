@@ -32,9 +32,9 @@ Vencerlos o sortearlos te permite obtener el tótem correspondiente.
 🔸 Final Boss:
 Una vez que se recolectan los 3 tótems, se desbloquea la iglesia. Cachito debe enfrentarse al Pomberito poseído.
 
-🔸 Mecánica adicional (opcional):
-Hay un 50% de probabilidad de que aparezca una puerta hacia la casa de cachito. Si se accede, se desbloquea un
-enfrentamiento alternativo con el pomberito
+🔸 Mecánica adicional:
+Hay un 50% de probabilidad de que aparezca el gauchito gil o la esposa de cachito. 
+Hablar con alguno de ellos otorgará un bonus especial.
 
 
 ## Otros
