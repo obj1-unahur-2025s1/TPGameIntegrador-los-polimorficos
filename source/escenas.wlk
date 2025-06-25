@@ -153,7 +153,7 @@ object lore2 {
 }
 
 object pantallaGameOver {
-  var property image = "gameOver.png"
+  var property image = "gameOver2.png"
   var property position = game.origin()
   
   method iniciar() {
@@ -162,24 +162,27 @@ object pantallaGameOver {
     game.addVisual(self)
     musicaFondo.detener()
     musicaFondo.iniciar(3)
-    escenario.animar(true)
-    game.addVisual(opcionGameOver1)
-    cartelGameOver.animar()
+    game.schedule(12000, { game.stop() })
+    //escenario.animar(true)
+    //game.addVisual(opcionGameOver1)
+    //cartelGameOver.animar()
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
-    keyboard.y().onPressDo({ if (escenario.enGameOver()) inicio.reiniciar() })
-    keyboard.n().onPressDo({ if (escenario.enGameOver()) self.finalizar() })
+    game.removeTickEvent("ataque4Pomberito")
+    game.removeTickEvent("ataque3Pomberito")
+    //keyboard.y().onPressDo({ if (escenario.enGameOver()) inicio.reiniciar() })
+    //keyboard.n().onPressDo({ if (escenario.enGameOver()) self.finalizar() })
   }
   
   method finalizar() {
-    image = "gameOver2.png"
+    /*image = "gameOver2.png"
     game.removeVisual(self)
     game.addVisual(self)
     cartelGameOver.detenerAnimacion()
-    musicaFondo.detener()
-    game.schedule(12000, { game.stop() })
-    escenario.enGameOver(false)
+    musicaFondo.detener()*/
+    //game.schedule(12000, { game.stop() })
+    //escenario.enGameOver(false)
   }
 }
 
