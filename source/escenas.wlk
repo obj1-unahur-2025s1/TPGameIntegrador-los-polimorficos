@@ -12,7 +12,7 @@ import cinematicas.*
 object controles{
   var property image = "controles.png"
   var property position = game.origin()
-  method accionTecla() { inicio1.iniciar() musicaFondo.iniciar(0)}
+  method accionTecla() { inicio1.iniciar() musicaFondo.iniciar(0) }
   const tecla = keyboard.space()
   method iniciar() {
     accionesTeclas.pantallaValida(true)
@@ -27,7 +27,7 @@ object portada {
   var property image = "portada.png"
   var property position = game.origin()
   const tecla = keyboard.e()
-  method accionTecla() {lore1.iniciar() musicaFondo.iniciar(5)}
+  method accionTecla() {lore1.iniciar() musicaFondo.iniciar(5) cartelIniciar.detenerAnimacion()}
   method iniciar() {
     escenario.borrarEscena()
     game.addVisual(self)
@@ -75,75 +75,27 @@ const lore8 = new PantallaCinematica(delay = 500,image="l8.png", siguiente=lore9
 const lore9 = new PantallaCinematica(delay = 500,image="l9.png", siguiente=lore10)
 const lore10 = new PantallaCinematica(delay = 500,image="l10.png", siguiente=lore11)
 const lore11 = new PantallaCinematica(delay = 500,image="l11.png", siguiente=lore12)
-const lore12 = new PantallaCinematica(delay = 5000 , image="l12.png", siguiente=lore13)
-const lore13 = new PantallaCinematicaEspecial(image="l13.png", siguiente=casa)
-
-/*object lore13 {
-  var property image = "l13.png"
-  var property position = game.origin()
-  method accionTecla() {casa.iniciar()}
-  const tecla = keyboard.space()
-  method iniciar() {
-    escenario.borrarEscena() 
-    game.addVisual(self)
-    game.addVisual(spaceParaContinuar1)
-    accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTecla(tecla)
-    accionesTeclas.actualizarPantalla(self)
-    accionesTeclas.accion()
-  }
-}*/
+const lore12 = new PantallaCinematicaEspecial(image="l12.png", siguiente=lore13)
+const lore13 = new PantallaCinematica(delay = 500,image="l13.png", siguiente=lore14)
+const lore14 = new PantallaCinematica(delay = 500,image="l14.png", siguiente=lore15)
+const lore15 = new PantallaCinematica(delay = 500,image="l15.png", siguiente=lore16)
+const lore16 = new PantallaCinematica(delay = 500,image="l16.png", siguiente=lore17)
+const lore17 = new PantallaCinematica(delay = 500,image="l17.png", siguiente=lore18)
+const lore18 = new PantallaCinematicaEspecial(image="l18.png", siguiente=casa)
 //===========================Pantallas Cinematicas Entrada a la iglesia========================//
 const escenaPomberito1 = new PantallaCinematica(delay = 4000 ,image="escenaPomberito1.png", siguiente=escenaPomberito2)
 const escenaPomberito2 = new PantallaCinematica(delay = 6000 ,image="escenaPomberito2.png", siguiente=iglesia)
+//===========================Cinematicas Ataque============================//
+/*
 
-object escenaPomberito {
-  var property image = "escenaPomberito1.png"
-  var property position = game.origin()
-  
-  method iniciar() {
-    image = "escenaPomberito1.png"
-    musicaFondo.iniciar(4)
-    game.addVisual(self)
-    game.schedule(4000, { self.siguienteImagen() })
-  }
-  
-  method siguienteImagen() {
-    image = "escenaPomberito2.png"
-    game.removeVisual(self)
-    game.addVisual(self)
-    game.schedule(
-      6000,
-      {
-        iglesia.iniciar()
-        image = "escenaPomberito1.png"}
-    )
-  }
-  
-  method duracion() = 9000
-}
+Se realiza como un objeto independiente (por mas que su logica sea identica a la clase PantallaCinematica) 
+debido a que en pantalla cinematica se borra toda la escena y se agrega una nueva visual,
+por lo que no se puede implementar la cinematica de ataque como una instancia de PantallaCinematica
+ya que se borraria toda la escena y se "romperia" el juego.
 
-object pantallaGameOver {
-  var property image = "gameOver2.png"
-  var property position = game.origin()
-  
-  method iniciar() {
-    escenario.enGameOver(true) 
-    escenario.borrarEscena()
-    game.addVisual(self)
-    musicaFondo.detener()
-    musicaFondo.iniciar(3)
-    game.schedule(12000, { game.stop() })
-    game.removeTickEvent("moverse")
-    game.removeTickEvent("atacar")
-    game.removeTickEvent("actualizarPuertas")
-    game.removeTickEvent("ataque4Pomberito")
-    game.removeTickEvent("ataque3Pomberito")
-  }
-  
-
-}
-
+Si a alguno se le llega a ocurrir alguna manera de solucionarlo y que se pueda implementar como una instancia, bienvenido sea.
+- Ya intenté sacar el escenario.borrarEscena() y reemplazarlo por el metodo removerEscenaAnterior(){ if(escena != null) game.removeVisual(anterior)} pero no funcionó -
+*/
 object animacionAtaque {
   var property image = "ataque1.png"
   var property position = game.origin()
@@ -175,6 +127,28 @@ object animacionAtaque {
   
   method duracion() = 9000
 }
+//===========================Pantalla Game Over===============================//
+object pantallaGameOver {
+  var property image = "gameOver2.png"
+  var property position = game.origin()
+  
+  method iniciar() {
+    escenario.enGameOver(true) 
+    escenario.borrarEscena()
+    game.addVisual(self)
+    musicaFondo.detener()
+    musicaFondo.iniciar(3)
+    game.schedule(12000, { game.stop() })
+    game.removeTickEvent("moverse")
+    game.removeTickEvent("atacar")
+    game.removeTickEvent("actualizarPuertas")
+    game.removeTickEvent("ataque4Pomberito")
+    game.removeTickEvent("ataque3Pomberito")
+  }
+  
+
+}
+
 
 
 

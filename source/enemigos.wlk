@@ -25,7 +25,7 @@ object pomberito {
     vida = 4
   }
   
-  method cinematica() = escenaPomberito
+  method cinematica() = escenaPomberito1
   
   method duracionAtaque() = 4000
   
@@ -284,9 +284,9 @@ object batallaFinal {
   var turnoCachito = true
   
   method iniciarPelea() {
-      cachito.estaEnCombate(true)
-      pomberitoEnBatalla = true
-      self.habilitarAtaque() 
+    cachito.estaEnCombate(true)
+    pomberitoEnBatalla = true
+    self.habilitarAtaque() 
   
   }
   
@@ -304,9 +304,8 @@ object batallaFinal {
     if ((pomberitoEnBatalla && turnoCachito) && (!cachito.derrotado())) {
       turnoCachito = false
       game.removeVisual(cartelAtaque)
-      const duracionCinematica = animacionAtaque.duracion()
       cachito.atacar()
-      game.schedule(duracionCinematica, { self.golpearPomberito() })
+      game.schedule(9000, { self.golpearPomberito() })
     }
   }
   
