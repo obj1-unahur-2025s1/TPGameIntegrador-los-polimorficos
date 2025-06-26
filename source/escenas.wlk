@@ -57,7 +57,7 @@ object portada {
 }
 
 //=========================Pantallas Cinematica Inicial=========================//
-const inicio1 = new PantallaCinematica(delay = 500,image="p1.png", siguiente=inicio2)
+const inicio1 = new PantallaCinematica(delay = 1000,image="p1.png", siguiente=inicio2)
 const inicio2 = new PantallaCinematica(delay = 500,image="p2.png", siguiente=inicio3)
 const inicio3 = new PantallaCinematica(delay = 500,image="p3.png", siguiente=inicio4)
 const inicio4 = new PantallaCinematica(delay = 500,image="p4.png", siguiente=inicio5)
@@ -75,9 +75,10 @@ const lore8 = new PantallaCinematica(delay = 500,image="l8.png", siguiente=lore9
 const lore9 = new PantallaCinematica(delay = 500,image="l9.png", siguiente=lore10)
 const lore10 = new PantallaCinematica(delay = 500,image="l10.png", siguiente=lore11)
 const lore11 = new PantallaCinematica(delay = 500,image="l11.png", siguiente=lore12)
-const lore12 = new PantallaCinematicaEspecial(image="l12.png", siguiente=lore13)
+const lore12 = new PantallaCinematica(delay = 5000 , image="l12.png", siguiente=lore13)
+const lore13 = new PantallaCinematicaEspecial(image="l13.png", siguiente=casa)
 
-object lore13 {
+/*object lore13 {
   var property image = "l13.png"
   var property position = game.origin()
   method accionTecla() {casa.iniciar()}
@@ -85,13 +86,13 @@ object lore13 {
   method iniciar() {
     escenario.borrarEscena() 
     game.addVisual(self)
-    game.schedule(1500, { game.addVisual(spaceParaContinuar1) })
+    game.addVisual(spaceParaContinuar1)
     accionesTeclas.pantallaValida(true)
     accionesTeclas.asignarTecla(tecla)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
-}
+}*/
 //===========================Pantallas Cinematicas Entrada a la iglesia========================//
 const escenaPomberito1 = new PantallaCinematica(delay = 4000 ,image="escenaPomberito1.png", siguiente=escenaPomberito2)
 const escenaPomberito2 = new PantallaCinematica(delay = 6000 ,image="escenaPomberito2.png", siguiente=iglesia)
