@@ -110,10 +110,10 @@ object accionesTeclas{
     pantalla = nuevaPantalla
   }
   method accion(){
-    if(pantallaValida){
       tecla.onPressDo({
-        pantalla.accionTecla()
+        if(pantallaValida){
+          pantalla.accionTecla()
+        }
       })
-    }
   }
 }

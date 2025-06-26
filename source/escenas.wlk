@@ -49,7 +49,6 @@ object portada {
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("disparar roca")
-    image = "p1"
     musicaFondo.reestablecerPista()
     self.iniciar()
     escenario.enGameOver(false)
@@ -99,7 +98,6 @@ Si a alguno se le llega a ocurrir alguna manera de solucionarlo y que se pueda i
 object animacionAtaque {
   var property image = "ataque1.png"
   var property position = game.origin()
-  
   method iniciar() {
     game.addVisual(self)
     game.schedule(1800, { self.siguienteImagen(2) })
@@ -148,10 +146,6 @@ object pantallaGameOver {
   
 
 }
-
-
-
-
 object finalJuego {
   var property image = "fin1.png"
   var property position = game.origin()
