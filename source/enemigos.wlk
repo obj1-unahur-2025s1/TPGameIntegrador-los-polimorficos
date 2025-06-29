@@ -3,36 +3,28 @@ import objetos.*
 import escenario.*
 import ubicaciones.*
 import escenas.*
+import textos.*
+
 object pomberito {
   var posicion = game.center()
   var vida = 4  
   method vida() = vida 
-  
   method image() = "pomberito.png"
-  
   method position() = posicion
-  
   method derrotado() = vida == 0
-  
   method interaccion() {
     game.sound("grito.mp3").play()
   }
-  
-  
   method iniciar() {
     game.addVisual(self)
     posicion = game.at(5, 10)
     vida = 4
   }
-  
   method cinematica() = escenaPomberito1
-  
   method duracionAtaque() = 4000
-  
   method recibirDaño() {
       vida -= 1
     }
-  
   method atacar() { 
         const ataques = [1,2,3,4]
     if(ataques.anyOne() == 1){
@@ -48,7 +40,6 @@ object pomberito {
       self.ataque4()
   }
   method ataque1(){
-        
         self.paredCentral()
         game.schedule(5000, { 
           const roca = new RocaAbajo(vel = 100,x=cachito.position().x(),y=9) 
@@ -57,25 +48,19 @@ object pomberito {
           })
 
   }
-
   method ataque2(){
         self.paredConHuecosYDesface(0, 7)
         self.paredConHuecosYDesface(1, 9)
         self.paredConHuecosYDesface(0, 11)
-
   }
-
   method ataque3(){
-
     game.onTick(200, "ataque3Pomberito", {
       const roca = new RocaAbajo(vel = 100,x=[0,1,2,3,4,5,6,7,8,9,10].anyOne(),y=9) 
           roca.position(self.position())
           roca.disparar() })
     game.schedule(5500, {game.removeTickEvent("ataque3Pomberito")})
   }
-
   method ataque4(){
-
     game.onTick(750, "ataque4Pomberito", {
       const roca = new RocaAbajo(vel = 100,x=cachito.position().x(),y=9) 
           roca.position(self.position())
@@ -142,10 +127,9 @@ object pomberito {
 }
 
 object luzMala {
-  var property image = "luzMala2.png"
+  var property image = "luzMala.png"
   var property position = game.at(5, 8)
   var contador = 0
-  
   method totem() = totemL
   method interaccion(){}
   method posicionesTotem() = [
@@ -178,43 +162,35 @@ object luzMala {
     sonido.volume(0.05)
     sonido.play()
   }
+
+  method texto() = zonaLuzMala
+
+  method habilitarSalidaDeLaSala(){
+    escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1) 
+  }
 } 
 
 object alien {
   method totem() = totemA
-  
   method ataqueTelequinéctico() {
-    if ((totemA.position().x() > cachito.position().x()) and cachito.position().x().between(
-      1,
-      9
-    )) {
+    if ((totemA.position().x() > cachito.position().x()) and cachito.position().x().between(1,9)) {
       cachito.position(cachito.position().left(1))
     } else {
-      if ((totemA.position().x() < cachito.position().x()) and cachito.position().x().between(
-          1,
-          9
-        )) cachito.position(cachito.position().right(1))
+      if ((totemA.position().x() < cachito.position().x()) and cachito.position().x().between(1,9)) 
+      cachito.position(cachito.position().right(1))
     }
-    
-    if ((totemA.position().y() > cachito.position().y()) and cachito.position().y().between(
-      1,
-      14
-    )) {
-      if ((cachito.position().y() - 1) != 0) cachito.position(
-          cachito.position().down(1)
-        )
+    if ((totemA.position().y() > cachito.position().y()) and cachito.position().y().between(1,14)){
+      if ((cachito.position().y() - 1) != 0) cachito.position(cachito.position().down(1))
     } else {
-      if ((totemA.position().y() < cachito.position().y()) and cachito.position().y().between(
-          1,
-          14
-        )) cachito.position(cachito.position().up(1))
+      if ((totemA.position().y() < cachito.position().y()) and cachito.position().y().between(1,14)) 
+        cachito.position(cachito.position().up(1))
     }
   }
-  
   method iniciar() {
     game.addVisual(totemA)
     game.onTick(1000, "atacar", { self.ataqueTelequinéctico() })
   }
+  method texto() = ovniAlien
 } 
 
 object nahuelito {
@@ -222,7 +198,7 @@ object nahuelito {
   var property position = game.origin()
   
   method totem() = totemN
-  
+  method texto() = zonaLuzMala
   method perseguirPersonaje() {
     const otraPosicion = cachito.position()
     const newX = position.x() + if (otraPosicion.x() > position.x()) {
@@ -275,6 +251,10 @@ object nahuelito {
   method reiniciar(){
     image = "animacionN1.png"
     position = game.origin()
+  }
+
+  method habilitarSalidaDeLaSala(){
+    escenario.ubicarEnEscena(puertaSalidaNahuelito, 5,14) 
   }
 }
 

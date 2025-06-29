@@ -1,6 +1,8 @@
 import ubicaciones.*
 import cachito.*
 import escenario.*
+import salasEnemigos.*
+import enemigos.*
 
 
 class Corazon{
@@ -199,7 +201,7 @@ const puertaSalidaAlien = new PuertaAlPueblo(puebloCoordX = 9, puebloCoordY = 8,
 const puertaSalidaLuzMala = new PuertaAlPueblo(puebloCoordX = 2, puebloCoordY = 8, image= "latD.png")
 
 //TOTEMS
-const totemL = new Totem(image = "totemLuzMala.png", position = self.posicionesTotem().get(1),salaEnemigo = salaLuzMala)
+const totemL = new Totem(image = "totemLuzMala.png", position = luzMala.posicionesTotem().anyOne(),salaEnemigo = salaLuzMala)
 const totemA = new Totem(image = "totemAlien.png", position = game.at(5,11), salaEnemigo = salaAlien)
 const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4), salaEnemigo = salaNahuelito)
 

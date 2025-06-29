@@ -38,9 +38,9 @@ object musicaFondo {
     musicaFondo.volume(volumen)
   }
   
-  method cambiarAPista(num) {
-    self.detener() 
-    self.iniciar(num)
+  method cambiarAPista(unaPista) {
+    self.detener()
+    if (unaPista != null) self.iniciar(unaPista)
   }
   
   method detener() {

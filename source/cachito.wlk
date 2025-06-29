@@ -47,7 +47,7 @@ object cachito {
 				if (((limiteLatIzq.position().x() + 1) < self.position().x()) && puedeMoverse)
 					self.position(self.position().left(1))
 				mirandoAl = "O"
-				return self.actualizarImagen()
+				self.actualizarImagen()
 			}
 		)
 		//right
@@ -56,7 +56,7 @@ object cachito {
 				if (((limiteLatDer.position().x() - 1) > self.position().x()) && puedeMoverse)
 					self.position(self.position().right(1))
 				mirandoAl = "E"
-				return self.actualizarImagen()
+				self.actualizarImagen()
 			}
 		)
 		//down
@@ -65,7 +65,7 @@ object cachito {
 				if (((limiteInferior.position().y() + 1) < self.position().y()) && puedeMoverse)
 					self.position(self.position().down(1))
 				mirandoAl = "S"
-				return self.actualizarImagen()
+				self.actualizarImagen()
 			}
 		)
 		//up
@@ -74,7 +74,7 @@ object cachito {
 				if (((limiteSuperior.position().y() - 1) > self.position().y()) && puedeMoverse)
 					self.position(self.position().up(1))
 				mirandoAl = "N"
-				return self.actualizarImagen()
+				self.actualizarImagen()
 			}
 		)
 		keyboard.num(1).onPressDo({totems.add(totemA) totems.add(totemN) totems.add(totemL)})
@@ -96,7 +96,7 @@ object cachito {
 	}
 	
 	method actualizarImagen() {
-		if (self.estaEnUnExterior()) {
+		if (ubicacion.esExterior()) {
 			self.image(("cachito" + mirandoAl) + ".png")
 		} else {
 			if (self.estaEnElAgua()) self.image(("cachitoB" + mirandoAl) + ".png")
@@ -104,11 +104,9 @@ object cachito {
 		}
 	}
 	
-	method estaEnUnExterior() = [pueblo].contains(ubicacion)
+	method estaEnUnExterior() = ubicacion.esExterior()
 	
-	method estaEnElAgua() = [salaNahuelito].contains(
-		ubicacion
-	) && (self.position().y() < 11)
+	method estaEnElAgua() = ubicacion.esSalaConAgua() && (self.position().y() < 11)
 	
 	//COMBATE 
 	method atacar() {
