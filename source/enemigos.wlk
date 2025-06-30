@@ -186,11 +186,28 @@ object alien {
         cachito.position(cachito.position().up(1))
     }
   }
-  method iniciar() {
-    game.addVisual(totemA)
-    game.onTick(1000, "atacar", { self.ataqueTelequinéctico() })
+  method iniciar() {  
+    self.iniciarAnimacion()
   }
   method texto() = ovniAlien
+  method iniciarAnimacion(){
+    escenario.animar(true)
+    game.addVisual(ovni1)
+    self.animacionEntrada()
+    game.schedule(3000, {
+      game.addVisual(totemA)
+      ovniAnimado.animar()
+      game.onTick(1000, "atacar", { self.ataqueTelequinéctico() })
+    })
+  }
+  method animacionEntrada(){
+    game.schedule(1000, {ovni1.image("animacionO2.png")})
+    game.schedule(2000, {ovni1.image("animacionO3.png")})
+    game.schedule(3000, {ovni1.image("ov1.png")})
+  }
+  method habilitarSalidaDeLaSala(){
+    escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
+  }
 } 
 
 object nahuelito {

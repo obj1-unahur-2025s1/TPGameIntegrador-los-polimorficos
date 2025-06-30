@@ -12,7 +12,7 @@ import cinematicas.*
 object controles{
   var property image = "controles.png"
   var property position = game.origin()
-  method accionTecla() { inicio1.iniciar() musicaFondo.iniciar(0) }
+  method accionTecla() { inicio1.iniciar() musicaFondo.iniciar("pistaTitulo") }
   const tecla = keyboard.space()
   method iniciar() {
     accionesTeclas.pantallaValida(true)
@@ -27,7 +27,7 @@ object portada {
   var property image = "portada.png"
   var property position = game.origin()
   const tecla = keyboard.e()
-  method accionTecla() {lore1.iniciar() musicaFondo.iniciar(5) cartelIniciar.detenerAnimacion()}
+  method accionTecla() {lore1.iniciar() musicaFondo.iniciar("pistaLore") cartelIniciar.detenerAnimacion()}
   method iniciar() {
     escenario.borrarEscena()
     game.addVisual(self)
@@ -135,7 +135,7 @@ object pantallaGameOver {
     escenario.borrarEscena()
     game.addVisual(self)
     musicaFondo.detener()
-    musicaFondo.iniciar(3)
+    musicaFondo.iniciar("pistaGameOver")
     game.schedule(12000, { game.stop() })
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
@@ -150,10 +150,9 @@ object finalJuego {
   var property image = "fin1.png"
   var property position = game.origin()
   method iniciar() {
-    musicaFondo.detener()
+    musicaFondo.cambiarAPista("pistaFinal")
     game.addVisual(self)
     game.schedule(1800, { self.siguienteImagen(2) })
-    musicaFondo.iniciar(1)
   }
   
   method siguienteImagen(img) {

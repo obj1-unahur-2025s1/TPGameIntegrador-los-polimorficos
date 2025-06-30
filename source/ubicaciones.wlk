@@ -16,7 +16,7 @@ object casa {
   method iniciar() {
     accionesTeclas.pantallaValida(false)
     game.removeVisual(spaceParaContinuar1)
-    musicaFondo.cambiarAPista(1)
+    musicaFondo.cambiarAPista("pistaCasa")
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
     escenario.colocarJugadorEn(7, 8)
@@ -91,7 +91,7 @@ object iglesia {
       game.say(puertaIglesia, "Necesitas derrotar a: " + 
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
     else{
-      game.schedule(200, {escenaPomberito1.iniciar() musicaFondo.iniciar(4)})
+      game.schedule(200, {escenaPomberito1.iniciar() musicaFondo.iniciar("pistaFinalBoss")})
       cachito.ubicacion(self)
     }
   }
@@ -112,7 +112,7 @@ const salaLuzMala = new SalaEnemigo(
 
 const salaNahuelito = new SalaEnemigo(
   enemigo = nahuelito,
-  pista = null,
+  pista = "pistaNahuelito",
   tieneAgua = true,
   jugadorX = 5,
   jugadorY = 14,
@@ -122,42 +122,13 @@ const salaNahuelito = new SalaEnemigo(
   lIzq = -1
 )
 
-object salaAlien {
-  const property image = "fondoSala-alien.png" //Hacer el fondo
-  var property position = game.origin()
-  method imagenPuerta() = "puerta-alien.png"
-  method iniciar() {
-    musicaFondo.cambiarAPista(2)
-    escenario.iniciarEscena(self, ovniAlien)
-    escenario.colocarJugadorEn(0, 1)
-    cachito.actualizarImagen()
-    escenario.ubicarEnEscena(limiteSuperior, 0, 12)
-    escenario.ubicarEnEscena(limiteInferior, 0, 0)
-    escenario.ubicarEnEscena(limiteLatDer, 11, 0)
-    escenario.ubicarEnEscena(limiteLatIzq, -1, 0)
-    barraDeVida.mostrarVidas()
-    escenario.animar(true)
-    game.addVisual(ovni1)
-    cachito.bloquearMovimiento()
-    self.iniciarAnimacion()
-    game.schedule(3000, {alien.iniciar()})
-    game.schedule(3000, {ovniAnimado.animar()})
-    game.schedule(3000, {cachito.activarMovimiento()})
-  }
-  
-  method interaccion() {
-    cachito.ubicacion(self)
-    game.schedule(1000, {
-      self.iniciar() })
-  }
-    method salidaDeLaSala(){
-    if (cachito.ubicacion() == self) {
-        escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
-    }
-  }
-  method iniciarAnimacion() {
-    game.schedule(1000, {ovni1.image("animacionO2.png")})
-    game.schedule(2000, {ovni1.image("animacionO3.png")})
-    game.schedule(3000, {ovni1.image("ov1.png")})
-  }
-}
+const salaAlien = new SalaEnemigo(
+  enemigo = alien,
+  pista = "pistaAlien",
+  jugadorX = 0,
+  jugadorY = 1,
+  lSup = 12,
+  lInf = 0,
+  lDer = 11,
+  lIzq = -1
+)

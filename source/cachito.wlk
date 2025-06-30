@@ -77,7 +77,7 @@ object cachito {
 				self.actualizarImagen()
 			}
 		)
-		keyboard.num(1).onPressDo({totems.add(totemA) totems.add(totemN) totems.add(totemL)})
+		keyboard.num(1).onPressDo({vida +=1})
 	}
 	
 	method reiniciar() {
