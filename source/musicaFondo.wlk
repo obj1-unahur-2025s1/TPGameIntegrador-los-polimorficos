@@ -1,59 +1,63 @@
 object musicaFondo {
   var property musicaFondo = null
   var pista = null
+  var loop = true
   var property volumen = 0.25
   
   method iniciar(unaPista) {
-    self.detener()
-    if ((unaPista == "pistaTitulo") && (!self.seEstaReproduciendo(unaPista))) {
-      musicaFondo = game.sound("mainTitle.mp3")
-      pista = "pistaTitulo"
-    }
-    if ((unaPista == "pistaCasa") && (!self.seEstaReproduciendo(unaPista))) {
-      musicaFondo = game.sound("casaCachito.mp3")
-      pista = "pistaCasa"
-    }
-    if ((unaPista == "pistaAlien") && (!self.seEstaReproduciendo(unaPista))) {
-      musicaFondo = game.sound("marciano.mp3")
-      pista = "pistaAlien"
-    }
-    if ((unaPista == "pistaGameOver") && (!self.seEstaReproduciendo(unaPista))) {
-      musicaFondo = game.sound("gameOver.mp3")
-      pista = "pistaGameOver"
-      volumen = 1
-    }
-    if (unaPista == "pistaFinalBoss"){
-      musicaFondo = game.sound("finalboss.mp3")
-      pista = "pistaFinalBoss"
-      volumen = 0.05
-    }
+    if (unaPista != null) {
+      self.detener()
+      loop = true
+      if ((unaPista == "pistaTitulo") && (!self.seEstaReproduciendo(unaPista))) {
+        musicaFondo = game.sound("mainTitle.mp3")
+        pista = "pistaTitulo"
+      }
+      if ((unaPista == "pistaCasa") && (!self.seEstaReproduciendo(unaPista))) {
+        musicaFondo = game.sound("casaCachito.mp3")
+        pista = "pistaCasa"
+      }
+      if ((unaPista == "pistaAlien") && (!self.seEstaReproduciendo(unaPista))) {
+        musicaFondo = game.sound("marciano.mp3")
+        pista = "pistaAlien"
+      }
+      if ((unaPista == "pistaGameOver") && (!self.seEstaReproduciendo(unaPista))) {
+        musicaFondo = game.sound("gameOver.mp3")
+        pista = "pistaGameOver"
+        volumen = 1
+      }
+      if (unaPista == "pistaFinalBoss"){
+        musicaFondo = game.sound("finalboss.mp3")
+        pista = "pistaFinalBoss"
+        volumen = 0.05
+      }
 
-    if (unaPista == "pistaLore"){
-      musicaFondo = game.sound("lore.mp3")
-      pista = "pistaLore"
-      volumen = 0.25
-    }
+      if (unaPista == "pistaLore"){
+        musicaFondo = game.sound("lore.mp3")
+        pista = "pistaLore"
+        volumen = 0.25
+      }
 
-    if (unaPista == "pistaNahuelito") {
-      musicaFondo = game.sound("peleaNahuelito.mp3")
-      pista = "pistaNahuelito"
-      volumen = 0.25
-    }
+      if (unaPista == "pistaNahuelito") {
+        musicaFondo = game.sound("peleaNahuelito.mp3")
+        pista = "pistaNahuelito"
+        volumen = 0.25
+      }
 
-    if (unaPista == "pistaFinal") {
-      musicaFondo = game.sound("final.mp3")
-      pista = "pistaFinal"
-      volumen = 0.25
-    }
+      if (unaPista == "pistaFinal") {
+        musicaFondo = game.sound("final.mp3")
+        pista = "pistaFinal"
+        volumen = 0.25
+        loop = false
+      }
 
-    
-    musicaFondo.play()
-    musicaFondo.shouldLoop(true)
-    musicaFondo.volume(volumen)
-  }
+      
+      musicaFondo.play()
+      musicaFondo.shouldLoop(loop)
+      musicaFondo.volume(volumen)
+    }
+      }
   
   method cambiarAPista(unaPista) {
-    self.detener()
     if (unaPista != null) self.iniciar(unaPista)
   }
   

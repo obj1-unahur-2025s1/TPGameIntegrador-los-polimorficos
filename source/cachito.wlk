@@ -8,7 +8,7 @@ import escenas.*
 object cachito {
 	var property vida = 4
 	const totems = #{}
-	var mirandoAl = "S"
+	var mirandoAl = sur
 	var tieneInmunidad = false
 	var estaEnCombate = false
 	var puedeMoverse = true
@@ -18,8 +18,8 @@ object cachito {
 	var property tiempoDeInmunidad = 1000
 	var property ubicacion = casa
 	var property position = game.origin()
-	var property image = "cachitoIntS.png"
-	
+	var property image = mirandoAl.imagen()
+	method puedeMoverse() = puedeMoverse
 	method derrotado() = derrotado
 	
 	method tieneInmunidad() = tieneInmunidad
@@ -44,44 +44,43 @@ object cachito {
 		//Left
 		keyboard.a().onPressDo(
 			{ 
-				if (((limiteLatIzq.position().x() + 1) < self.position().x()) && puedeMoverse)
+				if (oeste.puedeAvanzar())
 					self.position(self.position().left(1))
-				mirandoAl = "O"
+				mirandoAl = oeste
 				self.actualizarImagen()
 			}
 		)
 		//right
 		keyboard.d().onPressDo(
 			{ 
-				if (((limiteLatDer.position().x() - 1) > self.position().x()) && puedeMoverse)
+				if (este.puedeAvanzar())
 					self.position(self.position().right(1))
-				mirandoAl = "E"
+				mirandoAl = este
 				self.actualizarImagen()
 			}
 		)
 		//down
 		keyboard.s().onPressDo(
 			{ 
-				if (((limiteInferior.position().y() + 1) < self.position().y()) && puedeMoverse)
+				if (sur.puedeAvanzar())
 					self.position(self.position().down(1))
-				mirandoAl = "S"
+				mirandoAl = sur
 				self.actualizarImagen()
 			}
 		)
 		//up
 		keyboard.w().onPressDo(
 			{ 
-				if (((limiteSuperior.position().y() - 1) > self.position().y()) && puedeMoverse)
+				if (norte.puedeAvanzar())
 					self.position(self.position().up(1))
-				mirandoAl = "N"
+				mirandoAl = norte
 				self.actualizarImagen()
 			}
 		)
-		keyboard.num(1).onPressDo({vida +=1})
 	}
 	
 	method reiniciar() {
-		mirandoAl = "S"
+		mirandoAl = sur
 		totems.clear()
 		tieneInmunidad = false
 		estaEnCombate = false
@@ -96,12 +95,7 @@ object cachito {
 	}
 	
 	method actualizarImagen() {
-		if (ubicacion.esExterior()) {
-			self.image(("cachito" + mirandoAl) + ".png")
-		} else {
-			if (self.estaEnElAgua()) self.image(("cachitoB" + mirandoAl) + ".png")
-			else self.image(("cachitoInt" + mirandoAl) + ".png")
-		}
+		image = mirandoAl.imagen()
 	}
 	
 	method estaEnUnExterior() = ubicacion.esExterior()
@@ -172,7 +166,6 @@ object barraDeVida {
 				game.addVisual(corazon3)
 				game.addVisual(corazon4)
 				game.addVisual(corazon5)
-				game.addVisual(corazon6)
 			} else {
 				if (cachito.vida() == 4) {
 					game.addVisual(corazon1)

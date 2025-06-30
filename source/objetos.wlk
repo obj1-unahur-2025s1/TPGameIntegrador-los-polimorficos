@@ -205,6 +205,8 @@ const totemL = new Totem(image = "totemLuzMala.png", position = luzMala.posicion
 const totemA = new Totem(image = "totemAlien.png", position = game.at(5,11), salaEnemigo = salaAlien)
 const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4), salaEnemigo = salaNahuelito)
 
+
+//=========================VARIOS==========================//
 object mujerCachito {
   var property image = "mujerCachito.png"
   var property position = game.at(0,0)
@@ -231,4 +233,72 @@ object gauchitoGil {
     cachito.vida(6)
     game.say(self , "Para cuando te encuentres al pomberito, vas a estar curado")
   }
+}
+//=========================DIRECCIONES==========================//
+object norte{
+  method imagen(){
+    var img = null
+    if (cachito.estaEnUnExterior()){
+      img = "cachitoN.png"
+    }else{
+      if (cachito.estaEnElAgua()) {
+        img = "cachitoBN.png"
+      }else{
+        img = "cachitoIntN.png"
+      }
+    }
+    return img
+  }
+  method puedeAvanzar() = ((limiteSuperior.position().y() - 1) > cachito.position().y()) && cachito.puedeMoverse()
+}
+
+object sur{
+  method imagen(){
+    var img = null
+    if (cachito.estaEnUnExterior()){
+      img = "cachitoS.png"
+    }else{
+      if (cachito.estaEnElAgua()) {
+        img = "cachitoBS.png"
+      }else{
+        img = "cachitoIntS.png"
+      }
+    }
+    return img
+  }
+  method puedeAvanzar() = ((limiteInferior.position().y() + 1) < cachito.position().y()) && cachito.puedeMoverse()
+}
+
+object este{
+  method imagen(){
+    var img = null
+    if (cachito.estaEnUnExterior()){
+      img = "cachitoE.png"
+    }else{
+      if (cachito.estaEnElAgua()) {
+        img = "cachitoBE.png"
+      }else{
+        img = "cachitoIntE.png"
+      }
+    }
+    return img
+  }
+  method puedeAvanzar() = ((limiteLatDer.position().x() - 1) > cachito.position().x()) && cachito.puedeMoverse()
+}
+
+object oeste{
+  method imagen(){
+    var img = null
+    if (cachito.estaEnUnExterior()){
+      img = "cachitoO.png"
+    }else{
+      if (cachito.estaEnElAgua()) {
+        img = "cachitoBO.png"
+      }else{
+        img = "cachitoIntO.png"
+      }
+    }
+    return img
+  }
+  method puedeAvanzar() = ((limiteLatIzq.position().x() + 1) < cachito.position().x()) && cachito.puedeMoverse()
 }

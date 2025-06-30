@@ -91,7 +91,7 @@ object iglesia {
       game.say(puertaIglesia, "Necesitas derrotar a: " + 
       (3 - cachito.enemigosDerrotados()) + " enemigos más para poder pasar")
     else{
-      game.schedule(200, {escenaPomberito1.iniciar() musicaFondo.iniciar("pistaFinalBoss")})
+      game.schedule(200, {cinematicaPomberito.iniciar()})
       cachito.ubicacion(self)
     }
   }
