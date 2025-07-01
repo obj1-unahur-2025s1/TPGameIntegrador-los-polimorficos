@@ -6,9 +6,17 @@ import enemigos.*
 
 
 class Corazon{
+  const property numero
   const x = 0
   const property image = "corazonFull.png"
   const property position = game.at(x, 15)
+
+  method agregar() {
+    game.addVisual(self)
+  }
+  method remover() {
+    game.removeVisual(self)
+  }
 }
 
 //----------------------------------------LIMITES DEL TABLERO----------------------------------------
@@ -137,7 +145,7 @@ class RocaIzq inherits RocaDer {
 }
 
 class RocaAbajo inherits RocaIzq {
-  
+
   override method mover(){
     self.position(self.position().down(1))
 
@@ -175,12 +183,12 @@ const limiteSuperior = new Limite()
 const limiteLatIzq    = new Limite()
 const limiteLatDer    = new Limite()
 //CORAZONES-BARRA DE VIDA
-const corazon1 = new Corazon()
-const corazon2 = new Corazon(x=1)
-const corazon3 = new Corazon(x=2)
-const corazon4 = new Corazon(x=3)
-const corazon5 = new Corazon(image = "corazonDorado.png")
-const corazon6 = new Corazon(image = "corazonDorado.png", x=1)
+const corazon1 = new Corazon(numero = 1)
+const corazon2 = new Corazon(numero = 2 , x=1)
+const corazon3 = new Corazon(numero = 3 , x=2)
+const corazon4 = new Corazon(numero = 4 , x=3)
+const corazon5 = new Corazon(numero = 5 , image = "corazonDorado.png")
+const corazon6 = new Corazon(numero = 6 , image = "corazonDorado.png", x=1)
 //CARTELES
 const iniciar1 = new Cartel(image = "press1.png", x= 1, y = 1)
 const iniciar2 = new Cartel(image = "press2.png", x= 1, y = 1)
@@ -237,6 +245,7 @@ object gauchitoGil {
 
   method interaccion() {
     cachito.vida(6)
+    barraDeVida.vidas([corazon1 , corazon2 , corazon3 , corazon4 , corazon5, corazon6])
     game.say(self , "Para cuando te encuentres al pomberito, vas a estar curado")
   }
 }

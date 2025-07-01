@@ -154,59 +154,14 @@ object cachito {
 }
 
 object barraDeVida {
+	
+	var property vidas = [corazon1 , corazon2 , corazon3 , corazon4]
 	method mostrarVidas() {
-		if (cachito.vida() == 6) {
-			game.addVisual(corazon1)
-			game.addVisual(corazon2)
-			game.addVisual(corazon3)
-			game.addVisual(corazon4)
-			game.addVisual(corazon5)
-			game.addVisual(corazon6)
-		} else {
-			if (cachito.vida() == 5) {
-				game.addVisual(corazon1)
-				game.addVisual(corazon2)
-				game.addVisual(corazon3)
-				game.addVisual(corazon4)
-				game.addVisual(corazon5)
-			} else {
-				if (cachito.vida() == 4) {
-					game.addVisual(corazon1)
-					game.addVisual(corazon2)
-					game.addVisual(corazon3)
-					game.addVisual(corazon4)
-				} else {
-					if (cachito.vida() == 3) {
-						game.addVisual(corazon1)
-						game.addVisual(corazon2)
-						game.addVisual(corazon3)
-					} else {
-						if (cachito.vida() == 2) {
-							game.addVisual(corazon1)
-							game.addVisual(corazon2)
-						} else {
-							game.addVisual(corazon1)
-						}
-					}
-				}
-			}
-		}
+		vidas.forEach({c=>c.agregar()})
 	}
 	
 	method sacarVidas() {
-		if (cachito.vida() == 5) {
-			game.removeVisual(corazon6)
-		} else {
-			if (cachito.vida() == 4) {
-				game.removeVisual(corazon5)
-			} else {
-				if (cachito.vida() == 3) {
-					game.removeVisual(corazon4)
-				} else {
-					if (cachito.vida() == 2) game.removeVisual(corazon3)
-					else game.removeVisual(corazon2)
-				}
-			}
-		}
+		vidas.find({c=>c.numero() > cachito.vida()}).remover()
+		vidas.remove(vidas.find({c=>c.numero() > cachito.vida()}))
 	}
 }

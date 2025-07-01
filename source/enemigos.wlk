@@ -172,19 +172,40 @@ object luzMala {
 object alien {
   method totem() = totemA
   method ataqueTelequinéctico() {
-    if ((totemA.position().x() > cachito.position().x()) and cachito.position().x().between(1,9)) {
+    if (self.totemEstaALaDerechaDeCachito() and self.cachitoEstaALaIzquierdaDeLaSala()) {
       cachito.position(cachito.position().left(1))
     } else {
-      if ((totemA.position().x() < cachito.position().x()) and cachito.position().x().between(1,9)) 
+      if (self.totemEstaALaIzquierdaDeCachito() and self.cachitoEstaALaIzquierdaDeLaSala()) 
       cachito.position(cachito.position().right(1))
     }
-    if ((totemA.position().y() > cachito.position().y()) and cachito.position().y().between(1,14)){
-      if ((cachito.position().y() - 1) != 0) cachito.position(cachito.position().down(1))
-    } else {
-      if ((totemA.position().y() < cachito.position().y()) and cachito.position().y().between(1,14)) 
-        cachito.position(cachito.position().up(1))
-    }
+    if (self.totemEstaArribaDeCachito() and self.cachitoEstaAbajoDeLaSala()){
+        cachito.position(cachito.position().down(1)) 
+    } 
   }
+
+  method totemEstaALaDerechaDeCachito() {
+    return
+      totemA.position().x() > cachito.position().x()
+  }
+  method totemEstaALaIzquierdaDeCachito() {
+    return
+      totemA.position().x() < cachito.position().x()
+  }
+   method totemEstaArribaDeCachito() {
+    return
+      totemA.position().y() > cachito.position().y()
+   }
+
+
+  method cachitoEstaALaIzquierdaDeLaSala() {
+    return
+      cachito.position().x().between(1,9)
+  }
+  method cachitoEstaAbajoDeLaSala() {
+    return
+      cachito.position().y().between(2,14)
+  }
+ 
   method iniciar() {  
     self.iniciarAnimacion()
   }
