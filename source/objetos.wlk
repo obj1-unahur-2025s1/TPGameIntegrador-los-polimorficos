@@ -75,9 +75,14 @@ class Ola{
   method mover(){
     self.position(self.position().up(1))
     
-    if(self.position().y() == 11){
+    if(self.llegoAlLimite()){
       game.removeVisual(self)
       }
+  }
+
+  method llegoAlLimite() {
+    return
+      self.position().y() == 11
   }
   method interaccion(){
     cachito.recibirDaño()
@@ -100,42 +105,43 @@ class RocaDer inherits Ola(image = "roca.png") {
     game.addVisual(self)
     game.onTick(vel, "disparar roca", {self.mover()})
   }
+
+  method moverEnSuDireccion() {
+    self.position(self.position().left(1))
+  }
   override method mover(){
     self.position(self.position().down(1))
-    self.position(self.position().left(1))
+    self.moverEnSuDireccion()
 
-    if(self.position().y() == -1 || self.position().x() == -1){
+    if(self.llegoAlLimite()){
       game.removeVisual(self)
     }
+  }
+
+  override method llegoAlLimite() {
+    return
+      self.position().y() == -1 || self.position().x() == -1
   }
 }
 
 class RocaIzq inherits RocaDer {
-  override method disparar(){
-    position = game.at(x, y)
-    game.addVisual(self)
-    game.onTick(vel, "disparar roca", {self.mover()})
-  }
-  override method mover(){
-    self.position(self.position().down(1))
-    self.position(self.position().right(1))
 
-    if(self.position().y() == 0 || self.position().x() == 11){
-      game.removeVisual(self)
-    }
+  override method moverEnSuDireccion() {
+    self.position(self.position().right(1))
+  }
+
+  override method llegoAlLimite() {
+    return
+      self.position().y() == 0 || self.position().x() == 11
   }
 }
 
-class RocaAbajo inherits RocaDer {
-  override method disparar(){
-    position = game.at(x, y)
-    game.addVisual(self)
-    game.onTick(vel, "disparar roca", {self.mover()})
-  }
+class RocaAbajo inherits RocaIzq {
+  
   override method mover(){
     self.position(self.position().down(1))
 
-    if(self.position().y() == 0 || self.position().x() == 11){
+    if(self.llegoAlLimite()){
       game.removeVisual(self)
     }
   }

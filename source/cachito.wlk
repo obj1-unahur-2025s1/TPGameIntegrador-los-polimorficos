@@ -13,7 +13,6 @@ object cachito {
 	var estaEnCombate = false
 	var puedeMoverse = true
 	var derrotado = false
-	var puedeRecibirDaño = true
 	var property puedeAtacar = false
 	var property tiempoDeInmunidad = 1000
 	var property ubicacion = casa
@@ -90,7 +89,7 @@ object cachito {
 		estaEnCombate = false
 		puedeAtacar = false
 		puedeMoverse = true
-		puedeRecibirDaño = true
+		tieneInmunidad = false
 		tiempoDeInmunidad = 1000
 		self.vida(4)
 		self.ubicacion(casa)
@@ -119,7 +118,7 @@ object cachito {
 	}
 	
 	method recibirDaño() {
-		if ((self.vida() > 0) && (!tieneInmunidad) && puedeRecibirDaño) {
+		if ((self.vida() > 0) && (!tieneInmunidad)) {
 			vida = 0.max(vida - 1)
 			barraDeVida.sacarVidas()
 			self.otorgarInmunidad()
@@ -142,7 +141,7 @@ object cachito {
 		mirandoAl =  norte
 		self.actualizarImagen()
 		self.activarMovimiento()
-		puedeRecibirDaño = true
+		tieneInmunidad = false
 	}
 	
 	method posicionDeAtaque() {
@@ -150,7 +149,7 @@ object cachito {
 		mirandoAl = sur
 		self.actualizarImagen()
 		self.bloquearMovimiento()
-		puedeRecibirDaño = false
+		tieneInmunidad = true
 	}
 }
 

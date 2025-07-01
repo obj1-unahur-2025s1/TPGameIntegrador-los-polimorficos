@@ -297,12 +297,17 @@ object batallaFinal {
   }
   
   method gestionarAtaque() {
-    if ((pomberitoEnBatalla && turnoCachito) && (!cachito.derrotado())) {
+    if (self.cachitoPuedeAtacar()) {
       turnoCachito = false
       game.removeVisual(cartelAtaque)
       cachito.atacar()
       game.schedule(9000, { self.golpearPomberito() })
     }
+  }
+
+  method cachitoPuedeAtacar() {
+    return
+      (pomberitoEnBatalla && turnoCachito) && (!cachito.derrotado())
   }
   
   method golpearPomberito() {
