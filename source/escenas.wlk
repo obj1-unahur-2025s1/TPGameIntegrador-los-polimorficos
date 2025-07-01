@@ -56,14 +56,14 @@ object portada {
 }
 
 //=========================Cinematica Inicial=========================//
-const inicio1 = new PantallaCinematica(nombreImagen="p", inicio=1, fin=6, siguiente=portada, pistaMusical="pistaTitulo")
+const inicio1 = new PantallaCinematica(nombreImagen="portada", inicio=1, fin=6, siguiente=portada, pistaMusical="pistaTitulo")
 //=========================Cinematica Lore=========================//
-const lore1 = new PantallaCinematica(nombreImagen="l", inicio=1, fin=5, siguiente=lore2, pistaMusical="pistaLore")
-const lore2 = new PantallaCinematicaEspecial(image="l5.png", siguiente=lore3)
-const lore3 = new PantallaCinematica(nombreImagen="l", inicio=6, fin=11, siguiente=lore4)
-const lore4 = new PantallaCinematicaEspecial(image="l12.png", siguiente=lore5)
-const lore5 = new PantallaCinematica(nombreImagen="l", inicio=13, fin=17, siguiente=lore6)
-const lore6 = new PantallaCinematicaEspecial(image="l18.png", siguiente=casa)
+const lore1 = new PantallaCinematica(nombreImagen="lore", inicio=1, fin=5, siguiente=lore2, pistaMusical="pistaLore")
+const lore2 = new PantallaCinematicaEspecial(image="lore5.png", siguiente=lore3)
+const lore3 = new PantallaCinematica(nombreImagen="lore", inicio=6, fin=11, siguiente=lore4)
+const lore4 = new PantallaCinematicaEspecial(image="lore12.png", siguiente=lore5)
+const lore5 = new PantallaCinematica(nombreImagen="lore", inicio=13, fin=17, siguiente=lore6)
+const lore6 = new PantallaCinematicaEspecial(image="lore18.png", siguiente=casa)
 
 //===========================Cinematica Entrada a la iglesia========================//
 const cinematicaPomberito = new PantallaCinematica(delay = 1500 ,nombreImagen="escenaPomberito",inicio=1, fin=3,
@@ -128,9 +128,17 @@ object pantallaGameOver {
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("ataque4Pomberito")
     game.removeTickEvent("ataque3Pomberito")
-    game.schedule(12000, { game.stop() })
+    game.schedule(12000, { 
+      image = "fin6.png"
+      game.removeVisual(self)
+      game.addVisual(self)
+      self.finalizarJuego() })
   }
-  
+  method finalizarJuego() {
+    game.schedule(2000,{
+      game.stop()
+    })
+  }
 
 }
 object creditos {

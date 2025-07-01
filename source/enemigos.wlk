@@ -74,55 +74,38 @@ object pomberito {
     game.schedule(5500, {game.removeTickEvent("ataque4Pomberito")})
   }
 
-  method paredCentral(){
-        const roca1 = new RocaAbajo(vel = 150,x=2,y=9)
-    roca1.position(self.position())
-    roca1.disparar()
-        const roca4 = new RocaAbajo(vel = 150,x=3,y=9)
-    roca4.position(self.position())
-    roca4.disparar()
-        const roca = new RocaAbajo(vel = 150,x=4,y=9)
+  // Métodos auxiliares para crear rocas 
+  method crearYDispararRocaAbajo(x, y, velocidad) {
+    const roca = new RocaAbajo(vel = velocidad, x = x, y = y)
     roca.position(self.position())
     roca.disparar()
-        const roca2 = new RocaAbajo(vel = 150,x=5,y=9)
-    roca2.position(self.position())
-    roca2.disparar()
-        const roca3 = new RocaAbajo(vel = 150,x=6,y=9)
-    roca3.position(self.position())
-    roca3.disparar()
-        const roca5 = new RocaAbajo(vel = 150,x=7,y=9)
-    roca5.position(self.position())
-    roca5.disparar()
-
   }
   
-  method paredConHuecosYDesface(x,y){
-        const roca = new RocaAbajo(x=0+x,y=y)
+  method crearYDispararRocaIzq(x, y, velocidad) {
+    const roca = new RocaIzq(vel = velocidad, x = x, y = y)
     roca.position(self.position())
     roca.disparar()
-        const roca2 = new RocaAbajo(x=2+x,y=y)
-    roca2.position(self.position())
-    roca2.disparar()
-        const roca3 = new RocaAbajo(x=4+x,y=y)
-    roca3.position(self.position())
-    roca3.disparar()
-        const roca4 = new RocaAbajo(x=6+x,y=y)
-    roca4.position(self.position())
-    roca4.disparar()
-        const roca5 = new RocaAbajo(x=8+x,y=y)
-    roca5.position(self.position())
-    roca5.disparar()
-        const roca6 = new RocaAbajo(x=10+x,y=y)
-    roca6.position(self.position())
-    roca6.disparar()
-        const roca7 = new RocaAbajo(x=12+x,y=y)
-    roca7.position(self.position())
-    roca7.disparar()
-        const roca8 = new RocaAbajo(x=14+x,y=y)
-    roca8.position(self.position())
-    roca8.disparar()
+  }
+  
+  method crearYDispararRocaDer(x, y, velocidad) {
+    const roca = new RocaDer(vel = velocidad, x = x, y = y)
+    roca.position(self.position())
+    roca.disparar()
   }
 
+  method paredCentral(){
+    // Crear pared de rocas de x=2 a x=7 en y=9
+    (2..7).forEach { x => 
+      self.crearYDispararRocaAbajo(x, 9, 150)
+    }
+  }
+  
+  method paredConHuecosYDesface(x, y){
+    // Crear rocas cada 2 posiciones con el desfase(0, 2, 4, 6, 8, 10, 12, 14)
+    (0..7).forEach { i => 
+      self.crearYDispararRocaAbajo(i * 2 + x, y, 150)
+    }
+  }
 }
 
 object luzMala {

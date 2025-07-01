@@ -39,88 +39,87 @@ class LimitadorDerecha inherits Limitador {
 }
 
 object limitadores {
+    // Métodos auxiliares para crear limitadores en rangos
+    method crearLimitadoresArribaHorizontales(y, xDesde, xHasta) {
+        (xDesde..xHasta).forEach { x => 
+            escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
+        }
+    }
+    
+    method crearLimitadoresAbajoHorizontales(y, xDesde, xHasta) {
+        (xDesde..xHasta).forEach { x => 
+            escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
+        }
+    }
+    
+    method crearLimitadoresDerechaVerticales(x, yDesde, yHasta) {
+        (yDesde..yHasta).forEach { y => 
+            escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
+        }
+    }
+    
+    method crearLimitadoresIzquierdaVerticales(x, yDesde, yHasta) {
+        (yDesde..yHasta).forEach { y => 
+            escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
+        }
+    }
+    
+    method crearLimitadorIndividual(tipo, x, y) {
+        if (tipo == "arriba") {
+            escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
+        } else if (tipo == "abajo") {
+            escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
+        } else if (tipo == "derecha") {
+            escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
+        } else if (tipo == "izquierda") {
+            escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
+        }
+    }
 
     method agregarLimitadoresEnCasa() {
-        escenario.ubicarEnEscena(new LimitadorArriba(), 0, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 1, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 2, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 3, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 4, 9)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 5, 9)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 6, 9)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 7, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 8, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 9, 10)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 10, 10)
+        // Limitadores arriba - línea superior
+        self.crearLimitadoresArribaHorizontales(10, 0, 3)
+        self.crearLimitadoresArribaHorizontales(10, 7, 10)
+        self.crearLimitadoresArribaHorizontales(9, 4, 6)
+        
+        // Limitadores específicos
         escenario.ubicarEnEscena(new LimitadorArriba(), 7, 4)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 7)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 8)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 9)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 5)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 4)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 8, 3)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 7)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 8)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 9)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 5)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 4)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 9, 3)
+        
+        // Limitadores derecha
+        self.crearLimitadoresDerechaVerticales(8, 3, 9)
+        
+        // Limitadores izquierda  
+        self.crearLimitadoresIzquierdaVerticales(9, 3, 9)
     }
 
     method agregarLimitadoresEnPueblo() {
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 12)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 11)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 10)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 9)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 7)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 6)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 10, 5)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 0)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 1)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 2)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 3)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 4)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 2, 7)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 2, 8)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 9)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 10)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 11)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 6, 12)
-        escenario.ubicarEnEscena(new LimitadorDerecha(), 7, 6)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 12)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 11)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 10)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 9)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 7)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 8, 6)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 0)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 1)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 2)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 3)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 4)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 0, 5)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 0, 6)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 0, 7)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 8)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 9)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 10)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 11)
-        escenario.ubicarEnEscena(new LimitadorIzquierda(), 4, 12)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 9, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 8, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 7, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 1, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 2, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 3, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 4, 4)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 5, 7)
-        escenario.ubicarEnEscena(new LimitadorAbajo(), 7, 7)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 7, 6)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 2, 6)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 3, 6)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 4, 6)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 1, 9)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 7, 9)
-        escenario.ubicarEnEscena(new LimitadorArriba(), 7, 9)
+        // Limitadores derecha en columnas específicas
+        self.crearLimitadoresDerechaVerticales(10, 5, 7)
+        self.crearLimitadoresDerechaVerticales(10, 9, 12)
+        self.crearLimitadoresDerechaVerticales(6, 0, 4)
+        self.crearLimitadoresDerechaVerticales(6, 9, 12)
+        
+        // Limitadores derecha individuales
+        self.crearLimitadorIndividual("derecha", 2, 7)
+        self.crearLimitadorIndividual("derecha", 2, 8)
+        self.crearLimitadorIndividual("derecha", 7, 6)
+        
+        // Limitadores izquierda en columnas específicas
+        self.crearLimitadoresIzquierdaVerticales(8, 6, 12)
+        self.crearLimitadoresIzquierdaVerticales(4, 0, 4)
+        self.crearLimitadoresIzquierdaVerticales(4, 8, 12)
+        self.crearLimitadoresIzquierdaVerticales(0, 5, 7)
+        
+        // Limitadores abajo en fila específica
+        self.crearLimitadoresAbajoHorizontales(4, 1, 4)
+        self.crearLimitadoresAbajoHorizontales(4, 7, 9)
+        self.crearLimitadorIndividual("abajo", 5, 7)
+        self.crearLimitadorIndividual("abajo", 7, 7)
+        
+        // Limitadores arriba específicos
+        self.crearLimitadoresArribaHorizontales(6, 2, 4)
+        self.crearLimitadorIndividual("arriba", 7, 6)
+        self.crearLimitadorIndividual("arriba", 1, 9)
+        self.crearLimitadorIndividual("arriba", 7, 9)
     }
 }
