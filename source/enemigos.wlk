@@ -20,7 +20,6 @@ object pomberito {
     posicion = game.at(5, 10)
     vida = 4
   }
-  method cinematica() = escenaPomberito1
   method duracionAtaque() = 4000
   method recibirDaño() {
       vida -= 1

@@ -111,6 +111,8 @@ object animacionAtaque {
   method duracion() = 9000
 }
 //===========================Pantalla Game Over - Creditos ===============================//
+const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical="pistaFinal")
+
 object pantallaGameOver {
   var property image = "gameOver2.png"
   var property position = game.origin()

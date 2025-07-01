@@ -77,6 +77,10 @@ object cachito {
 				self.actualizarImagen()
 			}
 		)
+
+		keyboard.num(1).onPressDo({
+			finalJuego.iniciar()
+		})
 	}
 	
 	method reiniciar() {
@@ -135,7 +139,7 @@ object cachito {
 	}
 	
 	method posicionDeDefensa() {
-		mirandoAl = "N"
+		mirandoAl =  norte
 		self.actualizarImagen()
 		self.activarMovimiento()
 		puedeRecibirDaño = true
@@ -143,7 +147,7 @@ object cachito {
 	
 	method posicionDeAtaque() {
 		self.position(game.at(5, 1))
-		mirandoAl = "S"
+		mirandoAl = sur
 		self.actualizarImagen()
 		self.bloquearMovimiento()
 		puedeRecibirDaño = false
