@@ -74,7 +74,6 @@ object pomberito {
     game.schedule(5500, {game.removeTickEvent("ataque4Pomberito")})
   }
 
-  // Métodos auxiliares para crear rocas 
   method crearYDispararRocaAbajo(x, y, velocidad) {
     const roca = new RocaAbajo(vel = velocidad, x = x, y = y)
     roca.position(self.position())
@@ -94,14 +93,12 @@ object pomberito {
   }
 
   method paredCentral(){
-    // Crear pared de rocas de x=2 a x=7 en y=9
     (2..7).forEach { x => 
       self.crearYDispararRocaAbajo(x, 9, 150)
     }
   }
   
   method paredConHuecosYDesface(x, y){
-    // Crear rocas cada 2 posiciones con el desfase(0, 2, 4, 6, 8, 10, 12, 14)
     (0..7).forEach { i => 
       self.crearYDispararRocaAbajo(i * 2 + x, y, 150)
     }
