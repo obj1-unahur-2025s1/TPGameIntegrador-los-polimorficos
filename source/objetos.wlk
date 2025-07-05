@@ -174,6 +174,14 @@ class Totem{
   }
 }
 
+//-------------------------PISTAS---------------------------------------
+class Pista {
+
+  var property cancion 
+  var property volumen = 0.25
+  var property loop = true
+}
+
 
 
 //=====================INSTANCIACIONES=============//
@@ -219,6 +227,15 @@ const totemL = new Totem(image = "totemLuzMala.png", position = luzMala.posicion
 const totemA = new Totem(image = "totemAlien.png", position = game.at(5,11), salaEnemigo = salaAlien)
 const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4), salaEnemigo = salaNahuelito)
 
+//MUSICA DE FONDO
+const pistaTitulo = new Pista(cancion = "mainTitle.mp3")
+const pistaCasa = new Pista(cancion = "casaCachito.mp3")
+const pistaAlien = new Pista(cancion = "marciano.mp3")
+const pistaGameOver = new Pista(cancion = "gameOver.mp3" , volumen = 1)
+const pistaLore = new Pista(cancion = "lore.mp3")
+const pistaFinalBoss = new Pista(cancion = "finalboss.mp3" , volumen = 0.05)
+const pistaNahuelito = new Pista(cancion = "peleaNahuelito.mp3")
+const pistaFinal = new Pista(cancion = "final.mp3" , loop = false)
 
 //=========================VARIOS==========================//
 object mujerCachito {

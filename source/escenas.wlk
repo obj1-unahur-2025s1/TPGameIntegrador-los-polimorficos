@@ -27,7 +27,7 @@ object portada {
   var property image = "portada.png"
   var property position = game.origin()
   const tecla = keyboard.e()
-  method accionTecla() {lore1.iniciar() musicaFondo.iniciar("pistaLore") cartelIniciar.detenerAnimacion()}
+  method accionTecla() {lore1.iniciar() musicaFondo.iniciar(pistaLore) cartelIniciar.detenerAnimacion()}
   method iniciar() {
     escenario.borrarEscena()
     game.addVisual(self)
@@ -56,9 +56,9 @@ object portada {
 }
 
 //=========================Cinematica Inicial=========================//
-const inicio1 = new PantallaCinematica(nombreImagen="portada", inicio=1, fin=6, siguiente=portada, pistaMusical="pistaTitulo")
+const inicio1 = new PantallaCinematica(nombreImagen="portada", inicio=1, fin=6, siguiente=portada, pistaMusical=pistaTitulo)
 //=========================Cinematica Lore=========================//
-const lore1 = new PantallaCinematica(nombreImagen="lore", inicio=1, fin=5, siguiente=lore2, pistaMusical="pistaLore")
+const lore1 = new PantallaCinematica(nombreImagen="lore", inicio=1, fin=5, siguiente=lore2, pistaMusical=pistaLore)
 const lore2 = new PantallaCinematicaEspecial(image="lore5.png", siguiente=lore3)
 const lore3 = new PantallaCinematica(nombreImagen="lore", inicio=6, fin=11, siguiente=lore4)
 const lore4 = new PantallaCinematicaEspecial(image="lore12.png", siguiente=lore5)
@@ -67,7 +67,7 @@ const lore6 = new PantallaCinematicaEspecial(image="lore18.png", siguiente=casa)
 
 //===========================Cinematica Entrada a la iglesia========================//
 const cinematicaPomberito = new PantallaCinematica(delay = 1500 ,nombreImagen="escenaPomberito",inicio=1, fin=3,
-siguiente=iglesia, pistaMusical="pistaFinalBoss", delaySiguiente=6000)
+siguiente=iglesia, pistaMusical=pistaFinalBoss, delaySiguiente=6000)
 
 //===========================Cinematicas Ataque============================//
 /*
@@ -111,7 +111,7 @@ object animacionAtaque {
   method duracion() = 9000
 }
 //===========================Pantalla Game Over - Creditos ===============================//
-const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical="pistaFinal")
+const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
 
 object pantallaGameOver {
   var property image = "gameOver2.png"

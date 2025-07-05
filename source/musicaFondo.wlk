@@ -1,3 +1,5 @@
+import source.objetos.*
+
 object musicaFondo {
   var property musicaFondo = null
   var pista = null
@@ -8,49 +10,13 @@ object musicaFondo {
     if (unaPista != null) {
       self.detener()
       loop = true
-      if ((unaPista == "pistaTitulo") && (!self.seEstaReproduciendo(unaPista))) {
-        musicaFondo = game.sound("mainTitle.mp3")
-        pista = "pistaTitulo"
-      }
-      if ((unaPista == "pistaCasa") && (!self.seEstaReproduciendo(unaPista))) {
-        musicaFondo = game.sound("casaCachito.mp3")
-        pista = "pistaCasa"
-      }
-      if ((unaPista == "pistaAlien") && (!self.seEstaReproduciendo(unaPista))) {
-        musicaFondo = game.sound("marciano.mp3")
-        pista = "pistaAlien"
-      }
-      if ((unaPista == "pistaGameOver") && (!self.seEstaReproduciendo(unaPista))) {
-        musicaFondo = game.sound("gameOver.mp3")
-        pista = "pistaGameOver"
-        volumen = 1
-      }
-      if (unaPista == "pistaFinalBoss"){
-        musicaFondo = game.sound("finalboss.mp3")
-        pista = "pistaFinalBoss"
-        volumen = 0.05
+      if (!self.seEstaReproduciendo(unaPista)) {
+        musicaFondo = game.sound(unaPista.cancion())
+        pista = unaPista
+        volumen = unaPista.volumen()
+        loop = unaPista.loop()
       }
 
-      if (unaPista == "pistaLore"){
-        musicaFondo = game.sound("lore.mp3")
-        pista = "pistaLore"
-        volumen = 0.25
-      }
-
-      if (unaPista == "pistaNahuelito") {
-        musicaFondo = game.sound("peleaNahuelito.mp3")
-        pista = "pistaNahuelito"
-        volumen = 0.25
-      }
-
-      if (unaPista == "pistaFinal") {
-        musicaFondo = game.sound("final.mp3")
-        pista = "pistaFinal"
-        volumen = 0.25
-        loop = false
-      }
-
-      
       musicaFondo.play()
       musicaFondo.shouldLoop(loop)
       musicaFondo.volume(volumen)
@@ -82,3 +48,5 @@ object musicaFondo {
   method reestablecerPista(){ pista= null }
   method seEstaReproduciendo(num) = pista == num
 }
+
+

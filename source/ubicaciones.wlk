@@ -16,7 +16,7 @@ object casa {
   method iniciar() {
     accionesTeclas.pantallaValida(false)
     game.removeVisual(spaceParaContinuar1)
-    musicaFondo.cambiarAPista("pistaCasa")
+    musicaFondo.cambiarAPista(pistaCasa)
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
     escenario.colocarJugadorEn(7, 8)
@@ -112,7 +112,7 @@ const salaLuzMala = new SalaEnemigo(
 
 const salaNahuelito = new SalaEnemigo(
   enemigo = nahuelito,
-  pista = "pistaNahuelito",
+  pista = pistaNahuelito,
   tieneAgua = true,
   jugadorX = 5,
   jugadorY = 14,
@@ -124,7 +124,7 @@ const salaNahuelito = new SalaEnemigo(
 
 const salaAlien = new SalaEnemigo(
   enemigo = alien,
-  pista = "pistaAlien",
+  pista = pistaAlien,
   jugadorX = 0,
   jugadorY = 1,
   lSup = 12,
