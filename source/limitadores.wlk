@@ -1,5 +1,7 @@
 import cachito.*
 import escenario.*
+import objetos.*
+
 class Limitador {
 	var property position = game.at(0,0)
 
@@ -63,16 +65,8 @@ object limitadores {
         }
     }
     
-    method crearLimitadorIndividual(tipo, x, y) {
-        if (tipo == "arriba") {
-            escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
-        } else if (tipo == "abajo") {
-            escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
-        } else if (tipo == "derecha") {
-            escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
-        } else if (tipo == "izquierda") {
-            escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
-        }
+    method crearLimitadorIndividual(direccion, x, y) {
+        direccion.crearLimitadorDeMovimiento(x, y)
     }
 
     method agregarLimitadoresEnCasa() {
@@ -93,9 +87,9 @@ object limitadores {
         self.crearLimitadoresDerechaVerticales(6, 0, 4)
         self.crearLimitadoresDerechaVerticales(6, 9, 12)
         
-        self.crearLimitadorIndividual("derecha", 2, 7)
-        self.crearLimitadorIndividual("derecha", 2, 8)
-        self.crearLimitadorIndividual("derecha", 7, 6)
+        self.crearLimitadorIndividual(este, 2, 7)
+        self.crearLimitadorIndividual(este, 2, 8)
+        self.crearLimitadorIndividual(este, 7, 6)
         
         self.crearLimitadoresIzquierdaVerticales(8, 6, 7)
         self.crearLimitadoresIzquierdaVerticales(8, 9, 12)
@@ -105,12 +99,12 @@ object limitadores {
         
         self.crearLimitadoresAbajoHorizontales(4, 1, 4)
         self.crearLimitadoresAbajoHorizontales(4, 7, 9)
-        self.crearLimitadorIndividual("abajo", 5, 7)
-        self.crearLimitadorIndividual("abajo", 7, 7)
+        self.crearLimitadorIndividual(sur, 5, 7)
+        self.crearLimitadorIndividual(sur, 7, 7)
         
         self.crearLimitadoresArribaHorizontales(6, 2, 4)
-        self.crearLimitadorIndividual("arriba", 7, 6)
-        self.crearLimitadorIndividual("arriba", 1, 9)
-        self.crearLimitadorIndividual("arriba", 7, 9)
+        self.crearLimitadorIndividual(norte , 7, 6)
+        self.crearLimitadorIndividual(norte, 1, 9)
+        self.crearLimitadorIndividual(norte, 7, 9)
     }
 }

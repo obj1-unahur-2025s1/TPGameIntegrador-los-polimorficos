@@ -3,6 +3,8 @@ import cachito.*
 import escenario.*
 import salasEnemigos.*
 import enemigos.*
+import limitadores.*
+
 
 
 class Corazon{
@@ -282,6 +284,10 @@ object norte{
     return img
   }
   method puedeAvanzar() = ((limiteSuperior.position().y() - 1) > cachito.position().y()) && cachito.puedeMoverse()
+
+  method crearLimitadorDeMovimiento(x , y) {
+    escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
+  }
 }
 
 object sur{
@@ -299,6 +305,10 @@ object sur{
     return img
   }
   method puedeAvanzar() = ((limiteInferior.position().y() + 1) < cachito.position().y()) && cachito.puedeMoverse()
+
+  method crearLimitadorDeMovimiento(x , y) {
+    escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
+  }
 }
 
 object este{
@@ -316,6 +326,10 @@ object este{
     return img
   }
   method puedeAvanzar() = ((limiteLatDer.position().x() - 1) > cachito.position().x()) && cachito.puedeMoverse()
+
+  method crearLimitadorDeMovimiento(x , y) {
+    escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
+  }
 }
 
 object oeste{
@@ -333,4 +347,8 @@ object oeste{
     return img
   }
   method puedeAvanzar() = ((limiteLatIzq.position().x() + 1) < cachito.position().x()) && cachito.puedeMoverse()
+
+  method crearLimitadorDeMovimiento(x , y) {
+    escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
+  }
 }
