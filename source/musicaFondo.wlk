@@ -1,4 +1,4 @@
-import source.objetos.*
+import objetos.*
 
 object musicaFondo {
   var property musicaFondo = null

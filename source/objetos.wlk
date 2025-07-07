@@ -284,7 +284,11 @@ object norte{
     return img
   }
   method puedeAvanzar() = ((limiteSuperior.position().y() - 1) > cachito.position().y()) && cachito.puedeMoverse()
-
+  method avanzar(){
+  	cachito.position(cachito.position().up(1))
+    cachito.mirandoAl(self)
+    cachito.actualizarImagen()
+  }
   method crearLimitadorDeMovimiento(x , y) {
     escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
   }
@@ -305,7 +309,11 @@ object sur{
     return img
   }
   method puedeAvanzar() = ((limiteInferior.position().y() + 1) < cachito.position().y()) && cachito.puedeMoverse()
-
+  method avanzar(){
+  	cachito.position(cachito.position().down(1))
+    cachito.mirandoAl(self)
+    cachito.actualizarImagen()
+  }
   method crearLimitadorDeMovimiento(x , y) {
     escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
   }
@@ -326,7 +334,11 @@ object este{
     return img
   }
   method puedeAvanzar() = ((limiteLatDer.position().x() - 1) > cachito.position().x()) && cachito.puedeMoverse()
-
+  method avanzar(){
+  	cachito.position(cachito.position().right(1))
+    cachito.mirandoAl(self)
+    cachito.actualizarImagen()
+  }
   method crearLimitadorDeMovimiento(x , y) {
     escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
   }
@@ -347,7 +359,11 @@ object oeste{
     return img
   }
   method puedeAvanzar() = ((limiteLatIzq.position().x() + 1) < cachito.position().x()) && cachito.puedeMoverse()
-
+  method avanzar(){
+  	cachito.position(cachito.position().left(1))
+		cachito.mirandoAl(self)
+		cachito.actualizarImagen()
+  }
   method crearLimitadorDeMovimiento(x , y) {
     escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
   }

@@ -8,7 +8,7 @@ import escenas.*
 object cachito {
 	var property vida = 4
 	const totems = #{}
-	var mirandoAl = sur
+	var property mirandoAl = sur
 	var tieneInmunidad = false
 	var estaEnCombate = false
 	var puedeMoverse = true
@@ -42,38 +42,25 @@ object cachito {
 	method configurarTeclas() {
 		//Left
 		keyboard.a().onPressDo(
-			{ 
-				if (oeste.puedeAvanzar())
-					self.position(self.position().left(1))
-				mirandoAl = oeste
-				self.actualizarImagen()
+			{  if(oeste.puedeAvanzar()) oeste.avanzar()
 			}
 		)
 		//right
 		keyboard.d().onPressDo(
 			{ 
-				if (este.puedeAvanzar())
-					self.position(self.position().right(1))
-				mirandoAl = este
-				self.actualizarImagen()
+				if (este.puedeAvanzar()) este.avanzar()
 			}
 		)
 		//down
 		keyboard.s().onPressDo(
 			{ 
-				if (sur.puedeAvanzar())
-					self.position(self.position().down(1))
-				mirandoAl = sur
-				self.actualizarImagen()
+				if (sur.puedeAvanzar()) sur.avanzar()
 			}
 		)
 		//up
 		keyboard.w().onPressDo(
 			{ 
-				if (norte.puedeAvanzar())
-					self.position(self.position().up(1))
-				mirandoAl = norte
-				self.actualizarImagen()
+				if (norte.puedeAvanzar()) norte.avanzar()
 			}
 		)
 
