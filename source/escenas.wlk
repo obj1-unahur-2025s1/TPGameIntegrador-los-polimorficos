@@ -122,7 +122,7 @@ object pantallaGameOver {
     escenario.borrarEscena()
     game.addVisual(self)
     musicaFondo.detener()
-    musicaFondo.iniciar("pistaGameOver")
+    musicaFondo.iniciar(pistaGameOver)
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
     game.removeTickEvent("actualizarPuertas")
