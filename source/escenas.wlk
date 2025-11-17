@@ -39,20 +39,6 @@ object portada {
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
-  method reiniciar() {
-    musicaFondo.detener()
-    musicaFondo.volumen(0.25)
-    escenario.borrarEscena()
-    cachito.reiniciar()
-    nahuelito.reiniciar()
-    game.removeTickEvent("moverse")
-    game.removeTickEvent("atacar")
-    game.removeTickEvent("actualizarPuertas")
-    game.removeTickEvent("disparar roca")
-    musicaFondo.reestablecerPista()
-    self.iniciar()
-    escenario.enGameOver(false)
-  }
 }
 
 //=========================Cinematica Inicial=========================//
@@ -114,7 +100,7 @@ object animacionAtaque {
 const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
 
 object pantallaGameOver {
-  var property image = "gameOver2.png"
+ var property image = "gameOver.png"
   var property position = game.origin()
   
   method iniciar() {
@@ -128,18 +114,33 @@ object pantallaGameOver {
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("ataque4Pomberito")
     game.removeTickEvent("ataque3Pomberito")
-    game.schedule(12000, { 
-      image = "fin6.png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      self.finalizarJuego() })
-  }
-  method finalizarJuego() {
-    game.schedule(2000,{
-      game.stop()
-    })
+    game.removeTickEvent("disparar roca")
+    cartelReiniciar.animar()
+
+    // --- 🔥 LISTENERS DE TECLAS DIRECTOS --- //
+    keyboard.y().onPressDo({ self.reiniciarJuego() })
+    keyboard.n().onPressDo({ self.finalizarJuego() })
   }
 
+  method reiniciarJuego() {
+    musicaFondo.detener()
+    musicaFondo.volumen(0.25)
+    escenario.borrarEscena()
+    cachito.reiniciar()
+    nahuelito.reiniciar()
+    musicaFondo.reestablecerPista()
+    casa.iniciar()
+    escenario.enGameOver(false)
+    game.onTick(500, "actualizarPuertas", { escenario.actualizarPuertas() })
+    barraDeVida.reiniciar()
+  }
+
+  method finalizarJuego() {
+    image = "fin6.png"
+    game.removeVisual(self)
+    game.addVisual(self)
+    game.schedule(12000,{ game.stop() })
+  }
 }
 object creditos {
   var property image = "fin5.png"

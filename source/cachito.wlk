@@ -18,7 +18,9 @@ object cachito {
 	var property ubicacion = casa
 	var property position = game.origin()
 	var property image = mirandoAl.imagen()
+	
 	method puedeMoverse() = puedeMoverse
+	
 	method derrotado() = derrotado
 	
 	method tieneInmunidad() = tieneInmunidad
@@ -41,32 +43,15 @@ object cachito {
 	
 	method configurarTeclas() {
 		//Left
-		keyboard.a().onPressDo(
-			{  if(oeste.puedeAvanzar()) oeste.avanzar()
-			}
-		)
+		keyboard.a().onPressDo({ if (oeste.puedeAvanzar()) oeste.avanzar() })
 		//right
-		keyboard.d().onPressDo(
-			{ 
-				if (este.puedeAvanzar()) este.avanzar()
-			}
-		)
+		keyboard.d().onPressDo({ if (este.puedeAvanzar()) este.avanzar() })
 		//down
-		keyboard.s().onPressDo(
-			{ 
-				if (sur.puedeAvanzar()) sur.avanzar()
-			}
-		)
+		keyboard.s().onPressDo({ if (sur.puedeAvanzar()) sur.avanzar() })
 		//up
-		keyboard.w().onPressDo(
-			{ 
-				if (norte.puedeAvanzar()) norte.avanzar()
-			}
-		)
-
-		keyboard.num(1).onPressDo({
-			finalJuego.iniciar()
-		})
+		keyboard.w().onPressDo({ if (norte.puedeAvanzar()) norte.avanzar() })
+		
+		keyboard.num(1).onPressDo({ finalJuego.iniciar() })
 	}
 	
 	method reiniciar() {
@@ -125,7 +110,7 @@ object cachito {
 	}
 	
 	method posicionDeDefensa() {
-		mirandoAl =  norte
+		mirandoAl = norte
 		self.actualizarImagen()
 		self.activarMovimiento()
 		tieneInmunidad = false
@@ -141,14 +126,18 @@ object cachito {
 }
 
 object barraDeVida {
+	var property vidas = [corazon1, corazon2, corazon3, corazon4]
 	
-	var property vidas = [corazon1 , corazon2 , corazon3 , corazon4]
 	method mostrarVidas() {
-		vidas.forEach({c=>c.agregar()})
+		vidas.forEach({ c => c.agregar() })
+	}
+	
+	method reiniciar() {
+		vidas = [corazon1, corazon2, corazon3, corazon4]
 	}
 	
 	method sacarVidas() {
-		vidas.find({c=>c.numero() > cachito.vida()}).remover()
-		vidas.remove(vidas.find({c=>c.numero() > cachito.vida()}))
+		vidas.find({ c => c.numero() > cachito.vida() }).remover()
+		vidas.remove(vidas.find({ c => c.numero() > cachito.vida() }))
 	}
 }
