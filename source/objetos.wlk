@@ -204,10 +204,12 @@ const iniciar1 = new Cartel(image = "press1.png", x= 1, y = 1)
 const iniciar2 = new Cartel(image = "press2.png", x= 1, y = 1)
 const spaceParaContinuar1 = new Cartel(image = "cont1.png", x= 0, y = 0)
 const cartelAtaque = new Cartel (image = "cartelDeAtaque.png", x =1, y = 13)
+const reiniciar1 = new Cartel(image = "SN1.png", x= 0, y = 0)
+const reiniciar2 = new Cartel(image = "SN2.png", x= 0, y = 0)
 
 const cartelIniciar = new CartelAnimado(c1 = iniciar1, c2 = iniciar2)
 const ovniAnimado = new CartelAnimado(c1 = ovni1, c2 = ovni2)
-
+const cartelReiniciar = new CartelAnimado(c1 = reiniciar1, c2 = reiniciar2)
 //OVNI (SE DEFINE COMO CARTEL PARA PODER ANIMARLO)
 const ovni1 = new Cartel(image = "animacionO1.png", x= 4, y = 13)
 const ovni2 = new Cartel(image = "ov2.png", x= 4, y = 13)
@@ -231,6 +233,7 @@ const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4), sala
 
 //MUSICA DE FONDO
 const pistaTitulo = new Pista(cancion = "mainTitle.mp3")
+const pistaPueblo = new Pista(cancion = "pueblo.mp3")
 const pistaCasa = new Pista(cancion = "casaCachito.mp3")
 const pistaAlien = new Pista(cancion = "marciano.mp3")
 const pistaGameOver = new Pista(cancion = "gameOver.mp3" , volumen = 1)

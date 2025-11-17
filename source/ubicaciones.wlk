@@ -36,7 +36,7 @@ object pueblo {
   var property x = 5
   var property y = 8
   method iniciar() {
-    musicaFondo.detener()
+    musicaFondo.cambiarAPista(pistaPueblo)
     escenario.iniciarEscena(self, teroViolado)
     cachito.ubicacion(self)
     cachito.actualizarImagen()
