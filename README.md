@@ -50,4 +50,4 @@ Hablar con alguno de ellos otorgará un bonus especial.
 
 - Comisión 1 - Universidad Nacional de Hurlingham (UNAHUR)
 - Versión de wollok : 0.3.1
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Una vez terminado, no tenemos problemas en que el repositorio sea público 
