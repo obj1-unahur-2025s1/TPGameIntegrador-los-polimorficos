@@ -51,7 +51,8 @@ object cachito {
 		//up
 		keyboard.w().onPressDo({ if (norte.puedeAvanzar()) norte.avanzar() })
 		
-		keyboard.num(1).onPressDo({ finalJuego.iniciar() })
+		keyboard.num(1).onPressDo({ finalJuego.iniciar() })//Eliminar en version final
+		keyboard.num(2).onPressDo({ pantallaGameOver.iniciar() })//Eliminar en version final
 	}
 	
 	method reiniciar() {

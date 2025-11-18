@@ -56,16 +56,6 @@ const cinematicaPomberito = new PantallaCinematica(delay = 1500 ,nombreImagen="e
 siguiente=iglesia, pistaMusical=pistaFinalBoss, delaySiguiente=6000)
 
 //===========================Cinematicas Ataque============================//
-/*
-
-Se realiza como un objeto independiente (por mas que su logica sea identica a la clase PantallaCinematica) 
-debido a que en pantalla cinematica se borra toda la escena y se agrega una nueva visual,
-por lo que no se puede implementar la cinematica de ataque como una instancia de PantallaCinematica
-ya que se borraria toda la escena y se "romperia" el juego.
-
-Si a alguno se le llega a ocurrir alguna manera de solucionarlo y que se pueda implementar como una instancia, bienvenido sea.
-- Ya intenté sacar el escenario.borrarEscena() y reemplazarlo por el metodo removerEscenaAnterior(){ if(escena != null) game.removeVisual(anterior)} pero no funcionó -
-*/
 object animacionAtaque {
   var property image = "ataque1.png"
   var property position = game.origin()
@@ -115,9 +105,8 @@ object pantallaGameOver {
     game.removeTickEvent("ataque4Pomberito")
     game.removeTickEvent("ataque3Pomberito")
     game.removeTickEvent("disparar roca")
+    game.addVisual(reiniciar1)
     cartelReiniciar.animar()
-
-    // --- 🔥 LISTENERS DE TECLAS DIRECTOS --- //
     keyboard.y().onPressDo({ self.reiniciarJuego() })
     keyboard.n().onPressDo({ self.finalizarJuego() })
   }
@@ -133,13 +122,15 @@ object pantallaGameOver {
     escenario.enGameOver(false)
     game.onTick(500, "actualizarPuertas", { escenario.actualizarPuertas() })
     barraDeVida.reiniciar()
+    cartelReiniciar.detenerAnimacion()
   }
 
   method finalizarJuego() {
     image = "fin6.png"
     game.removeVisual(self)
+    cartelReiniciar.detenerAnimacion()
     game.addVisual(self)
-    game.schedule(12000,{ game.stop() })
+    game.schedule(1000,{ game.stop() })
   }
 }
 object creditos {
