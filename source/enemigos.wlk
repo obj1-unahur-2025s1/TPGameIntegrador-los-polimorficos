@@ -133,7 +133,7 @@ object luzMala {
   
   method moverTotem() {
     contador += 1
-    totemL.position(self.posicionesTotem().anyOne())
+    totemL.position(self.posicionesTotem().filter({p=>p != espina.position()}).anyOne())
   }
   
   method iniciar() {
