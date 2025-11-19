@@ -101,7 +101,7 @@ object iglesia {
 
 const salaLuzMala = new SalaEnemigo(
   enemigo = luzMala,
-  pista = null,
+  pista = pistaLuzMala,
   jugadorX = 10,
   jugadorY = 1,
   lSup = 15,

@@ -162,6 +162,15 @@ object flash{
   var property position = game.origin()
 }
 
+class Espina{
+  var property image = "espinas.png"
+  var property position 
+
+  method interaccion(){
+    cachito.recibirDaño()
+  }
+}
+
 //-------------------------TOTEM---------------------------------------
 class Totem{
   var property image 
@@ -241,6 +250,7 @@ const pistaLore = new Pista(cancion = "lore.mp3")
 const pistaFinalBoss = new Pista(cancion = "finalboss.mp3" , volumen = 0.05)
 const pistaNahuelito = new Pista(cancion = "peleaNahuelito.mp3")
 const pistaFinal = new Pista(cancion = "final.mp3" , loop = false)
+const pistaLuzMala = new Pista(cancion = "luzMala.mp3")
 
 //=========================VARIOS==========================//
 object mujerCachito {

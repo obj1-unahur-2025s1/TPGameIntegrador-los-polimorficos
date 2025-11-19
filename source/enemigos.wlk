@@ -190,9 +190,11 @@ object alien {
     self.iniciarAnimacion()
   }
   method texto() = ovniAlien
+
   method iniciarAnimacion(){
     escenario.animar(true)
     game.addVisual(ovni1)
+    self.agregarEspinas()
     self.animacionEntrada()
     game.schedule(3000, {
       game.addVisual(totemA)
@@ -207,6 +209,30 @@ object alien {
   }
   method habilitarSalidaDeLaSala(){
     escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
+  }
+  method agregarEspinas() {
+    game.addVisual(new Espina(position = game.at(1, 10)))
+    game.addVisual(new Espina(position = game.at(1, 9)))
+    game.addVisual(new Espina(position = game.at(1, 8)))
+    game.addVisual(new Espina(position = game.at(1, 6)))
+    game.addVisual(new Espina(position = game.at(1, 5)))
+    game.addVisual(new Espina(position = game.at(1, 3)))
+    game.addVisual(new Espina(position = game.at(9, 10)))
+    game.addVisual(new Espina(position = game.at(9, 8)))
+    game.addVisual(new Espina(position = game.at(9, 7)))
+    game.addVisual(new Espina(position = game.at(9, 6)))
+    game.addVisual(new Espina(position = game.at(9, 4)))
+    game.addVisual(new Espina(position = game.at(9, 3)))
+    game.addVisual(new Espina(position = game.at(9, 2)))
+    game.addVisual(new Espina(position = game.at(5, 9)))
+    game.addVisual(new Espina(position = game.at(5, 6)))
+    game.addVisual(new Espina(position = game.at(5, 3)))
+    game.addVisual(new Espina(position = game.at(3, 1)))
+    game.addVisual(new Espina(position = game.at(5, 1)))
+    game.addVisual(new Espina(position = game.at(7, 1)))
+    game.addVisual(new Espina(position = game.at(2, 10)))
+    game.addVisual(new Espina(position = game.at(3, 10)))
+    game.addVisual(new Espina(position = game.at(4, 10)))
   }
 } 
 
