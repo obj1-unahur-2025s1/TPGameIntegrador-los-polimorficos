@@ -109,6 +109,7 @@ object luzMala {
   var property image = "luzMala.png"
   var property position = game.at(5, 8)
   var contador = 0
+  const espina = new Espina(position = game.at(0,0))
   method totem() = totemL
   method interaccion(){}
   method posicionesTotem() = [
@@ -117,7 +118,13 @@ object luzMala {
     game.at(2, 14),
     game.at(9, 14)
   ]
-  
+  method ubicarEspina() {
+    if(game.hasVisual(espina)){
+      game.removeVisual(espina)
+    }
+    espina.position(totemL.position())
+    game.addVisual(espina)
+  }
   method ataque() {
     self.flash()
     self.moverTotem()
@@ -136,6 +143,7 @@ object luzMala {
   }
   
   method flash() {
+    self.ubicarEspina()
     game.addVisual(flash)
     const sonido = game.sound("flash.mp3")
     sonido.volume(0.05)

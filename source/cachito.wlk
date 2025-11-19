@@ -53,6 +53,7 @@ object cachito {
 		
 		keyboard.num(1).onPressDo({ finalJuego.iniciar() })//Eliminar en version final
 		keyboard.num(2).onPressDo({ pantallaGameOver.iniciar() })//Eliminar en version final
+		keyboard.num(3).onPressDo({ luzMala.iniciar() })//Eliminar en version final
 	}
 	
 	method reiniciar() {
