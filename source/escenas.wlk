@@ -6,6 +6,7 @@ import cachito.*
 import enemigos.*
 import ubicaciones.*
 import cinematicas.*
+import dificultades.*
 
 
 //======================PANTALLAS========================//
@@ -27,7 +28,10 @@ object portada {
   var property image = "portada.png"
   var property position = game.origin()
   const tecla = keyboard.e()
-  method accionTecla() {lore1.iniciar() musicaFondo.iniciar(pistaLore) cartelIniciar.detenerAnimacion()}
+  method accionTecla() {
+    cartelIniciar.detenerAnimacion()
+    seleccionDeDificultad.iniciar()
+    }
   method iniciar() {
     escenario.borrarEscena()
     game.addVisual(self)
@@ -35,9 +39,32 @@ object portada {
     game.addVisual(iniciar1)
     cartelIniciar.animar()
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTeclas(tecla, null)
+    accionesTeclas.asignarTeclas(tecla , null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
+  }
+}
+
+object seleccionDeDificultad {
+  var property image = "dificultad.png"
+  var property position = game.origin()
+  const tecla1 = keyboard.f()
+  const tecla2 = keyboard.d()
+  method accionTecla() {escenario.dificultad(dificultadFacil) self.siguiente()}
+  method accionTecla2() {escenario.dificultad(dificultadDificil) self.siguiente()}
+  
+  method iniciar() {
+    escenario.borrarEscena()
+    game.addVisual(self)
+    accionesTeclas.pantallaValida(true)
+    accionesTeclas.asignarTeclas(tecla1, tecla2)
+    accionesTeclas.actualizarPantalla(self)
+    accionesTeclas.accion()
+  }
+
+  method siguiente() {
+    lore1.iniciar() 
+    musicaFondo.iniciar(pistaLore)
   }
 }
 

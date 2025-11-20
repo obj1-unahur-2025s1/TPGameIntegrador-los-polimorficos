@@ -25,91 +25,15 @@ object pomberito {
       vida -= 1
     }
   method atacar() { 
-        const ataques = [1,2,3,4]
-    if(ataques.anyOne() == 1){
-      self.ataque1()
-    }
-    else if(ataques.anyOne() == 2){
-      self.ataque2()
-    }
-    else if(ataques.anyOne() == 3){
-      self.ataque3()
-    }
-    else
-      self.ataque4()
-  }
-  method ataque1(){
-        self.paredCentral()
-        game.schedule(5000, { 
-          const roca = new RocaAbajo(vel = 100,x=cachito.position().x(),y=9) 
-          roca.position(self.position())
-          roca.disparar()
-          })
-
-  }
-  method ataque2(){
-        self.paredConHuecosYDesface(0, 7)
-        self.paredConHuecosYDesface(1, 9)
-        self.paredConHuecosYDesface(0, 11)
-  }
-  method ataque3(){
-    game.onTick(200, "ataque3Pomberito", {
-      const roca = new RocaAbajo(vel = 100,x=[0,1,2,3,4,5,6,7,8,9,10].anyOne(),y=9) 
-          roca.position(self.position())
-          roca.disparar() })
-    game.schedule(5500, {game.removeTickEvent("ataque3Pomberito")})
-  }
-  method ataque4(){
-    game.onTick(750, "ataque4Pomberito", {
-      const roca = new RocaAbajo(vel = 100,x=cachito.position().x(),y=9) 
-          roca.position(self.position())
-          roca.disparar()
-      const roca1 = new RocaIzq(vel = 250,x=1,y=7) 
-          roca1.position(self.position())
-          roca1.disparar()
-      const roca2 = new RocaDer(vel = 250,x=10,y=7) 
-          roca2.position(self.position())
-          roca2.disparar() })
-          
-    game.schedule(5500, {game.removeTickEvent("ataque4Pomberito")})
-  }
-
-  method crearYDispararRocaAbajo(x, y, velocidad) {
-    const roca = new RocaAbajo(vel = velocidad, x = x, y = y)
-    roca.position(self.position())
-    roca.disparar()
-  }
-  
-  method crearYDispararRocaIzq(x, y, velocidad) {
-    const roca = new RocaIzq(vel = velocidad, x = x, y = y)
-    roca.position(self.position())
-    roca.disparar()
-  }
-  
-  method crearYDispararRocaDer(x, y, velocidad) {
-    const roca = new RocaDer(vel = velocidad, x = x, y = y)
-    roca.position(self.position())
-    roca.disparar()
-  }
-
-  method paredCentral(){
-    (2..7).forEach { x => 
-      self.crearYDispararRocaAbajo(x, 9, 150)
-    }
-  }
-  
-  method paredConHuecosYDesface(x, y){
-    (0..7).forEach { i => 
-      self.crearYDispararRocaAbajo(i * 2 + x, y, 150)
-    }
+    escenario.dificultad().ataquePomberito()
   }
 }
 
 object luzMala {
   var property image = "luzMala.png"
   var property position = game.at(5, 8)
-  var contador = 0
-  const espina = new Espina(position = game.at(0,0))
+  var property contador = 0
+  const property espina = new Espina(position = game.at(0,0))
   method totem() = totemL
   method interaccion(){}
   method posicionesTotem() = [
@@ -132,8 +56,7 @@ object luzMala {
   }
   
   method moverTotem() {
-    contador += 1
-    totemL.position(self.posicionesTotem().filter({p=>p != espina.position()}).anyOne())
+    escenario.dificultad().moverTotem()
   }
   
   method iniciar() {
@@ -143,11 +66,7 @@ object luzMala {
   }
   
   method flash() {
-    self.ubicarEspina()
-    game.addVisual(flash)
-    const sonido = game.sound("flash.mp3")
-    sonido.volume(0.05)
-    sonido.play()
+    escenario.dificultad().flashLuzMala()
   }
 
   method texto() = zonaLuzMala
@@ -219,28 +138,7 @@ object alien {
     escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
   }
   method agregarEspinas() {
-    game.addVisual(new Espina(position = game.at(1, 10)))
-    game.addVisual(new Espina(position = game.at(1, 9)))
-    game.addVisual(new Espina(position = game.at(1, 8)))
-    game.addVisual(new Espina(position = game.at(1, 6)))
-    game.addVisual(new Espina(position = game.at(1, 5)))
-    game.addVisual(new Espina(position = game.at(1, 3)))
-    game.addVisual(new Espina(position = game.at(9, 10)))
-    game.addVisual(new Espina(position = game.at(9, 8)))
-    game.addVisual(new Espina(position = game.at(9, 7)))
-    game.addVisual(new Espina(position = game.at(9, 6)))
-    game.addVisual(new Espina(position = game.at(9, 4)))
-    game.addVisual(new Espina(position = game.at(9, 3)))
-    game.addVisual(new Espina(position = game.at(9, 2)))
-    game.addVisual(new Espina(position = game.at(5, 9)))
-    game.addVisual(new Espina(position = game.at(5, 6)))
-    game.addVisual(new Espina(position = game.at(5, 3)))
-    game.addVisual(new Espina(position = game.at(3, 1)))
-    game.addVisual(new Espina(position = game.at(5, 1)))
-    game.addVisual(new Espina(position = game.at(7, 1)))
-    game.addVisual(new Espina(position = game.at(2, 10)))
-    game.addVisual(new Espina(position = game.at(3, 10)))
-    game.addVisual(new Espina(position = game.at(4, 10)))
+    escenario.dificultad().agregarEspinasDelAlien()
   }
 } 
 
@@ -281,8 +179,7 @@ object nahuelito {
       3000,
       { 
         game.onTick(300, "moverse", { self.perseguirPersonaje() })
-        game.onTick(700, "atacar", { self.atacar() })
-        game.onTick(3500, "atacar", { self.ataqueEspecial() })
+        escenario.dificultad().ataqueNahuelito()
       }
     )
   }

@@ -48,7 +48,7 @@ class PantallaCinematicaEspecial{
     game.addVisual(self)
     game.addVisual(spaceParaContinuar1)
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.asignarTeclas(tecla , null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }

@@ -12,6 +12,7 @@ object escenario {
   var property animar = false
   var property enGameOver = false
   var property enFinal = false
+  var property dificultad = null
   const property puertas = [
     puertaIglesia,
     puertaNahuelito,
