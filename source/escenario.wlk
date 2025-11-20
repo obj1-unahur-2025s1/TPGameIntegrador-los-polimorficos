@@ -1,3 +1,4 @@
+import source.enemigos.*
 import wollok.game.*
 import cachito.*
 import musicaFondo.*
@@ -95,8 +96,10 @@ object accionesTeclas{
   var pantalla = null
   var property pantallaValida = false
   var property tecla = null
-  method asignarTecla(teclaNueva){
-    tecla = teclaNueva
+  var property tecla2 = null
+  method asignarTeclas(teclaN1, teclaN2){
+    tecla = teclaN1
+    tecla2 = teclaN2
   }
   method actualizarPantalla(nuevaPantalla){
     pantalla = nuevaPantalla
@@ -107,5 +110,12 @@ object accionesTeclas{
           pantalla.accionTecla()
         }
       })
+      if(tecla2 != null){
+        tecla2.onPressDo({
+          if(pantallaValida){
+            pantalla.accionTecla2()
+          }
+        })
+      }
   }
 }

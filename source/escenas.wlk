@@ -16,7 +16,7 @@ object controles{
   const tecla = keyboard.space()
   method iniciar() {
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.asignarTeclas(tecla,null)
     accionesTeclas.actualizarPantalla(self)
     game.addVisual(self)
     accionesTeclas.accion()
@@ -35,7 +35,7 @@ object portada {
     game.addVisual(iniciar1)
     cartelIniciar.animar()
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.asignarTeclas(tecla, null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
@@ -92,7 +92,10 @@ const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, s
 object pantallaGameOver {
  var property image = "gameOver.png"
   var property position = game.origin()
-  
+  const tecla1 = keyboard.y()
+  const tecla2 = keyboard.n()
+  method accionTecla() { self.reiniciarJuego() }
+  method accionTecla2() { self.finalizarJuego() }
   method iniciar() {
     escenario.enGameOver(true) 
     escenario.borrarEscena()
@@ -107,8 +110,10 @@ object pantallaGameOver {
     game.removeTickEvent("disparar roca")
     game.addVisual(reiniciar1)
     cartelReiniciar.animar()
-    keyboard.y().onPressDo({ self.reiniciarJuego() })
-    keyboard.n().onPressDo({ self.finalizarJuego() })
+    accionesTeclas.pantallaValida(true)
+    accionesTeclas.asignarTeclas(tecla1, tecla2)
+    accionesTeclas.actualizarPantalla(self)
+    accionesTeclas.accion()
   }
 
   method reiniciarJuego() {
@@ -142,7 +147,7 @@ object creditos {
     escenario.borrarEscena()
     game.addVisual(self)
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTecla(tecla)
+    accionesTeclas.asignarTeclas(tecla, null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
