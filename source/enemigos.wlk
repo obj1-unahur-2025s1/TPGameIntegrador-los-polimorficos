@@ -28,11 +28,7 @@ object pomberito {
     escenario.dificultad().ataquePomberito()
   }
   method establecerVidaInicial() {
-    if (escenario.enDificil()) {
-      return 6
-    } else {
-      return 4
-    }
+    return escenario.dificultad().vidaPomberito()
   }
 }
 
@@ -67,7 +63,7 @@ object luzMala {
   }
   
   method iniciar() {
-    self.actualizarSkin()
+    image = escenario.dificultad().skinLuzMala()
     game.addVisual(self)
     game.addVisual(totemL)
     game.onTick(3000, "atacar", { self.ataque() })
@@ -82,13 +78,7 @@ object luzMala {
   method habilitarSalidaDeLaSala(){
     escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1) 
   }
-  method actualizarSkin() {
-    if (escenario.enDificil()){
-        image="luzMalaH.png"
-    } else {
-        image="luzMala.png"
-    }
-  }
+
 } 
 
 object alien {

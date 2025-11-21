@@ -10,22 +10,9 @@ object dificultadFacil {
   }
   
   method agregarEspinasDelAlien() {
-    game.addVisual(new Espina(position = game.at(1, 10)))
-    game.addVisual(new Espina(position = game.at(1, 9)))
-    game.addVisual(new Espina(position = game.at(1, 8)))
-    game.addVisual(new Espina(position = game.at(1, 6)))
-    game.addVisual(new Espina(position = game.at(1, 5)))
-    game.addVisual(new Espina(position = game.at(1, 3)))
-    game.addVisual(new Espina(position = game.at(9, 10)))
-    game.addVisual(new Espina(position = game.at(9, 8)))
-    game.addVisual(new Espina(position = game.at(9, 7)))
-    game.addVisual(new Espina(position = game.at(9, 6)))
-    game.addVisual(new Espina(position = game.at(9, 4)))
-    game.addVisual(new Espina(position = game.at(9, 3)))
-    game.addVisual(new Espina(position = game.at(9, 2)))
-    game.addVisual(new Espina(position = game.at(5, 6)))
-    game.addVisual(new Espina(position = game.at(7, 1)))
-    game.addVisual(new Espina(position = game.at(4, 10)))
+    const coordenadas = [[1, 10], [1, 9], [1, 8], [1, 6], [1, 5], [1, 3], [9, 10], [9, 8], [9, 7], 
+                         [9, 6], [9, 4], [9, 3], [9, 2], [5, 6], [7, 1], [4, 10]]
+    coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
   }
   
   method flashLuzMala() {
@@ -33,6 +20,10 @@ object dificultadFacil {
     const sonido = game.sound("flash.mp3")
     sonido.volume(0.05)
     sonido.play()
+  }
+
+  method skinLuzMala() {
+    return "luzMala.png"
   }
   
   method moverTotem() {
@@ -47,12 +38,20 @@ object dificultadFacil {
   method cambiar() {
     dificultadDificil.configurar()
   }
+
+  method vidaPomberito() {
+    return 4
+  }
 }
 
 object dificultadDificil {
   method configurar() {
     escenario.enDificil(true)
     escenario.dificultad(self)
+  }
+
+  method vidaPomberito() {
+    return 6
   }
   
   method ataquePomberito() {
@@ -87,28 +86,10 @@ object dificultadDificil {
   }
   
   method agregarEspinasDelAlien() {
-    game.addVisual(new Espina(position = game.at(1, 10)))
-    game.addVisual(new Espina(position = game.at(1, 9)))
-    game.addVisual(new Espina(position = game.at(1, 8)))
-    game.addVisual(new Espina(position = game.at(1, 6)))
-    game.addVisual(new Espina(position = game.at(1, 5)))
-    game.addVisual(new Espina(position = game.at(1, 3)))
-    game.addVisual(new Espina(position = game.at(9, 10)))
-    game.addVisual(new Espina(position = game.at(9, 8)))
-    game.addVisual(new Espina(position = game.at(9, 7)))
-    game.addVisual(new Espina(position = game.at(9, 6)))
-    game.addVisual(new Espina(position = game.at(9, 4)))
-    game.addVisual(new Espina(position = game.at(9, 3)))
-    game.addVisual(new Espina(position = game.at(9, 2)))
-    game.addVisual(new Espina(position = game.at(5, 9)))
-    game.addVisual(new Espina(position = game.at(5, 6)))
-    game.addVisual(new Espina(position = game.at(5, 3)))
-    game.addVisual(new Espina(position = game.at(3, 1)))
-    game.addVisual(new Espina(position = game.at(5, 1)))
-    game.addVisual(new Espina(position = game.at(7, 1)))
-    game.addVisual(new Espina(position = game.at(2, 10)))
-    game.addVisual(new Espina(position = game.at(3, 10)))
-    game.addVisual(new Espina(position = game.at(4, 10)))
+    const coordenadas = [[1, 10],[1, 9],[1, 8],[1, 6],[1, 5],[1, 3],[9, 10],[9, 8], [9, 7],
+                         [9, 6],[9, 4], [9, 3],[9, 2],[5, 9],[5, 6],[5, 3],[3, 1],[5, 1],
+                         [7, 1],[2, 10],[3, 10],[4, 10]]
+    coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
   }
   
   method flashLuzMala() {
@@ -117,6 +98,10 @@ object dificultadDificil {
     const sonido = game.sound("flash.mp3")
     sonido.volume(0.05)
     sonido.play()
+  }
+
+  method skinLuzMala() {
+    return "luzMalaH.png"
   }
   
   method moverTotem() {

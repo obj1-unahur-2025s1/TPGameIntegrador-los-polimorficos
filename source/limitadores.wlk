@@ -41,70 +41,34 @@ class LimitadorDerecha inherits Limitador {
 }
 
 object limitadores {
-    method crearLimitadoresArribaHorizontales(y, xDesde, xHasta) {
-        (xDesde..xHasta).forEach { x => 
-            escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
-        }
-    }
-    
-    method crearLimitadoresAbajoHorizontales(y, xDesde, xHasta) {
-        (xDesde..xHasta).forEach { x => 
-            escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
-        }
-    }
-    
-    method crearLimitadoresDerechaVerticales(x, yDesde, yHasta) {
-        (yDesde..yHasta).forEach { y => 
-            escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
-        }
-    }
-    
-    method crearLimitadoresIzquierdaVerticales(x, yDesde, yHasta) {
-        (yDesde..yHasta).forEach { y => 
-            escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
-        }
-    }
-    
-    method crearLimitadorIndividual(direccion, x, y) {
-        direccion.crearLimitadorDeMovimiento(x, y)
-    }
+    const coordenadasLimitadoresArribaCasa =      [[0, 10], [1, 10], [2, 10], [3, 10], [7, 10], [8, 10], 
+                                                   [9, 10], [10, 10], [4, 9], [5, 9], [6, 9], [7, 4]]
 
+    const coordenadasLimitadoresIzquierdaCasa =   [[9, 3], [9, 4], [9, 5], [9, 6], [9, 7], [9, 8], [9, 9]]
+
+    const coordenadasLimitadoresDerechaCasa =     [[8, 3], [8, 4], [8, 5], [8, 6], [8, 7], [8, 8], [8, 9]]
+
+    const coordenadasLimitadoresArribaPueblo =    [[2, 6], [3, 6], [4, 6], [7, 6], [1, 9], [7, 9]]
+
+    const coordenadasLimitadoresAbajoPueblo =     [[1, 4], [2, 4], [3, 4], [4, 4], [7, 4], [8, 4], [9, 4], [5, 7], [7, 7]]
+
+    const coordenadasLimitadoresIzquierdaPueblo = [[8, 6], [8, 7], [8, 9], [8, 10], [8, 11], [8, 12],
+                                                   [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 8], 
+                                                   [4, 9], [4, 10], [4, 11], [4, 12], [0, 5], [0, 6], [0, 7]]
+
+    const coordenadasLimitadoresDerechaPueblo =   [[10, 5], [10, 6], [10, 7], [10, 9], [10, 10], [10, 11],
+                                                   [10, 12], [6, 0], [6, 1], [6, 2], [6, 3], [6, 4], [6, 9],
+                                                   [6, 10], [6, 11], [6, 12], [2, 7], [2, 8], [7, 6]]   
     method agregarLimitadoresEnCasa() {
-        self.crearLimitadoresArribaHorizontales(10, 0, 3)
-        self.crearLimitadoresArribaHorizontales(10, 7, 10)
-        self.crearLimitadoresArribaHorizontales(9, 4, 6)
-        
-        escenario.ubicarEnEscena(new LimitadorArriba(), 7, 4)
-        
-        self.crearLimitadoresDerechaVerticales(8, 3, 9)
-          
-        self.crearLimitadoresIzquierdaVerticales(9, 3, 9)
+        coordenadasLimitadoresArribaCasa.forEach({c => game.addVisual(new LimitadorArriba(position = game.at(c.first(), c.last())))})
+        coordenadasLimitadoresIzquierdaCasa.forEach({c => game.addVisual(new LimitadorIzquierda(position = game.at(c.first(), c.last())))})
+        coordenadasLimitadoresDerechaCasa.forEach({c => game.addVisual(new LimitadorDerecha(position = game.at(c.first(), c.last())))})
     }
 
     method agregarLimitadoresEnPueblo() {
-        self.crearLimitadoresDerechaVerticales(10, 5, 7)
-        self.crearLimitadoresDerechaVerticales(10, 9, 12)
-        self.crearLimitadoresDerechaVerticales(6, 0, 4)
-        self.crearLimitadoresDerechaVerticales(6, 9, 12)
-        
-        self.crearLimitadorIndividual(este, 2, 7)
-        self.crearLimitadorIndividual(este, 2, 8)
-        self.crearLimitadorIndividual(este, 7, 6)
-        
-        self.crearLimitadoresIzquierdaVerticales(8, 6, 7)
-        self.crearLimitadoresIzquierdaVerticales(8, 9, 12)
-        self.crearLimitadoresIzquierdaVerticales(4, 0, 4)
-        self.crearLimitadoresIzquierdaVerticales(4, 8, 12)
-        self.crearLimitadoresIzquierdaVerticales(0, 5, 7)
-        
-        self.crearLimitadoresAbajoHorizontales(4, 1, 4)
-        self.crearLimitadoresAbajoHorizontales(4, 7, 9)
-        self.crearLimitadorIndividual(sur, 5, 7)
-        self.crearLimitadorIndividual(sur, 7, 7)
-        
-        self.crearLimitadoresArribaHorizontales(6, 2, 4)
-        self.crearLimitadorIndividual(norte , 7, 6)
-        self.crearLimitadorIndividual(norte, 1, 9)
-        self.crearLimitadorIndividual(norte, 7, 9)
+        coordenadasLimitadoresArribaPueblo.forEach({c => game.addVisual(new LimitadorArriba(position = game.at(c.first(), c.last())))})
+        coordenadasLimitadoresAbajoPueblo.forEach({c => game.addVisual(new LimitadorAbajo(position = game.at(c.first(), c.last())))})
+        coordenadasLimitadoresIzquierdaPueblo.forEach({c => game.addVisual(new LimitadorIzquierda(position = game.at(c.first(), c.last())))})
+        coordenadasLimitadoresDerechaPueblo.forEach({c => game.addVisual(new LimitadorDerecha(position = game.at(c.first(), c.last())))})
     }
 }
