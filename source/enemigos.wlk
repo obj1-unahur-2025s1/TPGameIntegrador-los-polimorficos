@@ -64,19 +64,41 @@ object luzMala {
   
   method iniciar() {
     image = escenario.dificultad().skinLuzMala()
-    game.addVisual(self)
+    self.animacionEntrada()
     game.addVisual(totemL)
     game.onTick(3000, "atacar", { self.ataque() })
+  }
+
+  method animacionEntrada() {
+    game.schedule(1000, {self.flashAnimacion()})
+    game.schedule(2000, {self.flashAnimacion()})
+    game.schedule(3000, {game.addVisual(self)})
+  }
+
+  method animacionSalida() {
+    game.schedule(1000, {self.flashAnimacion()})
+    game.schedule(2000, {self.flashAnimacion()})
+    game.schedule(3000, {self.flashAnimacion()})
+    game.schedule(3000, {game.removeVisual(self)})
   }
   
   method flash() {
     escenario.dificultad().flashLuzMala()
   }
 
+  method flashAnimacion() {
+    game.addVisual(flash)
+    const sonido = game.sound("flash.mp3")
+    sonido.volume(0.05)
+    sonido.play()
+    game.schedule(500, { game.removeVisual(flash) })
+  }
+
   method texto() = zonaLuzMala
 
   method habilitarSalidaDeLaSala(){
     escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1) 
+    self.animacionSalida()
   }
 
 } 
@@ -139,8 +161,17 @@ object alien {
     game.schedule(2000, {ovni1.image("animacionO3.png")})
     game.schedule(3000, {ovni1.image("ov1.png")})
   }
+
+  method animacionSalida(){
+    game.schedule(1000, {ovni1.image("animacionO3.png")})
+    game.schedule(2000, {ovni1.image("animacionO2.png")})
+    game.schedule(3000, {ovni1.image("animacionO1.png")})
+    game.schedule(3500, {game.removeVisual(ovni1)})
+    game.schedule(3500, {game.removeVisual(ovni2)})
+  }
   method habilitarSalidaDeLaSala(){
     escenario.ubicarEnEscena(puertaSalidaAlien, 0,1)
+    self.animacionSalida()
   }
   method agregarEspinas() {
     escenario.dificultad().agregarEspinasDelAlien()
@@ -201,6 +232,11 @@ object nahuelito {
     game.schedule(1000, { self.image("animacionN2.png") })
     game.schedule(2000, { self.image("nahuelitoI.png") })
   }
+  method animacionSalida() {
+    game.schedule(1000, { self.image("animacionN2.png") })
+    game.schedule(2000, { self.image("animacionN1.png") })
+    game.schedule(3000, { game.removeVisual(self) })
+  }
   method reiniciar(){
     image = "animacionN1.png"
     position = game.origin()
@@ -208,6 +244,7 @@ object nahuelito {
 
   method habilitarSalidaDeLaSala(){
     escenario.ubicarEnEscena(puertaSalidaNahuelito, 5,14) 
+    self.animacionSalida()
   }
 }
 

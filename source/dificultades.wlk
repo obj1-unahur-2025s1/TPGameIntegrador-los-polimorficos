@@ -8,11 +8,23 @@ object dificultadFacil {
     escenario.enDificil(false)
     escenario.dificultad(self)
   }
+
+  method musicaCasa() {
+    return pistaCasa
+  }
+
+  method musicaPueblo() {
+    return pistaPueblo
+  }
   
   method agregarEspinasDelAlien() {
     const coordenadas = [[1, 10], [1, 9], [1, 8], [1, 6], [1, 5], [1, 3], [9, 10], [9, 8], [9, 7], 
                          [9, 6], [9, 4], [9, 3], [9, 2], [5, 6], [7, 1], [4, 10]]
     coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
+  }
+
+  method musicaAlien() {
+    return pistaAlien
   }
   
   method flashLuzMala() {
@@ -34,6 +46,10 @@ object dificultadFacil {
   method ataqueNahuelito() {
     game.onTick(850, "atacar", { nahuelito.atacar() })
   }
+
+  method musicaNahuelito() {
+    return pistaNahuelito
+  }
   
   method cambiar() {
     dificultadDificil.configurar()
@@ -48,6 +64,14 @@ object dificultadDificil {
   method configurar() {
     escenario.enDificil(true)
     escenario.dificultad(self)
+  }
+
+  method musicaCasa() {
+    return pistaCasa2
+  }
+
+  method musicaPueblo() {
+    return pistaPueblo2
   }
 
   method vidaPomberito() {
@@ -91,6 +115,10 @@ object dificultadDificil {
                          [7, 1],[2, 10],[3, 10],[4, 10]]
     coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
   }
+
+  method musicaAlien() {
+    return pistaAlien2
+  }
   
   method flashLuzMala() {
     luzMala.ubicarEspina()
@@ -116,6 +144,10 @@ object dificultadDificil {
   method ataqueNahuelito() {
     game.onTick(700, "atacar", { nahuelito.atacar() })
     game.onTick(3500, "atacar", { nahuelito.ataqueEspecial() })
+  }
+
+  method musicaNahuelito() {
+    return pistaNahuelito2
   }
   
   method cambiar() {

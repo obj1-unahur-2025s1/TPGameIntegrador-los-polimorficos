@@ -256,6 +256,10 @@ const pistaFinalBoss = new Pista(cancion = "finalboss.mp3" , volumen = 0.05)
 const pistaNahuelito = new Pista(cancion = "peleaNahuelito.mp3")
 const pistaFinal = new Pista(cancion = "final.mp3" , loop = false)
 const pistaLuzMala = new Pista(cancion = "luzMala.mp3")
+const pistaPueblo2 = new Pista(cancion = "pueblo2.mp3")
+const pistaCasa2 = new Pista(cancion = "casaCachito2.mp3")
+const pistaAlien2 = new Pista(cancion = "marciano2.mp3")
+const pistaNahuelito2 = new Pista(cancion = "peleaNahuelito2.mp3")
 
 //=========================VARIOS==========================//
 object mujerCachito {

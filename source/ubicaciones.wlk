@@ -16,7 +16,7 @@ object casa {
   method iniciar() {
     accionesTeclas.pantallaValida(false)
     game.removeVisual(spaceParaContinuar1)
-    musicaFondo.cambiarAPista(pistaCasa)
+    musicaFondo.cambiarAPista(escenario.dificultad().musicaCasa())
     image = escenario.fondoDeSegunDificultad("casa")
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
@@ -37,7 +37,7 @@ object pueblo {
   var property x = 5
   var property y = 8
   method iniciar() {
-    musicaFondo.cambiarAPista(pistaPueblo)
+    musicaFondo.cambiarAPista(escenario.dificultad().musicaPueblo())
     image = escenario.fondoDeSegunDificultad("pueblo")
     escenario.iniciarEscena(self, teroViolado)
     cachito.ubicacion(self)
@@ -114,7 +114,7 @@ const salaLuzMala = new SalaEnemigo(
 
 const salaNahuelito = new SalaEnemigo(
   enemigo = nahuelito,
-  pista = pistaNahuelito,
+  pista = escenario.dificultad().musicaNahuelito(),
   tieneAgua = true,
   jugadorX = 5,
   jugadorY = 14,
@@ -126,7 +126,7 @@ const salaNahuelito = new SalaEnemigo(
 
 const salaAlien = new SalaEnemigo(
   enemigo = alien,
-  pista = pistaAlien,
+  pista = escenario.dificultad().musicaAlien(),
   jugadorX = 0,
   jugadorY = 1,
   lSup = 12,
