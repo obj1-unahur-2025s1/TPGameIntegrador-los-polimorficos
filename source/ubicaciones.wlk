@@ -10,13 +10,14 @@ import limitadores.*
 import cinematicas.*
 import salasEnemigos.*
 object casa {
-  const property image = "casa.png"
+  var property image = "casa.png"
   var property position = game.origin()
   
   method iniciar() {
     accionesTeclas.pantallaValida(false)
     game.removeVisual(spaceParaContinuar1)
     musicaFondo.cambiarAPista(pistaCasa)
+    image = escenario.fondoDeSegunDificultad("casa")
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
     escenario.colocarJugadorEn(7, 8)
@@ -31,12 +32,13 @@ object casa {
 
 }
 object pueblo {
-  const property image = "pueblo3.png"
+  var property image = "pueblo.png"
   var property position = game.origin()
   var property x = 5
   var property y = 8
   method iniciar() {
     musicaFondo.cambiarAPista(pistaPueblo)
+    image = escenario.fondoDeSegunDificultad("pueblo")
     escenario.iniciarEscena(self, teroViolado)
     cachito.ubicacion(self)
     cachito.actualizarImagen()

@@ -7,7 +7,7 @@ import textos.*
 
 object pomberito {
   var posicion = game.center()
-  var vida = 4  
+  var vida = 4
   method vida() = vida 
   method image() = "pomberito.png"
   method position() = posicion
@@ -18,7 +18,7 @@ object pomberito {
   method iniciar() {
     game.addVisual(self)
     posicion = game.at(5, 10)
-    vida = 4
+    vida = self.establecerVidaInicial()
   }
   method duracionAtaque() = 4000
   method recibirDaño() {
@@ -26,6 +26,13 @@ object pomberito {
     }
   method atacar() { 
     escenario.dificultad().ataquePomberito()
+  }
+  method establecerVidaInicial() {
+    if (escenario.enDificil()) {
+      return 6
+    } else {
+      return 4
+    }
   }
 }
 
@@ -60,6 +67,7 @@ object luzMala {
   }
   
   method iniciar() {
+    self.actualizarSkin()
     game.addVisual(self)
     game.addVisual(totemL)
     game.onTick(3000, "atacar", { self.ataque() })
@@ -73,6 +81,13 @@ object luzMala {
 
   method habilitarSalidaDeLaSala(){
     escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1) 
+  }
+  method actualizarSkin() {
+    if (escenario.enDificil()){
+        image="luzMalaH.png"
+    } else {
+        image="luzMala.png"
+    }
   }
 } 
 

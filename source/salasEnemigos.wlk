@@ -17,11 +17,12 @@ class SalaEnemigo{
     const tieneAgua = false
     method esExterior() = false
     method esSalaConAgua() = tieneAgua
-    var property image = "fondoSala-" + enemigo + ".png"
+    var property image = "fondoSala-" + enemigo + "-dificil.png"
     var property position = game.origin()
     method imagenPuerta() = "puerta-" + enemigo + ".png"
     method iniciar(){
         musicaFondo.cambiarAPista(pista)
+        self.actualizarFondo()
         escenario.iniciarEscena(self, enemigo.texto())
         escenario.colocarJugadorEn(jugadorX, jugadorY)
         cachito.actualizarImagen()
@@ -42,6 +43,13 @@ class SalaEnemigo{
     method salidaDeLaSala(){
         if (cachito.ubicacion() == self) {
             enemigo.habilitarSalidaDeLaSala()
+        }
+    }
+    method actualizarFondo() {
+        if (escenario.enDificil()){
+            image = "fondoSala-" + enemigo + "-dificil.png"
+        } else {
+            image = "fondoSala-" + enemigo + ".png"
         }
     }
 }

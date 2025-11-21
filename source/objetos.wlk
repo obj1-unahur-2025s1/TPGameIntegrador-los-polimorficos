@@ -60,6 +60,9 @@ class Cartel {
   const y 
   method imagen() = image
   method position() = game.at(x,y)
+  method mostrar() {
+    game.addVisual(self)
+  }
 }
 class CartelAnimado {
   const property c1
@@ -213,9 +216,10 @@ const iniciar1 = new Cartel(image = "press1.png", x= 1, y = 1)
 const iniciar2 = new Cartel(image = "press2.png", x= 1, y = 1)
 const spaceParaContinuar1 = new Cartel(image = "cont1.png", x= 0, y = 0)
 const cartelAtaque = new Cartel (image = "cartelDeAtaque.png", x =1, y = 13)
-const reiniciar1 = new Cartel(image = "SN1.png", x= 0, y = 4)
-const reiniciar2 = new Cartel(image = "SN2.png", x= 0, y = 4)
-
+const reiniciar1 = new Cartel(image = "SN1.png", x= 2, y = 5)
+const reiniciar2 = new Cartel(image = "SN2.png", x= 2, y = 5)
+const cartelFacil = new Cartel(image = "cFacil.png", x= 0, y = 3)
+const cartelDificil = new Cartel(image = "cDificil.png", x= 0, y = 3)
 const cartelIniciar = new CartelAnimado(c1 = iniciar1, c2 = iniciar2)
 const ovniAnimado = new CartelAnimado(c1 = ovni1, c2 = ovni2)
 const cartelReiniciar = new CartelAnimado(c1 = reiniciar1, c2 = reiniciar2)
@@ -241,6 +245,7 @@ const totemA = new Totem(image = "totemAlien.png", position = game.at(5,11), sal
 const totemN = new Totem(image = "totemNahue.png", position = game.at(5,4), salaEnemigo = salaNahuelito)
 
 //MUSICA DE FONDO
+const selectDiff = new Pista(cancion = "selectDiff.mp3" , volumen = 0.25)
 const pistaTitulo = new Pista(cancion = "mainTitle.mp3")
 const pistaPueblo = new Pista(cancion = "pueblo.mp3")
 const pistaCasa = new Pista(cancion = "casaCachito.mp3")

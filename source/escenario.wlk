@@ -6,13 +6,16 @@ import textos.*
 import objetos.*
 import ubicaciones.*
 import escenas.*
+import dificultades.*
+
 
 object escenario {
   var property elementosEnEscena = []
   var property animar = false
   var property enGameOver = false
   var property enFinal = false
-  var property dificultad = null
+  var property dificultad = dificultadFacil
+  var property enDificil = false
   const property puertas = [
     puertaIglesia,
     puertaNahuelito,
@@ -20,11 +23,11 @@ object escenario {
     puertaLuzMala
   ]
   
-  method reiniciarEstados(){
+  method reiniciarEstados() {
     animar = false
     enGameOver = false
   }
-
+  
   method cargarListaconElementos() {
     elementosEnEscena = game.allVisuals()
   }
@@ -80,43 +83,55 @@ object escenario {
   }
   
   method probabilidadAleatoria() {
-    const numeros = [1, 2 , 3 , 4 , 5 , 6]
+    const numeros = [1, 2, 3, 4, 5, 6]
     return numeros.anyOne().even()
   }
-
+  
   method elegirPersonaje() {
-    if(self.probabilidadAleatoria()) {
-      self.ubicarEnEscena(gauchitoGil, 4, 5)
+    if (self.probabilidadAleatoria()) self.ubicarEnEscena(gauchitoGil, 4, 5)
+    else self.ubicarEnEscena(mujerCachito, 4, 5)
+  }
+  
+  method fondoDeSegunDificultad(ubicacion) {
+    if (self.enDificil()) {
+      return  ubicacion + "-dificil.png"
+    } else {
+      return ubicacion + ".png"
     }
-    else 
-    self.ubicarEnEscena(mujerCachito, 4, 5)
+  }
+  method mostrarDificultad() {
+    if (self.enDificil()) {
+      cartelDificil.mostrar()
+    } else {
+      cartelFacil.mostrar()
+    }
   }
 }
 
-object accionesTeclas{
+object accionesTeclas {
   var pantalla = null
   var property pantallaValida = false
   var property tecla = null
   var property tecla2 = null
-  method asignarTeclas(teclaN1, teclaN2){
+  var property tecla3 = null
+  
+  method asignarTeclas(teclaN1, teclaN2, teclaN3) {
     tecla = teclaN1
     tecla2 = teclaN2
+    tecla3 = teclaN3
   }
-  method actualizarPantalla(nuevaPantalla){
+  
+  method actualizarPantalla(nuevaPantalla) {
     pantalla = nuevaPantalla
   }
-  method accion(){
-      tecla.onPressDo({
-        if(pantallaValida){
-          pantalla.accionTecla()
-        }
-      })
-      if(tecla2 != null){
-        tecla2.onPressDo({
-          if(pantallaValida){
-            pantalla.accionTecla2()
-          }
-        })
-      }
+  
+  method accion() {
+    tecla.onPressDo({ if (pantallaValida) pantalla.accionTecla() })
+    if (tecla2 != null) tecla2.onPressDo(
+        { if (pantallaValida) pantalla.accionTecla2() }
+      )
+    if (tecla3 != null) tecla3.onPressDo(
+        { if (pantallaValida) pantalla.accionTecla3() }
+      )
   }
 }

@@ -1,3 +1,4 @@
+import salasEnemigos.*
 import escenario.*
 import textos.*
 import objetos.*
@@ -17,7 +18,7 @@ object controles{
   const tecla = keyboard.space()
   method iniciar() {
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTeclas(tecla,null)
+    accionesTeclas.asignarTeclas(tecla,null,null)
     accionesTeclas.actualizarPantalla(self)
     game.addVisual(self)
     accionesTeclas.accion()
@@ -39,7 +40,7 @@ object portada {
     game.addVisual(iniciar1)
     cartelIniciar.animar()
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTeclas(tecla , null)
+    accionesTeclas.asignarTeclas(tecla , null, null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
@@ -50,21 +51,22 @@ object seleccionDeDificultad {
   var property position = game.origin()
   const tecla1 = keyboard.f()
   const tecla2 = keyboard.d()
-  method accionTecla() {escenario.dificultad(dificultadFacil) self.siguiente()}
-  method accionTecla2() {escenario.dificultad(dificultadDificil) self.siguiente()}
+  method accionTecla() {dificultadFacil.configurar() self.siguiente()}
+  method accionTecla2() {dificultadDificil.configurar() self.siguiente()}
   
   method iniciar() {
     escenario.borrarEscena()
     game.addVisual(self)
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTeclas(tecla1, tecla2)
+    accionesTeclas.asignarTeclas(tecla1, tecla2, null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
 
   method siguiente() {
-    lore1.iniciar() 
-    musicaFondo.iniciar(pistaLore)
+    escenario.dificultad().configurar()
+    musicaFondo.iniciar(selectDiff)
+    game.schedule(3000,{lore1.iniciar()})
   }
 }
 
@@ -117,15 +119,17 @@ object animacionAtaque {
 const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
 
 object pantallaGameOver {
- var property image = "gameOver.png"
+  var property image = "gameOver.png"
   var property position = game.origin()
   const tecla1 = keyboard.y()
   const tecla2 = keyboard.n()
+  const tecla3 = keyboard.c()
   method accionTecla() { self.reiniciarJuego() }
   method accionTecla2() { self.finalizarJuego() }
+  method accionTecla3(){ escenario.dificultad().cambiar() self.reiniciarJuego()}
   method iniciar() {
     escenario.enGameOver(true) 
-    escenario.borrarEscena()
+    escenario.borrarEscena() 
     game.addVisual(self)
     musicaFondo.detener()
     musicaFondo.iniciar(pistaGameOver)
@@ -137,8 +141,9 @@ object pantallaGameOver {
     game.removeTickEvent("disparar roca")
     game.addVisual(reiniciar1)
     cartelReiniciar.animar()
+    escenario.mostrarDificultad()
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTeclas(tecla1, tecla2)
+    accionesTeclas.asignarTeclas(tecla1, tecla2, tecla3)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
@@ -174,7 +179,7 @@ object creditos {
     escenario.borrarEscena()
     game.addVisual(self)
     accionesTeclas.pantallaValida(true)
-    accionesTeclas.asignarTeclas(tecla, null)
+    accionesTeclas.asignarTeclas(tecla, null,null)
     accionesTeclas.actualizarPantalla(self)
     accionesTeclas.accion()
   }
