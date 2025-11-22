@@ -115,6 +115,9 @@ object animacionAtaque {
   
   method duracion() = 9000
 }
+//===========================PRE FINAL==============================//
+const preFinal = new PantallaCinematica(delay=1500, nombreImagen="preFinal", inicio=1, fin=7, siguiente=portadaCuevaSalamanca, pistaMusical=pistaTitulo, delaySiguiente=2000)
+const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaAlienH, delaySiguiente=4000)
 //===========================Pantalla Game Over - Creditos ===============================//
 const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
 

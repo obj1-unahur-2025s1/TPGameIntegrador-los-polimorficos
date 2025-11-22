@@ -29,6 +29,30 @@ object pomberito {
 
 }
 
+object pomberitoPoseido {
+  var posicion = game.at(5,9)
+  var property vida = 4
+  method vida() = vida 
+  method image() = "pombePoseido.png"
+  method position() = posicion
+  method derrotado() = vida == 0
+  method interaccion() {
+    game.sound("grito.mp3").play()
+  }
+  method iniciar() {
+    game.addVisual(self)
+    posicion = game.at(5, 10)
+  }
+  method duracionAtaque() = 4000
+  method recibirDaño() {
+      vida -= 1
+    }
+  method atacar() { 
+    escenario.dificultad().ataquePomberito()
+  }
+  method texto() = none
+}
+
 object luzMala {
   var property image = "luzMala.png"
   var property position = game.at(5, 8)
@@ -281,7 +305,13 @@ object batallaFinal {
   }
   
   method golpearPomberito() {
-    if (pomberito.derrotado()) finalJuego.iniciar()
+    if (pomberito.derrotado()){
+      if (escenario.enDificil()){
+        preFinal.iniciar()
+      }else{
+        finalJuego.iniciar()
+      }
+    }
     else game.schedule(500, { self.etapaDefensa() })
   }
   

@@ -101,7 +101,16 @@ object iglesia {
   method esExterior() = false
   method esSalaConAgua() = false
 }
-
+const cuevaSalamanca = new SalaEnemigo(
+  enemigo = pomberitoPoseido,
+  pista = pistaAlienH,
+  jugadorX = 5,
+  jugadorY = 1,
+  lSup = 5,
+  lInf = 0,
+  lDer = 11,
+  lIzq = -1
+)
 const salaLuzMala = new SalaEnemigo(
   enemigo = luzMala,
   pista = pistaLuzMala,
