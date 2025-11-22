@@ -7,7 +7,7 @@ import textos.*
 
 class SalaEnemigo{
     const enemigo = null
-    const pista = null
+    var property pista = null
     const jugadorX = 0
     const jugadorY = 0
     const lSup = null
@@ -21,8 +21,8 @@ class SalaEnemigo{
     var property position = game.origin()
     method imagenPuerta() = "puerta-" + enemigo + ".png"
     method iniciar(){
-        musicaFondo.cambiarAPista(pista)
         self.actualizarFondo()
+        musicaFondo.cambiarAPista(pista)
         escenario.iniciarEscena(self, enemigo.texto())
         escenario.colocarJugadorEn(jugadorX, jugadorY)
         cachito.actualizarImagen()

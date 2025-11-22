@@ -132,7 +132,7 @@ describe "Pantallas y Actualizacion dinamica de assets segun dificultad" {
   }
   
   test "La skin de la luz mala cambia segun la dificultad seleccionada" {
-    escenario.enDificil(true)
+    dificultadDificil.configurar()
     luzMala.iniciar()
     assert.equals("luzMalaH.png", luzMala.image())
   }
@@ -143,8 +143,7 @@ describe "Pantallas y Actualizacion dinamica de assets segun dificultad" {
     assert.that(game.hasVisual(cartelDificil))
   }
   test "Al reiniciar el juego desde la pantalla de game over, se puede cambiar la dificultad" {
-    escenario.dificultad(dificultadDificil)
-    escenario.dificultad().configurar()
+    dificultadDificil.configurar()
     pantallaGameOver.iniciar()
     pantallaGameOver.accionTecla3()
     assert.equals(dificultadFacil, escenario.dificultad())

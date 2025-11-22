@@ -2,29 +2,20 @@ import objetos.*
 import enemigos.*
 import cachito.*
 import escenario.*
-
+import ubicaciones.*
 object dificultadFacil {
   method configurar() {
     escenario.enDificil(false)
     escenario.dificultad(self)
+    casa.pista(pistaCasa)
+    pueblo.pista(pistaPueblo)
+    salaNahuelito.pista(pistaNahuelito)
+    salaAlien.pista(pistaAlien)
   }
-
-  method musicaCasa() {
-    return pistaCasa
-  }
-
-  method musicaPueblo() {
-    return pistaPueblo
-  }
-  
   method agregarEspinasDelAlien() {
     const coordenadas = [[1, 10], [1, 9], [1, 8], [1, 6], [1, 5], [1, 3], [9, 10], [9, 8], [9, 7], 
                          [9, 6], [9, 4], [9, 3], [9, 2], [5, 6], [7, 1], [4, 10]]
     coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
-  }
-
-  method musicaAlien() {
-    return pistaAlien
   }
   
   method flashLuzMala() {
@@ -32,12 +23,7 @@ object dificultadFacil {
     const sonido = game.sound("flash.mp3")
     sonido.volume(0.05)
     sonido.play()
-  }
-
-  method skinLuzMala() {
-    return "luzMala.png"
-  }
-  
+  }  
   method moverTotem() {
     luzMala.contador(luzMala.contador() + 1)
     totemL.position(luzMala.posicionesTotem().anyOne())
@@ -54,29 +40,20 @@ object dificultadFacil {
   method cambiar() {
     dificultadDificil.configurar()
   }
-
-  method vidaPomberito() {
-    return 4
-  }
 }
 
 object dificultadDificil {
   method configurar() {
     escenario.enDificil(true)
     escenario.dificultad(self)
+    casa.pista(pistaCasaH)
+    pueblo.pista(pistaPuebloH)
+    salaNahuelito.pista(pistaNahuelitoH)
+    salaAlien.pista(pistaAlienH)
+    luzMala.image("luzMalaH.png")
+    pomberito.vida(6)
   }
 
-  method musicaCasa() {
-    return pistaCasa2
-  }
-
-  method musicaPueblo() {
-    return pistaPueblo2
-  }
-
-  method vidaPomberito() {
-    return 6
-  }
   
   method ataquePomberito() {
     const ataques = [ataque1, ataque2, ataque3, ataque4]
@@ -115,11 +92,6 @@ object dificultadDificil {
                          [7, 1],[2, 10],[3, 10],[4, 10]]
     coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
   }
-
-  method musicaAlien() {
-    return pistaAlien2
-  }
-  
   method flashLuzMala() {
     luzMala.ubicarEspina()
     game.addVisual(flash)
@@ -127,11 +99,6 @@ object dificultadDificil {
     sonido.volume(0.05)
     sonido.play()
   }
-
-  method skinLuzMala() {
-    return "luzMalaH.png"
-  }
-  
   method moverTotem() {
     luzMala.contador(luzMala.contador() + 1)
     totemL.position(
@@ -145,11 +112,6 @@ object dificultadDificil {
     game.onTick(700, "atacar", { nahuelito.atacar() })
     game.onTick(3500, "atacar", { nahuelito.ataqueEspecial() })
   }
-
-  method musicaNahuelito() {
-    return pistaNahuelito2
-  }
-  
   method cambiar() {
     dificultadFacil.configurar()
   }

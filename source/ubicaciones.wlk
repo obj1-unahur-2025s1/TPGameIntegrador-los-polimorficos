@@ -12,11 +12,11 @@ import salasEnemigos.*
 object casa {
   var property image = "casa.png"
   var property position = game.origin()
-  
+  var property pista = pistaCasa 
   method iniciar() {
     accionesTeclas.pantallaValida(false)
     game.removeVisual(spaceParaContinuar1)
-    musicaFondo.cambiarAPista(escenario.dificultad().musicaCasa())
+    musicaFondo.cambiarAPista(pista)
     image = escenario.fondoDeSegunDificultad("casa")
     escenario.iniciarEscena(self, casaCachito)
     escenario.ubicarEnEscena(puertaSalidaCasa, 5, 1)
@@ -36,8 +36,9 @@ object pueblo {
   var property position = game.origin()
   var property x = 5
   var property y = 8
+  var property pista = pistaPueblo
   method iniciar() {
-    musicaFondo.cambiarAPista(escenario.dificultad().musicaPueblo())
+    musicaFondo.cambiarAPista(pista)
     image = escenario.fondoDeSegunDificultad("pueblo")
     escenario.iniciarEscena(self, teroViolado)
     cachito.ubicacion(self)
@@ -74,7 +75,7 @@ object pueblo {
 object iglesia {
   const property image = "iglesia.png"
   method imagenPuerta() = if (cachito.enemigosDerrotados() == 3) "pIglesia.png" else "pIglesiaB.png"
-  var property position = game.origin()
+  var property position = game.origin() 
   method iniciar() {
     escenario.iniciarEscena(self, iglesiaTeroViolado)
     cachito.ubicacion(self)
@@ -114,7 +115,6 @@ const salaLuzMala = new SalaEnemigo(
 
 const salaNahuelito = new SalaEnemigo(
   enemigo = nahuelito,
-  pista = escenario.dificultad().musicaNahuelito(),
   tieneAgua = true,
   jugadorX = 5,
   jugadorY = 14,
@@ -126,7 +126,6 @@ const salaNahuelito = new SalaEnemigo(
 
 const salaAlien = new SalaEnemigo(
   enemigo = alien,
-  pista = escenario.dificultad().musicaAlien(),
   jugadorX = 0,
   jugadorY = 1,
   lSup = 12,
