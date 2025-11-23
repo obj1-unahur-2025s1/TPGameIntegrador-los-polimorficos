@@ -30,7 +30,7 @@ object pomberito {
 }
 
 object pomberitoPoseido {
-  var posicion = game.at(5,9)
+  var posicion = game.center()
   var property vida = 4
   method vida() = vida 
   method image() = "pombePoseido.png"
@@ -41,7 +41,7 @@ object pomberitoPoseido {
   }
   method iniciar() {
     game.addVisual(self)
-    posicion = game.at(5, 10)
+    posicion = game.at(5, 9)
   }
   method duracionAtaque() = 4000
   method recibirDaño() {
