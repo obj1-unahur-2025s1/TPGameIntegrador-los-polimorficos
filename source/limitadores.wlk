@@ -2,18 +2,13 @@ import cachito.*
 import escenario.*
 import objetos.*
 
-class Limitador {
-	var property position = game.at(0,0)
+class Limitador inherits ObjetoInteractivoFijo {
 
-  method ubicarEn(x,y) {
-    self.position(game.at(x,y))
-  }
-
-  method interaccion() {
+  override method interaccion() {
     self.empuja(cachito)
   }
 
-  method empuja(cachito)
+  method empuja(cachito) {}
 }
 
 class LimitadorArriba inherits Limitador {

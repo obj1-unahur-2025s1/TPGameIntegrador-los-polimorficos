@@ -4,6 +4,8 @@ import escenario.*
 import ubicaciones.*
 import escenas.*
 import textos.*
+import limitadores.*
+
 
 object pomberito {
   var posicion = game.center()

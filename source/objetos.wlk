@@ -3,7 +3,6 @@ import cachito.*
 import escenario.*
 import salasEnemigos.*
 import enemigos.*
-import limitadores.*
 
 
 
@@ -76,8 +75,8 @@ class CartelAnimado {
   }
 }
 //----------------------------------------ELEMENTOS USADOS EN ATAQUES DE ENEMIGOS----------------------------------------
-class Ola{
-  var property image = "Olas.png"
+class AtaqueEnemigo{
+  var property image 
   var property position = cachito.position()
   method disparar(){
 		position = self.position().up(1)
@@ -85,13 +84,7 @@ class Ola{
     game.onTick(200, "disparar", {self.mover()})
 
   }
-  method mover(){
-    self.position(self.position().up(1))
-    
-    if(self.llegoAlLimite()){
-      game.removeVisual(self)
-      }
-  }
+  method mover(){}
 
   method llegoAlLimite() {
     return
@@ -99,6 +92,17 @@ class Ola{
   }
   method interaccion(){
     cachito.recibirDaño()
+  }
+}
+
+class Ola inherits AtaqueEnemigo (image = "Olas.png"){
+
+  override method mover() {
+    self.position(self.position().up(1))
+    
+    if(self.llegoAlLimite()){
+      game.removeVisual(self)
+      }
   }
 }
 class OlaRapida inherits Ola{
@@ -109,7 +113,7 @@ class OlaRapida inherits Ola{
   }
 }
 
-class RocaDer inherits Ola(image = "roca.png") {
+class RocaDer inherits AtaqueEnemigo(image = "roca.png") {
   const x
   const y
   const vel = 333
@@ -163,15 +167,6 @@ class RocaAbajo inherits RocaIzq {
 object flash{
   var property image = "ataqueLuzMala.png"
   var property position = game.origin()
-}
-
-class Espina{
-  var property image = "espinas.png"
-  var property position 
-
-  method interaccion(){
-    cachito.recibirDaño()
-  }
 }
 
 //-------------------------TOTEM---------------------------------------
@@ -262,6 +257,13 @@ const pistaAlienH = new Pista(cancion = "alienH.mp3")
 const pistaNahuelitoH = new Pista(cancion = "nahuelitoH.mp3")
 
 //=========================VARIOS==========================//
+class ObjetoInteractivoFijo {
+	var property position = game.at(0,0)
+  var property image = null
+
+  method interaccion() {}
+}
+
 object mujerCachito {
   var property image = "mujerCachito.png"
   var property position = game.at(0,0)
@@ -290,6 +292,13 @@ object gauchitoGil {
     game.say(self , "Para cuando te encuentres al pomberito, vas a estar curado")
   }
 }
+
+class Espina inherits ObjetoInteractivoFijo(image = "espinas.png") {
+
+  override method interaccion(){
+    cachito.recibirDaño()
+  }
+}
 //=========================DIRECCIONES==========================//
 object norte{
   method imagen(){
@@ -310,9 +319,6 @@ object norte{
   	cachito.position(cachito.position().up(1))
     cachito.mirandoAl(self)
     cachito.actualizarImagen()
-  }
-  method crearLimitadorDeMovimiento(x , y) {
-    escenario.ubicarEnEscena(new LimitadorArriba(), x, y)
   }
 }
 
@@ -336,9 +342,6 @@ object sur{
     cachito.mirandoAl(self)
     cachito.actualizarImagen()
   }
-  method crearLimitadorDeMovimiento(x , y) {
-    escenario.ubicarEnEscena(new LimitadorAbajo(), x, y)
-  }
 }
 
 object este{
@@ -361,9 +364,6 @@ object este{
     cachito.mirandoAl(self)
     cachito.actualizarImagen()
   }
-  method crearLimitadorDeMovimiento(x , y) {
-    escenario.ubicarEnEscena(new LimitadorDerecha(), x, y)
-  }
 }
 
 object oeste{
@@ -385,8 +385,5 @@ object oeste{
   	cachito.position(cachito.position().left(1))
 		cachito.mirandoAl(self)
 		cachito.actualizarImagen()
-  }
-  method crearLimitadorDeMovimiento(x , y) {
-    escenario.ubicarEnEscena(new LimitadorIzquierda(), x, y)
   }
 }
