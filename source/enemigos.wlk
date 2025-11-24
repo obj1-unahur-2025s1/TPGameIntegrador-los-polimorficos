@@ -92,7 +92,7 @@ object luzMala {
   method animacionEntrada() {
     game.schedule(1000, {self.flashAnimacion()})
     game.schedule(2000, {self.flashAnimacion()})
-    game.schedule(4000, {game.addVisual(self)})
+    game.schedule(4500, {game.addVisual(self)})
   }
 
   method animacionSalida() {
@@ -117,8 +117,8 @@ object luzMala {
   method texto() = zonaLuzMala
 
   method habilitarSalidaDeLaSala(){
-    escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1) 
     self.animacionSalida()
+    game.schedule(3500, {escenario.ubicarEnEscena(puertaSalidaLuzMala, 10,1)}) 
   }
 
 } 
