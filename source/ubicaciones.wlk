@@ -103,7 +103,7 @@ object iglesia {
 }
 const cuevaSalamanca = new SalaEnemigo(
   enemigo = pomberitoPoseido,
-  pista = pistaAlienH,
+  pista = pistaCuevaSalamanca,
   jugadorX = 5,
   jugadorY = 1,
   lSup = 5,
@@ -113,7 +113,6 @@ const cuevaSalamanca = new SalaEnemigo(
 )
 const salaLuzMala = new SalaEnemigo(
   enemigo = luzMala,
-  pista = pistaLuzMala,
   jugadorX = 10,
   jugadorY = 1,
   lSup = 15,

@@ -11,6 +11,7 @@ object dificultadFacil {
     pueblo.pista(pistaPueblo)
     salaNahuelito.pista(pistaNahuelito)
     salaAlien.pista(pistaAlien)
+    salaLuzMala.pista(pistaLuzMala)
   }
   method agregarEspinasDelAlien() {
     const coordenadas = [[1, 10], [1, 9], [1, 8], [1, 6], [1, 5], [1, 3], [9, 10], [9, 8], [9, 7], 
@@ -49,6 +50,7 @@ object dificultadDificil {
     casa.pista(pistaCasaH)
     pueblo.pista(pistaPuebloH)
     salaNahuelito.pista(pistaNahuelitoH)
+    salaLuzMala.pista(pistaLuzMalaH)
     salaAlien.pista(pistaAlienH)
     luzMala.image("luzMalaH.png")
     pomberito.vida(6)

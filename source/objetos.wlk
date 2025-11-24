@@ -254,7 +254,9 @@ const pistaLuzMala = new Pista(cancion = "luzMala.mp3")
 const pistaPuebloH = new Pista(cancion = "puebloH.mp3")
 const pistaCasaH = new Pista(cancion = "casaCachitoH.mp3")
 const pistaAlienH = new Pista(cancion = "alienH.mp3")
-const pistaNahuelitoH = new Pista(cancion = "nahuelitoH.mp3")
+const pistaNahuelitoH = new Pista(cancion = "nahuelitoH.mp3" , volumen = 1)
+const pistaLuzMalaH = new Pista(cancion = "luzMalaH.mp3")
+const pistaCuevaSalamanca = new Pista(cancion = "cuevaSalamanca.mp3")
 
 //=========================VARIOS==========================//
 class ObjetoInteractivoFijo {
