@@ -5,7 +5,6 @@
 
 # Equipo Los Polimorficos
 ## Integrantes
-- ### Carnero, Enzo
 - ### Kiguez, Matias
 - ### Mercuri, Tobías
 - ### Renaud, Román
