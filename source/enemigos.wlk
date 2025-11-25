@@ -44,13 +44,14 @@ object pomberitoPoseido {
   method iniciar() {
     game.addVisual(self)
     posicion = game.at(5, 9)
+    self.atacar()
   }
   method duracionAtaque() = 4000
   method recibirDaño() {
       vida -= 1
     }
   method atacar() { 
-    escenario.dificultad().ataquePomberito()
+    escenario.dificultad().ataquePomberitoPoseido()
   }
   method texto() = none
 }

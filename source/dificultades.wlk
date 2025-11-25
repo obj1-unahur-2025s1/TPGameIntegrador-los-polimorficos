@@ -117,6 +117,44 @@ object dificultadDificil {
   method cambiar() {
     dificultadFacil.configurar()
   }
+
+  method ataquePomberitoPoseido() {
+    const ataques = [ataqueFuego1 , ataqueFuego2]
+    game.onTick(10000, "ataque", {ataques.anyOne().atacar()})
+  }
+}
+
+object ataqueFuego1 {
+  method atacar() {
+    game.onTick(
+      1000,
+      "ataque1PomberitoPoseido",
+      { 
+        const fuego = new FuegoGuiado(x = 5, y = 10)
+        fuego.position(pomberito.position())
+        fuego.disparar()
+      }
+    )
+    
+    game.schedule(5500, { game.removeTickEvent("ataque1PomberitoPoseido")})
+  }
+}
+
+object ataqueFuego2 {
+  const posX = [1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 ,  10]
+  const posY = [1 , 1 , 1 , 1 , 1]
+  const objetos = []
+
+  method crearObjetos() {
+    posY.forEach({p => objetos.add(new ObjetoInteractivoAnimado(nombreSprite = "fl", image = null, maxFrames = 4, x = posX.anyOne(), y = p))})
+  }
+  method atacar() {
+    self.crearObjetos()
+    objetos.forEach({a => a.ubicarYAnimar()})
+    game.schedule(2000, {objetos.forEach({a => a.remover()})})
+    objetos.clear()
+    
+  }
 }
 
 object ataque1 {

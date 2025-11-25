@@ -98,9 +98,7 @@ class AtaqueEnemigo {
     game.onTick(200, "disparar", { self.mover() })
   }
   
-  method mover() {
-    
-  }
+  method mover() {}
   
   method llegoAlLimite() = self.position().y() == 11
   
@@ -165,6 +163,36 @@ class RocaAbajo inherits RocaIzq {
     if (self.llegoAlLimite()) game.removeVisual(self)
   }
 }
+
+class FuegoGuiado inherits AtaqueEnemigo(image = "llama.png") {
+  const x
+  const y
+  const vel = 1000
+  
+  override method disparar() {
+    position = game.at(x, y)
+    game.addVisual(self)
+    game.onTick(vel, "disparar fuego", { self.mover() })
+  }
+  
+  method moverHaciaCachito() {
+    const otraPosicion = cachito.position()
+    const newX = position.x() + if (otraPosicion.x() > position.x()) {
+      1
+    } else {
+      if (otraPosicion.x() < position.x()) -1 else 0
+    }
+    position = game.at(newX, position.y())
+  }
+  
+  override method mover() {
+    self.position(self.position().down(1))
+    self.moverHaciaCachito()
+    if (self.llegoAlLimite()) game.removeVisual(self)
+  }
+  
+  override method llegoAlLimite() = (self.position().y() == (-1)) || (self.position().x() == (-1))
+} 
 
 object flash {
   var property image = "ataqueLuzMala.png"
@@ -405,6 +433,10 @@ class ObjetoInteractivoAnimado {
     game.addVisual(self)
     self.animar()
     stop = false
+  }
+
+  method remover() {
+    stop = true
   }
   
   method interaccion() {
