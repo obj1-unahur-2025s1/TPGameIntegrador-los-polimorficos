@@ -57,7 +57,6 @@ object cachito {
 		keyboard.num(4).onPressDo({ pomberito.vida(1) })//Eliminar en version final
 		keyboard.num(5).onPressDo({ self.agregarTotem(totemL) self.agregarTotem(totemA) self.agregarTotem(totemN)})//Eliminar en version final
 		keyboard.num(6).onPressDo({ preFinal.iniciar() })//Eliminar en version final
-		keyboard.num(7).onPressDo({llama.ubicarYAnimar()})//Eliminar en version final
 	}
 	
 	method reiniciar() {

@@ -92,7 +92,8 @@ object dificultadDificil {
     const coordenadas = [[1, 10],[1, 9],[1, 8],[1, 6],[1, 5],[1, 3],[9, 10],[9, 8], [9, 7],
                          [9, 6],[9, 4], [9, 3],[9, 2],[5, 9],[5, 6],[5, 3],[3, 1],[5, 1],
                          [7, 1],[2, 10],[3, 10],[4, 10]]
-    coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
+    coordenadas.forEach({c => escenario.obstaculosAnimados().add(new EspinaAnimada(position = game.at(c.first(), c.last())))})
+    escenario.obstaculosAnimados().forEach({o => o.ubicarYAnimar()})
   }
   method flashLuzMala() {
     luzMala.ubicarEspina()
@@ -120,7 +121,7 @@ object dificultadDificil {
 
   method ataquePomberitoPoseido() {
     const ataques = [ataqueFuego1 , ataqueFuego2]
-    game.onTick(10000, "ataque", {ataques.anyOne().atacar()})
+    game.onTick(10000, "ataquePomberitoPoseido", {ataques.anyOne().atacar()})
   }
 }
 
@@ -146,14 +147,13 @@ object ataqueFuego2 {
   const objetos = []
 
   method crearObjetos() {
-    posY.forEach({p => objetos.add(new ObjetoInteractivoAnimado(nombreSprite = "fl", image = null, maxFrames = 4, x = posX.anyOne(), y = p))})
+    posY.forEach({p => objetos.add(new LlamaAnimada(position = game.at(posX.anyOne(), p)))})
   }
   method atacar() {
     self.crearObjetos()
     objetos.forEach({a => a.ubicarYAnimar()})
     game.schedule(2000, {objetos.forEach({a => a.remover()})})
     objetos.clear()
-    
   }
 }
 

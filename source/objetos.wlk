@@ -19,7 +19,6 @@ class Corazon {
   }
 }
 //----------------------------------------LIMITES DEL TABLERO----------------------------------------
-
 class Limite {
   var property position = game.origin()
   
@@ -28,7 +27,6 @@ class Limite {
   }
 }
 //----------------------------------------PUERTAS----------------------------------------
-
 class Puerta {
   const proxZona
   var property image = proxZona.imagenPuerta()
@@ -46,7 +44,6 @@ class Puerta {
     self.image(proxZona.imagenPuerta())
   }
 }
-
 class PuertaAlPueblo inherits Puerta (proxZona = pueblo) {
   const puebloCoordX
   const puebloCoordY
@@ -58,7 +55,6 @@ class PuertaAlPueblo inherits Puerta (proxZona = pueblo) {
   }
 }
 //----------------------------------------CARTELES----------------------------------------
-
 class Cartel {
   var property image
   const x
@@ -72,7 +68,6 @@ class Cartel {
     game.addVisual(self)
   }
 }
-
 class CartelAnimado {
   const property c1
   const property c2
@@ -88,6 +83,68 @@ class CartelAnimado {
 }
 //----------------------------------------ELEMENTOS USADOS EN ATAQUES DE ENEMIGOS----------------------------------------
 
+class ObjetoInteractivoFijo {
+  var property position = game.at(0, 0)
+  var property image = null
+  
+  method interaccion() {}
+}
+class Espina inherits ObjetoInteractivoFijo (image = "espinas.png") {
+  override method interaccion() {
+    cachito.recibirDaño()
+  }
+}
+class EspinaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "es",maxFrames = 4,image = null){
+  override method interaccion() {
+    cachito.recibirDaño()
+  }
+}
+class ObjetoInteractivoAnimado {
+  var property position = game.at(0,0)
+  var property image
+  const nombreSprite 
+  const maxFrames 
+  var property cont = 1
+  var stop = false
+  method animar() {
+    if ((cont < maxFrames) and game.hasVisual(self)) {
+      image = nombreSprite + cont + ".png"
+      game.removeVisual(self)
+      game.addVisual(self)
+      cont+=1
+      game.schedule(1000, { self.animar() })
+    }else if (cont == maxFrames and stop){
+      cont = 1
+      image = nombreSprite + cont + ".png"
+      game.removeVisual(self)
+    }else{
+      cont = 1
+      game.schedule(1000, { self.animar()})
+    }
+  }
+  
+  method ubicarYAnimar() {
+    game.addVisual(self)
+    self.animar()
+    stop = false
+  }
+
+  method remover() {
+    stop = true
+    cont = maxFrames
+    game.removeVisual(self)
+  }
+  
+  method interaccion() {
+   cachito.recibirDaño()
+  }
+}
+class LlamaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "fl", image = null, maxFrames = 4){
+  override method interaccion() {
+    cachito.recibirDaño()
+    stop = true
+  }
+}
 class AtaqueEnemigo {
   var property image
   var property position = cachito.position()
@@ -164,7 +221,7 @@ class RocaAbajo inherits RocaIzq {
   }
 }
 
-class FuegoGuiado inherits AtaqueEnemigo(image = "llama.png") {
+class FuegoGuiado inherits AtaqueEnemigo(image = "fl1.png") {
   const x
   const y
   const vel = 1000
@@ -353,14 +410,7 @@ const pistaLuzMalaH = new Pista(cancion = "luzMalaH.mp3")
 const pistaCuevaSalamanca = new Pista(cancion = "cuevaSalamanca.mp3")
 
 //=========================VARIOS==========================//
-class ObjetoInteractivoFijo {
-  var property position = game.at(0, 0)
-  var property image = null
-  
-  method interaccion() {
-    
-  }
-}
+
 
 object mujerCachito {
   var property image = "mujerCachito.png"
@@ -395,64 +445,6 @@ object gauchitoGil {
     game.say(self, "Para cuando te encuentres al pomberito, vas a estar curado")
   }
 }
-
-class Espina inherits ObjetoInteractivoFijo (image = "espinas.png") {
-  override method interaccion() {
-    cachito.recibirDaño()
-  }
-}
-
-class ObjetoInteractivoAnimado {
-  const x
-  const y
-  var property position = game.at(x, y)
-  var property image
-  const nombreSprite 
-  const maxFrames 
-  var property cont = 1
-  var stop = false
-
-  method animar() {
-    if ((cont < maxFrames) and game.hasVisual(self)) {
-      image = nombreSprite + cont + ".png"
-      game.removeVisual(self)
-      game.addVisual(self)
-      cont+=1
-      game.schedule(1000, { self.animar() })
-    }else if (cont == maxFrames and stop){
-      cont = 1
-      image = nombreSprite + cont + ".png"
-      game.removeVisual(self)
-    }else{
-      cont = 1
-      game.schedule(1000, { self.animar()})
-    }
-  }
-  
-  method ubicarYAnimar() {
-    game.addVisual(self)
-    self.animar()
-    stop = false
-  }
-
-  method remover() {
-    stop = true
-  }
-  
-  method interaccion() {
-   cachito.recibirDaño()
-   stop = true
-  }
-}
-
-const llama = new ObjetoInteractivoAnimado(
-  nombreSprite = "fl",
-  image = null,
-  maxFrames = 4,
-  x = 5,
-  y = 5
-)
-
 //=========================DIRECCIONES==========================//
 object norte {
   method imagen() {

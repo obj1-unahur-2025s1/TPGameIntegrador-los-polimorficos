@@ -117,7 +117,7 @@ object animacionAtaque {
 }
 //===========================PRE FINAL==============================//
 const preFinal = new PantallaCinematica(delay=1500, nombreImagen="preFinal", inicio=1, fin=7, siguiente=portadaCuevaSalamanca, pistaMusical=pistaTitulo, delaySiguiente=2000)
-const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaAlienH, delaySiguiente=4000)
+const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaAlienH, delaySiguiente=5000)
 //===========================Pantalla Game Over - Creditos ===============================//
 const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
 
@@ -142,6 +142,7 @@ object pantallaGameOver {
     game.removeTickEvent("ataque4Pomberito")
     game.removeTickEvent("ataque3Pomberito")
     game.removeTickEvent("disparar roca")
+    game.removeTickEvent("ataquePomberitoPoseido")
     game.addVisual(reiniciar1)
     cartelReiniciar.animar()
     escenario.mostrarDificultad()

@@ -11,6 +11,7 @@ import dificultades.*
 
 object escenario {
   var property elementosEnEscena = []
+  var property obstaculosAnimados = []
   var property animar = false
   var property enGameOver = false
   var property enFinal = false
@@ -34,7 +35,9 @@ object escenario {
   
   method borrarTodaLaListaDeelementos() {
     elementosEnEscena.forEach({ a => game.removeVisual(a) })
+    obstaculosAnimados.forEach({ o => o.remover() })
     elementosEnEscena.clear()
+    obstaculosAnimados.clear()
   }
   
   method borrarEscena() {
