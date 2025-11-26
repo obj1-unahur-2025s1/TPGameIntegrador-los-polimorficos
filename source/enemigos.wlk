@@ -310,6 +310,7 @@ object batallaFinal {
   method golpearPomberito() {
     if (pomberito.derrotado()){
       if (escenario.enDificil()){
+        cachito.posicionDeDefensa()
         preFinal.iniciar()
       }else{
         finalJuego.iniciar()
