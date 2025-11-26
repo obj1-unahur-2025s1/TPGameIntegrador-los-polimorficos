@@ -112,14 +112,14 @@ class ObjetoInteractivoAnimado {
       game.removeVisual(self)
       game.addVisual(self)
       cont+=1
-      game.schedule(1000, { self.animar() })
+      game.schedule(2500, { self.animar() })
     }else if (cont == maxFrames and stop){
       cont = 1
       image = nombreSprite + cont + ".png"
       game.removeVisual(self)
     }else{
       cont = 1
-      game.schedule(1000, { self.animar()})
+      game.schedule(2500, { self.animar()})
     }
   }
   
