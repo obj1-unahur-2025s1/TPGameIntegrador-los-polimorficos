@@ -116,8 +116,9 @@ object animacionAtaque {
   method duracion() = 9000
 }
 //===========================PRE FINAL==============================//
-const preFinal = new PantallaCinematica(delay=1500, nombreImagen="preFinal", inicio=1, fin=7, siguiente=portadaCuevaSalamanca, pistaMusical=pistaTitulo, delaySiguiente=2000)
-const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaAlienH, delaySiguiente=5000)
+const preFinal = new PantallaCinematica(delay=1500, nombreImagen="preFinal", inicio=1, fin=7, siguiente=introCuevaSal, pistaMusical=pistaTitulo, delaySiguiente=2000)
+const introCuevaSal = new PantallaCinematica(delay=3000, nombreImagen="introCuevaSal", inicio=1, fin=8, siguiente=portadaCuevaSalamanca, pistaMusical=pistaIntroCueva, delaySiguiente=5000)
+const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaPortadaSalamanca, delaySiguiente=10000)
 //===========================Pantalla Game Over - Creditos ===============================//
 const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
 
@@ -138,11 +139,13 @@ object pantallaGameOver {
     musicaFondo.iniciar(pistaGameOver)
     game.removeTickEvent("moverse")
     game.removeTickEvent("atacar")
+    game.removeTickEvent("disparar")
+    game.removeTickEvent("disparar roca")
     game.removeTickEvent("actualizarPuertas")
     game.removeTickEvent("ataque4Pomberito")
     game.removeTickEvent("ataque3Pomberito")
-    game.removeTickEvent("disparar roca")
     game.removeTickEvent("ataquePomberitoPoseido")
+    game.removeTickEvent("ataque1PomberitoPoseido")
     game.addVisual(reiniciar1)
     cartelReiniciar.animar()
     escenario.mostrarDificultad()

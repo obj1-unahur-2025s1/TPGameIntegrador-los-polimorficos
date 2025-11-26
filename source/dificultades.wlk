@@ -16,9 +16,9 @@ object dificultadFacil {
   method agregarEspinasDelAlien() {
     const coordenadas = [[1, 10], [1, 9], [1, 8], [1, 6], [1, 5], [1, 3], [9, 10], [9, 8], [9, 7], 
                          [9, 6], [9, 4], [9, 3], [9, 2], [5, 6], [7, 1], [4, 10]]
-    coordenadas.forEach({c => game.addVisual(new Espina(position = game.at(c.first(), c.last())))})
+    coordenadas.forEach({c => escenario.obstaculosAnimados().add(new EspinaAnimada(position = game.at(c.first(), c.last())))})
+    escenario.obstaculosAnimados().forEach({o => o.ubicarYAnimar()})  
   }
-  
   method flashLuzMala() {
     game.addVisual(flash)
     const sonido = game.sound("flash.mp3")
@@ -33,11 +33,6 @@ object dificultadFacil {
   method ataqueNahuelito() {
     game.onTick(850, "atacar", { nahuelito.atacar() })
   }
-
-  method musicaNahuelito() {
-    return pistaNahuelito
-  }
-  
   method cambiar() {
     dificultadDificil.configurar()
   }
@@ -136,8 +131,9 @@ object ataqueFuego1 {
         fuego.disparar()
       }
     )
-    
-    game.schedule(5500, { game.removeTickEvent("ataque1PomberitoPoseido")})
+    game.schedule(5500, { 
+      game.removeTickEvent("ataque1PomberitoPoseido")
+    })
   }
 }
 
@@ -152,8 +148,10 @@ object ataqueFuego2 {
   method atacar() {
     self.crearObjetos()
     objetos.forEach({a => a.ubicarYAnimar()})
-    game.schedule(2000, {objetos.forEach({a => a.remover()})})
-    objetos.clear()
+    game.schedule(3000, {
+      objetos.forEach({a => a.remover()})
+      objetos.clear()
+    })
   }
 }
 

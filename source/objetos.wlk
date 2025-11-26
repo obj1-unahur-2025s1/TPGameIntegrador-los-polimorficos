@@ -94,7 +94,7 @@ class Espina inherits ObjetoInteractivoFijo (image = "espinas.png") {
     cachito.recibirDaño()
   }
 }
-class EspinaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "es",maxFrames = 4,image = null){
+class EspinaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "es",maxFrames = 4,tiempoAnimacion=3500,image = null){
   override method interaccion() {
     cachito.recibirDaño()
   }
@@ -102,6 +102,7 @@ class EspinaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "es",maxFr
 class ObjetoInteractivoAnimado {
   var property position = game.at(0,0)
   var property image
+  const tiempoAnimacion = 1200
   const nombreSprite 
   const maxFrames 
   var property cont = 1
@@ -112,14 +113,14 @@ class ObjetoInteractivoAnimado {
       game.removeVisual(self)
       game.addVisual(self)
       cont+=1
-      game.schedule(2500, { self.animar() })
+      game.schedule(tiempoAnimacion, { self.animar() })
     }else if (cont == maxFrames and stop){
       cont = 1
       image = nombreSprite + cont + ".png"
       game.removeVisual(self)
     }else{
       cont = 1
-      game.schedule(2500, { self.animar()})
+      game.schedule(tiempoAnimacion, { self.animar()})
     }
   }
   
@@ -408,6 +409,8 @@ const pistaNahuelitoH = new Pista(cancion = "nahuelitoH.mp3", volumen = 1)
 const pistaLuzMalaH = new Pista(cancion = "luzMalaH.mp3")
 
 const pistaCuevaSalamanca = new Pista(cancion = "cuevaSalamanca.mp3")
+const pistaIntroCueva = new Pista(cancion = "introCueva.mp3")
+const pistaPortadaSalamanca = new Pista(cancion = "portadaCueva.mp3")
 
 //=========================VARIOS==========================//
 

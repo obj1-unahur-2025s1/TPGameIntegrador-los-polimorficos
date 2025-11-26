@@ -10,7 +10,6 @@ import limitadores.*
 object pomberito {
   var posicion = game.center()
   var property vida = 4
-  method vida() = vida 
   method image() = "pomberito.png"
   method position() = posicion
   method derrotado() = vida == 0
@@ -18,6 +17,7 @@ object pomberito {
     game.sound("grito.mp3").play()
   }
   method iniciar() {
+    vida = 4
     game.addVisual(self)
     posicion = game.at(5, 10)
   }
@@ -34,7 +34,6 @@ object pomberito {
 object pomberitoPoseido {
   var posicion = game.center()
   var property vida = 4
-  method vida() = vida 
   method image() = "pombePoseido.png"
   method position() = posicion
   method derrotado() = vida == 0
@@ -42,6 +41,7 @@ object pomberitoPoseido {
     game.sound("grito.mp3").play()
   }
   method iniciar() {
+    vida = 4
     game.addVisual(self)
     posicion = game.at(5, 9)
     self.atacar()
