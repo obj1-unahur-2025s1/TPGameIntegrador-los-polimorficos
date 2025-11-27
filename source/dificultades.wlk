@@ -116,7 +116,8 @@ object dificultadDificil {
 
   method ataquePomberitoPoseido() {
     const ataques = [ataqueFuego1 , ataqueFuego2]
-    game.onTick(10000, "ataquePomberitoPoseido", {ataques.anyOne().atacar()})
+    ataques.anyOne().atacar()
+    game.onTick(9000, "ataquePomberitoPoseido", {if (not pomberitoPoseido.derrotado()) ataques.anyOne().atacar()})
   }
 }
 
@@ -126,12 +127,12 @@ object ataqueFuego1 {
       1000,
       "ataque1PomberitoPoseido",
       { 
-        const fuego = new FuegoGuiado(x = 5, y = 10)
+        const fuego = new FuegoGuiado(x = pomberito.position().x(), y = pomberito.position().y())
         fuego.position(pomberito.position())
         fuego.disparar()
       }
     )
-    game.schedule(5500, { 
+    game.schedule(5000, { 
       game.removeTickEvent("ataque1PomberitoPoseido")
     })
   }
@@ -139,18 +140,37 @@ object ataqueFuego1 {
 
 object ataqueFuego2 {
   const posX = [1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 ,  10]
-  const posY = [1 , 1 , 1 , 1 , 1]
-  const objetos = []
+  const posY = [1 , 1 , 1 , 1 , 1 , 2 , 2 , 2 , 2 , 2 , 3 , 3 , 3 , 3 , 3 , 4 , 4 , 4 , 4 , 4]
+  const humos = []
+  const llamas = []
+  const coordenadas = []
 
   method crearObjetos() {
-    posY.forEach({p => objetos.add(new LlamaAnimada(position = game.at(posX.anyOne(), p)))})
+    posY.forEach({c => coordenadas.add([posX.anyOne() , c])})
+    coordenadas.forEach({p => humos.add(new Humo(position = game.at(p.first() , p.last())))})
+    coordenadas.forEach({p => llamas.add(new LlamaAnimada(position = game.at(p.first() , p.last())))})
+    coordenadas.clear()
   }
   method atacar() {
     self.crearObjetos()
-    objetos.forEach({a => a.ubicarYAnimar()})
-    game.schedule(3000, {
-      objetos.forEach({a => a.remover()})
-      objetos.clear()
+    self.iniciarHumo()
+    game.schedule(3000 , {self.iniciarFuego()})
+
+  }
+
+  method iniciarHumo() {
+    humos.forEach({a => a.ubicarYAnimar()})
+    game.schedule(3100, {
+      humos.forEach({a => a.remover()})
+      humos.clear()
+    })
+  }
+
+  method iniciarFuego() {
+    llamas.forEach({a => a.ubicarYAnimar()})
+    game.schedule(6000, {
+      llamas.forEach({a => a.remover()})
+      llamas.clear()
     })
   }
 }

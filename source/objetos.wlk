@@ -18,6 +18,28 @@ class Corazon {
     game.removeVisual(self)
   }
 }
+
+class Facon inherits AtaqueEnemigo(image = "facon.png") {
+
+  override method interaccion() {}
+
+  method dañarEnemigo() {
+    if (self.golpeoAlPomberito()) {
+      pomberitoPoseido.recibirDaño()
+    }
+  }
+
+  override method mover() {
+    self.position(self.position().up(1))
+    self.dañarEnemigo()
+    if (self.llegoAlLimite() || self.golpeoAlPomberito()) game.removeVisual(self)
+  }
+
+  method golpeoAlPomberito() {
+    return
+      position == pomberitoPoseido.position()
+  }
+}
 //----------------------------------------LIMITES DEL TABLERO----------------------------------------
 class Limite {
   var property position = game.origin()
@@ -146,6 +168,10 @@ class LlamaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "fl", image
     stop = true
   }
 }
+
+class Humo inherits ObjetoInteractivoAnimado (nombreSprite = "humo", image = null, maxFrames = 4){
+  override method interaccion() {}
+}
 class AtaqueEnemigo {
   var property image
   var property position = cachito.position()
@@ -168,7 +194,6 @@ class AtaqueEnemigo {
 class Ola inherits AtaqueEnemigo (image = "Olas.png") {
   override method mover() {
     self.position(self.position().up(1))
-    
     if (self.llegoAlLimite()) game.removeVisual(self)
   }
 }
@@ -519,6 +544,23 @@ object este {
     cachito.mirandoAl(self)
     cachito.actualizarImagen()
   }
+
+  method saltoPomberito() {
+    self.saltarALaDerecha()
+    game.schedule(4000, {self.volverAlCentro()})
+  }
+
+  method saltarALaDerecha() {
+    pomberitoPoseido.image("saltoDerecha.png") 
+    game.onTick(100, "saltoDerecha", {if (not pomberitoPoseido.estaEnElLimite()) pomberitoPoseido.position(pomberitoPoseido.position().right(1))})
+    game.schedule(500, {game.removeTickEvent("saltoDerecha") pomberitoPoseido.image("pombeColgandoDerecha.png")})
+  }
+
+  method volverAlCentro() {
+    pomberitoPoseido.image("saltoIzquierda.png") 
+    game.onTick(100, "saltoIzquierda", {if (not pomberitoPoseido.estaEnElCentro()) pomberitoPoseido.position(pomberitoPoseido.position().left(1))})
+    game.schedule(500, {game.removeTickEvent("saltoIzquierda") pomberitoPoseido.image("pombePoseido.png")})
+  }
 }
 
 object oeste {
@@ -542,5 +584,22 @@ object oeste {
     cachito.position(cachito.position().left(1))
     cachito.mirandoAl(self)
     cachito.actualizarImagen()
+  }
+
+  method saltoPomberito() {
+    self.saltarALaIzquierda()
+    game.schedule(4000, {self.volverAlCentro()})
+  }
+
+  method saltarALaIzquierda() {
+    pomberitoPoseido.image("saltoIzquierda.png") 
+    game.onTick(100, "saltoIzquierda", {if (not pomberitoPoseido.estaEnElLimite()) pomberitoPoseido.position(pomberitoPoseido.position().left(1))})
+    game.schedule(500, {game.removeTickEvent("saltoIzquierda") pomberitoPoseido.image("pombeColgandoIzquierda.png")})
+  }
+
+  method volverAlCentro() {
+    pomberitoPoseido.image("saltoDerecha.png") 
+    game.onTick(100, "saltoDerecha", {if (not pomberitoPoseido.estaEnElCentro()) pomberitoPoseido.position(pomberitoPoseido.position().right(1))})
+    game.schedule(500, {game.removeTickEvent("saltoDerecha") pomberitoPoseido.image("pombePoseido.png")}) 
   }
 }

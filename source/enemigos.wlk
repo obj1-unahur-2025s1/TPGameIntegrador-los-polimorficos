@@ -32,24 +32,45 @@ object pomberito {
 }
 
 object pomberitoPoseido {
-  var posicion = game.center()
-  var property vida = 4
-  method image() = "pombePoseido.png"
-  method position() = posicion
+  var property vida = 5
+  var property image = "pombePoseido.png"
+  var property position = game.center()
   method derrotado() = vida == 0
+  const property direccion = [este , oeste]
   method interaccion() {
     game.sound("grito.mp3").play()
   }
   method iniciar() {
-    vida = 4
     game.addVisual(self)
-    posicion = game.at(5, 9)
+    position = game.at(5, 9)
+    self.moverse()
     self.atacar()
   }
-  method duracionAtaque() = 4000
+
+  method moverse() {
+    direccion.anyOne().saltoPomberito()
+    game.onTick(8000, "saltoPombe", {direccion.anyOne().saltoPomberito()})  
+  }
+
+  method estaEnElLimite() {
+    return
+      self.position().x() == 1 || self.position().x() == 9
+  }
+
+  method estaEnElCentro() {
+    return
+      self.position() == game.at(5, 9)
+  }
+ 
   method recibirDaño() {
-      vida -= 1
+      if (self.derrotado()) {
+        cachito.finalizarCuevaSalamanca()
+      }
+      else
+        vida -= 1
+        self.interaccion()
     }
+
   method atacar() { 
     escenario.dificultad().ataquePomberitoPoseido()
   }
@@ -310,7 +331,7 @@ object batallaFinal {
   method golpearPomberito() {
     if (pomberito.derrotado()){
       if (escenario.enDificil()){
-        cachito.posicionDeDefensa()
+        cachito.entrarACuevaSalamanca()
         preFinal.iniciar()
       }else{
         finalJuego.iniciar()

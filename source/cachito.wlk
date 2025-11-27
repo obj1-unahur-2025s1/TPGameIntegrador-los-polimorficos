@@ -18,6 +18,7 @@ object cachito {
 	var property ubicacion = casa
 	var property position = game.origin()
 	var property image = mirandoAl.imagen()
+	var estaEnCuevaSalamanca = false
 	
 	method puedeMoverse() = puedeMoverse
 	
@@ -40,6 +41,16 @@ object cachito {
 	method poscionarEn(nuevaPosicion) {
 		self.position(nuevaPosicion)
 	}
+
+	method entrarACuevaSalamanca() {
+		estaEnCuevaSalamanca = true
+		tieneInmunidad = false
+	}
+
+	method finalizarCuevaSalamanca() {
+		estaEnCuevaSalamanca = false
+		finalJuego.iniciar()
+	}
 	
 	method configurarTeclas() {
 		//Left
@@ -50,11 +61,13 @@ object cachito {
 		keyboard.s().onPressDo({ if (sur.puedeAvanzar()) sur.avanzar() })
 		//up
 		keyboard.w().onPressDo({ if (norte.puedeAvanzar()) norte.avanzar() })
+		//lanzar facon
+		keyboard.f().onPressDo({if (estaEnCuevaSalamanca) self.lanzarFacon()})
 		
 		keyboard.num(1).onPressDo({ finalJuego.iniciar() })//Eliminar en version final
 		keyboard.num(2).onPressDo({ pantallaGameOver.iniciar() })//Eliminar en version final
 		keyboard.num(3).onPressDo({ pomberito.vida(1) })//Eliminar en version final
-		keyboard.num(4).onPressDo({ preFinal.iniciar() })//Eliminar en version final
+		keyboard.num(4).onPressDo({ preFinal.iniciar() self.entrarACuevaSalamanca()})//Eliminar en version final
 	}
 	
 	method reiniciar() {
@@ -85,6 +98,12 @@ object cachito {
 		animacionAtaque.iniciar()
 		position = game.at(5, 1)
 		pomberito.recibirDaño()
+	}
+
+	method lanzarFacon() {
+		const facon = new Facon()
+    	facon.position(self.position())
+    	facon.disparar()
 	}
 	
 	method otorgarInmunidad() {
