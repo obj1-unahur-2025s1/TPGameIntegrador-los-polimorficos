@@ -92,7 +92,7 @@ object dificultadDificil {
   }
   method flashLuzMala() {
     luzMala.ubicarEspina()
-    game.addVisual(flash)
+    flash.agregar()
     const sonido = game.sound("flash.mp3")
     sonido.volume(0.05)
     sonido.play()
@@ -159,7 +159,7 @@ object ataqueFuego2 {
   }
 
   method iniciarHumo() {
-    humos.forEach({a => a.ubicarYAnimar()})
+    humos.forEach({a =>a.ubicar()})
     game.schedule(3100, {
       humos.forEach({a => a.remover()})
       humos.clear()

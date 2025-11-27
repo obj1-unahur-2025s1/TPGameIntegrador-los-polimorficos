@@ -67,7 +67,7 @@ object cachito {
 		keyboard.num(1).onPressDo({ finalJuego.iniciar() })//Eliminar en version final
 		keyboard.num(2).onPressDo({ pantallaGameOver.iniciar() })//Eliminar en version final
 		keyboard.num(3).onPressDo({ pomberito.vida(1) })//Eliminar en version final
-		keyboard.num(4).onPressDo({ preFinal.iniciar() self.entrarACuevaSalamanca()})//Eliminar en version final
+		keyboard.num(4).onPressDo({ portadaCuevaSalamanca.iniciar() self.entrarACuevaSalamanca()})//Eliminar en version final
 	}
 	
 	method reiniciar() {
@@ -101,9 +101,13 @@ object cachito {
 	}
 
 	method lanzarFacon() {
-		const facon = new Facon()
-    	facon.position(self.position())
-    	facon.disparar()
+		if (puedeAtacar){
+			const facon = new Facon()
+    		facon.position(self.position())
+    		facon.disparar()
+			puedeAtacar = false
+			game.schedule(500, { puedeAtacar = true } )
+		}
 	}
 	
 	method otorgarInmunidad() {

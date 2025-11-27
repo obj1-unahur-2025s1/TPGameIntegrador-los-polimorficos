@@ -36,9 +36,20 @@ al lago Salinas del Ambargasta, cuyo ataque consta de tirar olas al jugador.
 
 - El OVNI: Un Ovni extraterrestre que iba en camino al Cerro Uritorco (En Cordoba) se quedó de visita en Tero Violado. Su ataque es empujar al jugador para evitar que agarre el Ovni.
 
+<br>
 
 🔸 Final Boss:
-Una vez que se recolectan los 3 tótems, se desbloquea la iglesia. Cachito debe enfrentarse al Pomberito poseído, cuyo ataque es tirar oleadas de piedras.
+Una vez que se recolectan los 3 tótems, se desbloquea la iglesia. Allí Cachito debe enfrentarse al Pomberito poseído, cuyo ataque principal consiste en lanzar oleadas de piedras.
+
+  - En dificultad normal, el combate tiene una sola fase: el Pomberito ataca con diferente patrones de oleadas de piedras.
+
+- En dificultad difícil, el enfrentamiento se divide en dos partes:
+
+  - Fase 1: Igual a la dificultad normal, con el mismo ataque de oleadas de piedras.
+
+  - Fase 2: El Pomberito se fusiona con Mandinga, entrando en una forma mucho más poderosa con un conjunto completamente nuevo de ataques. Se recomienda llegar con bastante vida, ya que esta etapa es notablemente más complicada.
+
+<br>
 
 🔸 Mecánica adicional:
 Hay un 50% de probabilidad de que aparezca el gauchito gil o la esposa de cachito. 

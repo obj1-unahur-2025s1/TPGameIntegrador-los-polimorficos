@@ -18,7 +18,6 @@ class Corazon {
     game.removeVisual(self)
   }
 }
-
 class Facon inherits AtaqueEnemigo(image = "facon.png") {
 
   override method interaccion() {}
@@ -32,9 +31,11 @@ class Facon inherits AtaqueEnemigo(image = "facon.png") {
   override method mover() {
     self.position(self.position().up(1))
     self.dañarEnemigo()
-    if (self.llegoAlLimite() || self.golpeoAlPomberito()) game.removeVisual(self)
+    if (self.llegoAlLimite() || self.golpeoAlPomberito()) self.remover()
   }
-
+  method remover() {
+    game.removeVisual(self)
+  }
   method golpeoAlPomberito() {
     return
       position == pomberitoPoseido.position()
@@ -110,21 +111,17 @@ class ObjetoInteractivoFijo {
   var property image = null
   
   method interaccion() {}
-}
-class Espina inherits ObjetoInteractivoFijo (image = "espinas.png") {
-  override method interaccion() {
-    cachito.recibirDaño()
+  method ubicar() {
+    game.addVisual(self)
   }
-}
-class EspinaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "es",maxFrames = 4,tiempoAnimacion=3500,image = null){
-  override method interaccion() {
-    cachito.recibirDaño()
+  method remover(){
+    game.removeVisual(self)
   }
 }
 class ObjetoInteractivoAnimado {
   var property position = game.at(0,0)
   var property image
-  const tiempoAnimacion = 1200
+  const tiempoAnimacion = 1600
   const nombreSprite 
   const maxFrames 
   var property cont = 1
@@ -162,14 +159,23 @@ class ObjetoInteractivoAnimado {
    cachito.recibirDaño()
   }
 }
-class LlamaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "fl", image = null, maxFrames = 4){
+class Espina inherits ObjetoInteractivoFijo (image = "espinas.png") {
+  override method interaccion() {
+    cachito.recibirDaño()
+  }
+}
+class EspinaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "es",maxFrames = 4,tiempoAnimacion=3500,image = null){
+  override method interaccion() {
+    cachito.recibirDaño()
+  }
+}
+class LlamaAnimada inherits ObjetoInteractivoAnimado (nombreSprite = "fuego", image = null, maxFrames = 3){
   override method interaccion() {
     cachito.recibirDaño()
     stop = true
   }
 }
-
-class Humo inherits ObjetoInteractivoAnimado (nombreSprite = "humo", image = null, maxFrames = 4){
+class Humo inherits ObjetoInteractivoFijo (image = "humo1.png"){
   override method interaccion() {}
 }
 class AtaqueEnemigo {
@@ -247,7 +253,7 @@ class RocaAbajo inherits RocaIzq {
   }
 }
 
-class FuegoGuiado inherits AtaqueEnemigo(image = "fl1.png") {
+class FuegoGuiado inherits AtaqueEnemigo(image = "fuego1.png") {
   const x
   const y
   const vel = 1000
@@ -280,6 +286,12 @@ class FuegoGuiado inherits AtaqueEnemigo(image = "fl1.png") {
 object flash {
   var property image = "ataqueLuzMala.png"
   var property position = game.origin()
+  method agregar() {
+    game.addVisual(self)
+  }
+  method remover(){
+    game.removeVisual(self)
+  }
 } //-------------------------TOTEM---------------------------------------
 
 class Totem {
@@ -293,6 +305,9 @@ class Totem {
     game.removeTickEvent("atacar")
     game.removeTickEvent("moverse")
     cachito.agregarTotem(self)
+  }
+  method ubicar() {
+    game.addVisual(self)
   }
 } //-------------------------PISTAS---------------------------------------
 

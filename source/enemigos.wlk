@@ -41,7 +41,9 @@ object pomberitoPoseido {
     game.sound("grito.mp3").play()
   }
   method iniciar() {
+    vida = 5
     game.addVisual(self)
+    cachito.puedeAtacar(true)
     position = game.at(5, 9)
     self.moverse()
     self.atacar()
@@ -92,15 +94,15 @@ object luzMala {
   ]
   method ubicarEspina() {
     if(game.hasVisual(espina)){
-      game.removeVisual(espina)
+      espina.remover()
     }
     espina.position(totemL.position())
-    game.addVisual(espina)
+    espina.ubicar()
   }
   method ataque() {
     self.flash()
     self.moverTotem()
-    game.schedule(1500, { game.removeVisual(flash) })
+    game.schedule(1500, { flash.remover() })
   }
   
   method moverTotem() {
@@ -109,7 +111,7 @@ object luzMala {
   
   method iniciar() {
     self.animacionEntrada()
-    game.addVisual(totemL)
+    totemL.ubicar()
     game.onTick(3000, "atacar", { self.ataque() })
   }
 
@@ -131,11 +133,11 @@ object luzMala {
   }
 
   method flashAnimacion() {
-    game.addVisual(flash)
+    flash.agregar()
     const sonido = game.sound("flash.mp3")
     sonido.volume(0.05)
     sonido.play()
-    game.schedule(500, { game.removeVisual(flash) })
+    game.schedule(500, { flash.remover() })
   }
 
   method texto() = zonaLuzMala
@@ -195,7 +197,7 @@ object alien {
     self.agregarEspinas()
     self.animacionEntrada()
     game.schedule(3000, {
-      game.addVisual(totemA)
+      totemA.ubicar()
       ovniAnimado.animar()
       game.onTick(1000, "atacar", { self.ataqueTelequinéctico() })
     })
@@ -227,7 +229,7 @@ object nahuelito {
   var property position = game.origin()
   
   method totem() = totemN
-  method texto() = zonaLuzMala
+  method texto() = costaNahuelito
   method perseguirPersonaje() {
     const otraPosicion = cachito.position()
     const newX = position.x() + if (otraPosicion.x() > position.x()) {
@@ -254,7 +256,7 @@ object nahuelito {
   method iniciar() {
     game.addVisual(self)
     self.animacionInicio()
-    game.addVisual(totemN)
+    totemN.ubicar()
     game.schedule(
       3000,
       { 
