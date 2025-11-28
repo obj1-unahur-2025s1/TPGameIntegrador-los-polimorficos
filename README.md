@@ -34,12 +34,12 @@ al lago Salinas del Ambargasta, cuyo ataque consta de tirar olas al jugador.
 
 - La luz Mala: La bola de luz que aparece generalmente en las zonas rurales. Su ataque consta de cegar temporalmente al jugador y mover de lugar el totem.
 
-- El OVNI: Un Ovni extraterrestre que iba en camino al Cerro Uritorco (En Cordoba) se quedó de visita en Tero Violado. Su ataque es empujar al jugador para evitar que agarre el Ovni.
+- El OVNI: Un Ovni extraterrestre que iba en camino al Cerro Uritorco (En Cordoba) se quedó de visita en Tero Violado. Su ataque es empujar al jugador para evitar que agarre el totem.
 
 <br>
 
 🔸 Final Boss:
-Una vez que se recolectan los 3 tótems, se desbloquea la iglesia. Allí Cachito debe enfrentarse al Pomberito poseído, cuyo ataque principal consiste en lanzar oleadas de piedras.
+Una vez que se recolectan los 3 tótems, se desbloquea la iglesia. Allí Cachito debe enfrentarse al Pomberito, cuyo ataque principal consiste en lanzar oleadas de piedras.
 
   - En dificultad normal, el combate tiene una sola fase: el Pomberito ataca con diferente patrones de oleadas de piedras.
 
