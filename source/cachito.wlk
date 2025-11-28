@@ -79,6 +79,8 @@ object cachito {
 		puedeMoverse = true
 		tieneInmunidad = false
 		tiempoDeInmunidad = 1000
+		estaEnCuevaSalamanca = false
+		derrotado = false
 		self.vida(4)
 		self.ubicacion(casa)
 		self.actualizarImagen()

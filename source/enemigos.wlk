@@ -305,8 +305,7 @@ object batallaFinal {
     self.habilitarAtaque() 
   
   }
-  
-  
+
   method habilitarAtaque() {
     keyboard.f().onPressDo({ self.gestionarAtaque() })
     if (!cachito.derrotado()) {
