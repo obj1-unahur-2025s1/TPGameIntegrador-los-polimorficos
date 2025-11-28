@@ -34,7 +34,6 @@ class SalaEnemigo{
         self.bloquearMovimiento()
     }
     method interaccion() {
-        cachito.ubicacion(self)
         game.schedule(1000, {
         self.iniciar() })
     }
