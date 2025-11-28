@@ -9,6 +9,7 @@ import limitadores.*
 
 object pomberito {
   var posicion = game.center()
+  var property vidaMaxima = 0
   var property vida = 4
   method image() = "pomberito.png"
   method position() = posicion
@@ -17,7 +18,7 @@ object pomberito {
     game.sound("grito.mp3").play()
   }
   method iniciar() {
-    vida = 4
+    vida = vidaMaxima
     game.addVisual(self)
     posicion = game.at(5, 10)
   }
@@ -38,7 +39,7 @@ object pomberitoPoseido {
   method derrotado() = vida == 0
   const property direccion = [este , oeste]
   method interaccion() {
-    game.sound("grito.mp3").play()
+    if(!escenario.enFinal()) game.sound("grito.mp3").play()
   }
   method iniciar() {
     vida = 5

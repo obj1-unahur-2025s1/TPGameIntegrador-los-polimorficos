@@ -12,6 +12,7 @@ object dificultadFacil {
     salaNahuelito.pista(pistaNahuelito)
     salaAlien.pista(pistaAlien)
     salaLuzMala.pista(pistaLuzMala)
+    pomberito.vidaMaxima(4)
   }
 
   method ataquePomberito() {
@@ -53,7 +54,7 @@ object dificultadDificil {
     salaLuzMala.pista(pistaLuzMalaH)
     salaAlien.pista(pistaAlienH)
     luzMala.image("luzMalaH.png")
-    pomberito.vida(6)
+    pomberito.vidaMaxima(6)
   }
 
   

@@ -101,9 +101,11 @@ object iglesia {
   method esExterior() = false
   method esSalaConAgua() = false
 }
+
 const cuevaSalamanca = new SalaEnemigo(
   enemigo = pomberitoPoseido,
   pista = pistaCuevaSalamanca,
+  bloqueoDeMovimiento = false,
   jugadorX = 5,
   jugadorY = 1,
   lSup = 5,

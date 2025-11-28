@@ -107,8 +107,9 @@ object cachito {
 			const facon = new Facon()
     		facon.position(self.position())
     		facon.disparar()
+			image = norte.imagen()
 			puedeAtacar = false
-			game.schedule(500, { puedeAtacar = true } )
+			game.schedule(700, { puedeAtacar = true } )
 		}
 	}
 	

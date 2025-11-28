@@ -105,20 +105,26 @@ describe "Teclas e interacciones" {
 }
 
 describe "Pomberito" {
+  test "En dificultad Facil, la vida del pomberito es 4" {
+    dificultadFacil.configurar()
+    pomberito.iniciar()
+    assert.equals(4, pomberito.vida())
+  }
+  test "En dificultad Dificil, la vida del pomberito es 6" {
+    dificultadDificil.configurar()
+    pomberito.iniciar()
+    assert.equals(6, pomberito.vida())
+  }
+  
+  
   test "Cachito consigue los totems, le lanza una piedra al pomberito como consecuencia su salud baja un punto" {
-    puertaSalidaCasa.interaccion()
+    dificultadFacil.configurar()
     totemL.interaccion()
     totemA.interaccion()
     totemN.interaccion()
     iglesia.interaccion()
     cachito.atacar()
     assert.equals(3, pomberito.vida())
-  }
-  
-  test "Al seleccionar dificultad dificil, el pomberito obtiene dos puntos extra de vida" {
-    dificultadDificil.configurar()
-    pomberito.iniciar()
-    assert.equals(6, pomberito.vida())
   }
 }
 
@@ -142,6 +148,7 @@ describe "Pantallas y Actualizacion dinamica de assets segun dificultad" {
     pantallaGameOver.iniciar()
     assert.that(game.hasVisual(cartelDificil))
   }
+  
   test "Al reiniciar el juego desde la pantalla de game over, se puede cambiar la dificultad" {
     dificultadDificil.configurar()
     pantallaGameOver.iniciar()

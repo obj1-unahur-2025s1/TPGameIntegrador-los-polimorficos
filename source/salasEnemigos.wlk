@@ -14,8 +14,8 @@ class SalaEnemigo{
     const lInf = null
     const lDer = null
     const lIzq = null
+    const bloqueoDeMovimiento = true
     const tieneAgua = false
-    method esExterior() = false
     method esSalaConAgua() = tieneAgua
     var property image = "fondoSala-" + enemigo + "-dificil.png"
     var property position = game.origin()
@@ -25,15 +25,13 @@ class SalaEnemigo{
         musicaFondo.cambiarAPista(pista)
         escenario.iniciarEscena(self, enemigo.texto())
         escenario.colocarJugadorEn(jugadorX, jugadorY)
-        cachito.actualizarImagen()
         barraDeVida.mostrarVidas()
         escenario.ubicarEnEscena(limiteSuperior, 0, lSup)
         escenario.ubicarEnEscena(limiteInferior, 0, lInf)
         escenario.ubicarEnEscena(limiteLatDer, 11, lDer)
         escenario.ubicarEnEscena(limiteLatIzq, -1, lIzq)
         enemigo.iniciar()
-        cachito.bloquearMovimiento()
-        game.schedule(3000, {cachito.activarMovimiento()})
+        self.bloquearMovimiento()
     }
     method interaccion() {
         cachito.ubicacion(self)
@@ -50,6 +48,12 @@ class SalaEnemigo{
             image = "fondoSala-" + enemigo + "-dificil.png"
         } else {
             image = "fondoSala-" + enemigo + ".png"
+        }
+    }
+    method bloquearMovimiento(){
+        if (bloqueoDeMovimiento){
+            cachito.bloquearMovimiento()
+            game.schedule(3000, {cachito.activarMovimiento()})
         }
     }
 }

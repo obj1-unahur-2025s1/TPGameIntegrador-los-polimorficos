@@ -10,12 +10,14 @@ class PantallaCinematica{
   const fin
   const siguiente 
   const pistaMusical = null
+  const esFinal = false
   var property image = null
   var property position = game.origin()
   const delay = 500
   const delaySiguiente = 0
   method iniciar(){
     image = nombreImagen + inicio + ".png"
+    escenario.enFinal(esFinal)
     escenario.borrarEscena()
     game.addVisual(self)
     game.schedule(delay, { self.realizarCinematica(inicio) })

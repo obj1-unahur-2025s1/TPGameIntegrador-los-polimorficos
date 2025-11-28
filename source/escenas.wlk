@@ -118,9 +118,10 @@ object animacionAtaque {
 //===========================PRE FINAL==============================//
 const preFinal = new PantallaCinematica(delay=1500, nombreImagen="preFinal", inicio=1, fin=7, siguiente=introCuevaSal, pistaMusical=pistaTitulo, delaySiguiente=2000)
 const introCuevaSal = new PantallaCinematica(delay=3000, nombreImagen="introCuevaSal", inicio=1, fin=8, siguiente=portadaCuevaSalamanca, pistaMusical=pistaIntroCueva, delaySiguiente=5000)
-const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaPortadaSalamanca, delaySiguiente=10000)
+const portadaCuevaSalamanca = new PantallaCinematica(nombreImagen="portadaCuevaSalamanca", inicio=1, fin=1, siguiente=faconGet, pistaMusical=pistaPortadaSalamanca, delaySiguiente=11000)
+const faconGet = new PantallaCinematica(nombreImagen="faconGet", inicio=1, fin=1, siguiente=cuevaSalamanca, pistaMusical=pistaFaconGet, delaySiguiente=4900)
 //===========================Pantalla Game Over - Creditos ===============================//
-const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal)
+const finalJuego = new PantallaCinematica(nombreImagen="fin", inicio=1, fin=4, siguiente=creditos, pistaMusical=pistaFinal, esFinal=true, delaySiguiente=5000)
 
 object pantallaGameOver {
   var property image = "gameOver.png"

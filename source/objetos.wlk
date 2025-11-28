@@ -427,8 +427,12 @@ const pistaNahuelitoH = new Pista(cancion = "nahuelitoH.mp3", volumen = 1)
 const pistaLuzMalaH = new Pista(cancion = "luzMalaH.mp3")
 
 const pistaCuevaSalamanca = new Pista(cancion = "cuevaSalamanca.mp3")
+
 const pistaIntroCueva = new Pista(cancion = "introCueva.mp3")
+
 const pistaPortadaSalamanca = new Pista(cancion = "portadaCueva.mp3")
+
+const pistaFaconGet = new Pista(cancion = "faconGet.mp3")
 
 //=========================VARIOS==========================//
 
