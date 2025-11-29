@@ -1,7 +1,10 @@
 import objetos.*
+import escenario.*
 
 object calidadBaja {
-
+    method configurar() {
+        escenario.calidad(self)
+    }
     method espinasDelAlien(posX , posY) {
         return new Espina(position = game.at(posX, posY))
     }
@@ -13,10 +16,13 @@ object calidadBaja {
     method fuego(posX , posY) {
         return new FuegoEstatico(position = game.at(posX, posY))
     }
+
 }
 
 object calidadAlta {
-
+    method configurar() {
+        escenario.calidad(self)
+    }
     method espinasDelAlien(posX , posY) {
        return new EspinaAnimada(position = game.at(posX, posY))
     }

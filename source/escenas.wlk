@@ -8,13 +8,13 @@ import enemigos.*
 import ubicaciones.*
 import cinematicas.*
 import dificultades.*
-
+import calidades.*
 
 //======================PANTALLAS========================//
 object controles{
   var property image = "controles.png"
   var property position = game.origin()
-  method accionTecla() { inicio1.iniciar()}
+  method accionTecla() { seleccionCalidadGrafica.iniciar()}
   const tecla = keyboard.space()
   method iniciar() {
     accionesTeclas.pantallaValida(true)
@@ -22,6 +22,29 @@ object controles{
     accionesTeclas.actualizarPantalla(self)
     game.addVisual(self)
     accionesTeclas.accion()
+  }
+}
+
+object seleccionCalidadGrafica {
+  var property image = "calidadGraf.png"
+  var property position = game.origin()
+  const tecla1 = keyboard.l()
+  const tecla2 = keyboard.h()
+  method accionTecla() {calidadBaja.configurar() self.siguiente()}
+  method accionTecla2() {calidadAlta.configurar() self.siguiente()}
+  
+  method iniciar() {
+    escenario.borrarEscena()
+    game.addVisual(self)
+    accionesTeclas.pantallaValida(true)
+    accionesTeclas.asignarTeclas(tecla1, tecla2, null)
+    accionesTeclas.actualizarPantalla(self)
+    accionesTeclas.accion()
+  }
+
+  method siguiente() {
+    musicaFondo.iniciar(select)
+    game.schedule(800,{inicio1.iniciar()})
   }
 }
 
@@ -64,12 +87,10 @@ object seleccionDeDificultad {
   }
 
   method siguiente() {
-    escenario.dificultad().configurar()
     musicaFondo.iniciar(selectDiff)
     game.schedule(3000,{lore1.iniciar()})
   }
 }
-
 //=========================Cinematica Inicial=========================//
 const inicio1 = new PantallaCinematica(nombreImagen="portada", inicio=1, fin=6, siguiente=portada, pistaMusical=pistaTitulo)
 //=========================Cinematica Lore=========================//

@@ -18,28 +18,7 @@ class Corazon {
     game.removeVisual(self)
   }
 }
-class Facon inherits AtaqueEnemigo(image = "facon.png") {
 
-  override method interaccion() {}
-
-  method dañarEnemigo() {
-    if (self.golpeoAlPomberito()) {
-      pomberitoPoseido.recibirDaño()
-    }
-  }
-  override method mover() {
-    self.position(self.position().up(1))
-    self.dañarEnemigo()
-    if (self.llegoAlLimite() || self.golpeoAlPomberito()) self.remover()
-  }
-  method remover() {
-    game.removeVisual(self)
-  }
-  method golpeoAlPomberito() {
-    return
-      position == pomberitoPoseido.position()
-  }
-}
 //----------------------------------------LIMITES DEL TABLERO----------------------------------------
 class Limite {
   var property position = game.origin()
@@ -180,7 +159,28 @@ class AtaqueEnemigo {
     cachito.recibirDaño()
   }
 }
+class Facon inherits AtaqueEnemigo(image = "facon.png") {
 
+  override method interaccion() {}
+
+  method dañarEnemigo() {
+    if (self.golpeoAlPomberito()) {
+      pomberitoPoseido.recibirDaño()
+    }
+  }
+  override method mover() {
+    self.position(self.position().up(1))
+    self.dañarEnemigo()
+    if (self.llegoAlLimite() || self.golpeoAlPomberito()) self.remover()
+  }
+  method remover() {
+    game.removeVisual(self)
+  }
+  method golpeoAlPomberito() {
+    return
+      position == pomberitoPoseido.position()
+  }
+}
 class Ola inherits AtaqueEnemigo (image = "Olas.png") {
   override method mover() {
     self.position(self.position().up(1))
@@ -439,6 +439,8 @@ const pistaIntroCueva = new Pista(cancion = "introCueva.mp3")
 const pistaPortadaSalamanca = new Pista(cancion = "portadaCueva.mp3")
 
 const pistaFaconGet = new Pista(cancion = "faconGet.mp3")
+
+const select = new Pista(cancion = "select.mp3")
 
 //=========================VARIOS==========================//
 

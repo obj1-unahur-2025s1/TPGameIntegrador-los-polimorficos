@@ -61,6 +61,8 @@ class SalaEnemigo {
     if (bloqueoDeMovimiento) {
       cachito.bloquearMovimiento()
       game.schedule(3000, { cachito.activarMovimiento() })
+    }else{
+      cachito.activarMovimiento()
     }
   }
 }

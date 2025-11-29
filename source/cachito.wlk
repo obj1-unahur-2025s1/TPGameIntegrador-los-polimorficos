@@ -63,6 +63,10 @@ object cachito {
 		keyboard.w().onPressDo({ if (norte.puedeAvanzar()) norte.avanzar() })
 		//lanzar facon
 		keyboard.f().onPressDo({if (estaEnCuevaSalamanca) self.lanzarFacon()})
+		keyboard.num(1).onPressDo({pantallaGameOver.iniciar()})
+		keyboard.num(2).onPressDo({iglesia.iniciar()})
+		keyboard.num(3).onPressDo({pomberito.vida(1)})
+
 	}
 	
 	method reiniciar() {
