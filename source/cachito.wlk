@@ -4,6 +4,7 @@ import escenario.*
 import enemigos.*
 import ubicaciones.*
 import escenas.*
+import dificultades.*
 
 object cachito {
 	var property vida = 4
@@ -48,6 +49,7 @@ object cachito {
 	}
 
 	method finalizarCuevaSalamanca() {
+		ataqueFuego2.eliminarTodosLosElementos()
 		estaEnCuevaSalamanca = false
 		finalJuego.iniciar()
 	}
@@ -63,9 +65,6 @@ object cachito {
 		keyboard.w().onPressDo({ if (norte.puedeAvanzar()) norte.avanzar() })
 		//lanzar facon
 		keyboard.f().onPressDo({if (estaEnCuevaSalamanca) self.lanzarFacon()})
-		keyboard.num(1).onPressDo({pantallaGameOver.iniciar()})
-		keyboard.num(2).onPressDo({iglesia.iniciar()})
-		keyboard.num(3).onPressDo({pomberito.vida(1)})
 
 	}
 	

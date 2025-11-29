@@ -36,6 +36,15 @@ al lago Salinas del Ambargasta, cuyo ataque consta de tirar olas al jugador.
 
 - El OVNI: Un Ovni extraterrestre que iba en camino al Cerro Uritorco (En Cordoba) se quedó de visita en Tero Violado. Su ataque es empujar al jugador para evitar que agarre el totem.
 
+🔸 Configuraciones:
+Antes de empezar a jugar, se tiene la posibilidad de elegir entre diferentes modos de juego:
+
+- Dificultad: El jugador puede elegir entre jugar en dificultad facil o dificil, esta ultima cuenta con nuevos enemigos y una estetica diferente a la original.
+
+- Calidad: El jugador tambie tiene la posibilidad de jugar con calidad alta, la cual cuenta con animaciones en algunos de los objetos del juego o calidad baja, que no tiene dichas animaciones.
+
+NOTA: Es recomendable jugar en calidad baja, debido a que las animaciones de la calidad alta pueden realentizar el juego si no se juega desde una pc que soporte las exigencias del mismo.
+
 <br>
 
 🔸 Final Boss:

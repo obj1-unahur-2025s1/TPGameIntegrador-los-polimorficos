@@ -179,6 +179,16 @@ object ataqueFuego2 {
       llamas.clear()
     })
   }
+
+  method eliminarTodosLosElementos() {
+    if (not humos.isEmpty()) {
+      humos.forEach({a => a.remover()})
+    }
+    if (not llamas.isEmpty()) {
+      llamas.forEach({a => a.remover()})
+    }
+
+  }
 }
 
 object ataque1 {
