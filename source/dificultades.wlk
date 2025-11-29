@@ -22,7 +22,7 @@ object dificultadFacil {
   method agregarEspinasDelAlien() {
     const coordenadas = [[1, 10], [1, 9], [1, 8], [1, 6], [1, 5], [1, 3], [9, 10], [9, 8], [9, 7], 
                          [9, 6], [9, 4], [9, 3], [9, 2], [5, 6], [7, 1], [4, 10]]
-    coordenadas.forEach({c => escenario.obstaculosAnimados().add(new EspinaAnimada(position = game.at(c.first(), c.last())))})
+    coordenadas.forEach({c => escenario.obstaculosAnimados().add(escenario.calidad().espinasDelAlien(c.first(), c.last()))})
     escenario.obstaculosAnimados().forEach({o => o.ubicar()})  
   }
   method flashLuzMala() {
@@ -93,7 +93,7 @@ object dificultadDificil {
     const coordenadas = [[1, 10],[1, 9],[1, 8],[1, 6],[1, 5],[1, 3],[9, 10],[9, 8], [9, 7],
                          [9, 6],[9, 4], [9, 3],[9, 2],[5, 9],[5, 6],[5, 3],[3, 1],[5, 1],
                          [7, 1],[2, 10],[3, 10],[4, 10]]
-    coordenadas.forEach({c => escenario.obstaculosAnimados().add(new EspinaAnimada(position = game.at(c.first(), c.last())))})
+    coordenadas.forEach({c => escenario.obstaculosAnimados().add(escenario.calidad().espinasDelAlien(c.first(), c.last()))})
     escenario.obstaculosAnimados().forEach({o => o.ubicar()})
   }
   method flashLuzMala() {
@@ -153,8 +153,8 @@ object ataqueFuego2 {
 
   method crearObjetos() {
     posY.forEach({c => coordenadas.add([posX.anyOne() , c])})
-    coordenadas.forEach({p => humos.add(new Humo(position = game.at(p.first() , p.last())))})
-    coordenadas.forEach({p => llamas.add(new LlamaAnimada2(position = game.at(p.first() , p.last())))})
+    coordenadas.forEach({p => humos.add(escenario.calidad().humo(p.first() , p.last()))})
+    coordenadas.forEach({p => llamas.add(escenario.calidad().fuego(p.first() , p.last()))})
     coordenadas.clear()
   }
   method atacar() {

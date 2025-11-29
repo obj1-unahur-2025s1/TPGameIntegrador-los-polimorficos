@@ -7,6 +7,7 @@ import objetos.*
 import ubicaciones.*
 import escenas.*
 import dificultades.*
+import calidades.*
 
 
 object escenario {
@@ -16,6 +17,7 @@ object escenario {
   var property enGameOver = false
   var property enFinal = false
   var property dificultad = dificultadFacil
+  var property calidad = calidadBaja
   var property enDificil = false
   const property puertas = [
     puertaIglesia,

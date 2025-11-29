@@ -150,6 +150,12 @@ class Espina inherits ObjetoInteractivoFijo (image = "espinas.png") {
     cachito.recibirDaño()
   }
 }
+class HumoEstatico inherits ObjetoInteractivoFijo (image = "humo1.png") {}
+class FuegoEstatico inherits ObjetoInteractivoFijo (image = "fuego1.png") {
+  override method interaccion() {
+    cachito.recibirDaño()
+  }
+}
 class EspinaAnimada inherits ObjetoAnimado (image = "es1.png" , image2 = "es3.png"){
   override method interaccion() {
     cachito.recibirDaño()
